@@ -12,6 +12,7 @@ import { Role } from '@/app/(dashboard)/_types/nav';
 import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { signIn, useSession } from '@/lib/auth-client';
 
 const signInSchema = z.object({
@@ -81,10 +82,9 @@ export function SignInForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <Input
+              <PasswordInput
                 {...field}
                 id={field.name}
-                type="password"
                 placeholder="Password"
                 aria-invalid={fieldState.invalid}
               />
@@ -94,7 +94,12 @@ export function SignInForm() {
         />
       </FieldGroup>
 
-      <Button type="submit" className="w-full hover:cursor-pointer" disabled={isPending} aria-busy={isPending}>
+      <Button
+        type="submit"
+        className="w-full hover:cursor-pointer"
+        disabled={isPending}
+        aria-busy={isPending}
+      >
         {isPending && (
           <Loader2Icon className="animate-spin" aria-hidden="true" data-testid="loader-icon" />
         )}
