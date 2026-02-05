@@ -32,13 +32,7 @@ class CategoryService {
   }
 
   async update(data: UpdateCategorySchema) {
-    const category = await this.find(data);
-
-    if (!category) {
-      throw new ORPCError('NOT_FOUND', {
-        message: `Todo with id ${data.id} not found`,
-      });
-    }
+    await this.find(data);
 
     return this.prisma.category.update({
       where: { id: data.id },
@@ -47,14 +41,7 @@ class CategoryService {
   }
 
   async delete(data: DeleteCategorySchema) {
-    const category = await this.find(data);
-
-    if (!category) {
-      throw new ORPCError('NOT_FOUND', {
-        message: `Todo with id ${data.id} not found`,
-      });
-    }
-
+    await this.find(data);
     return this.prisma.category.delete({ where: { id: data.id } });
   }
 }
