@@ -4,12 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { Role } from '@/app/(dashboard)/_types/nav';
-import { ControlledInput } from '@/components/controlled-input';
+
 import { Button } from '@/components/ui/button';
+import { Field, FieldError, FieldGroup } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import { signIn, useSession } from '@/lib/auth-client';
 
 const signInSchema = z.object({
@@ -47,35 +49,64 @@ export function SignInForm() {
   };
 
   return (
-    <FormProvider {...form}>
-      <form
-        className="w-full max-w-96 space-y-5 rounded-md border px-10 py-12"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <div className="text-center">
-          <h2 className="mb-1 text-2xl font-semibold">Welcome Back</h2>
-          <p className="text-muted-foreground text-sm">Sign in to your account</p>
-        </div>
+    <form
+      className="w-full max-w-96 space-y-5 rounded-md border px-10 py-12"
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
+      <div className="text-center">
+        <h2 className="mb-1 text-2xl font-semibold">Welcome Back</h2>
+        <p className="text-muted-foreground text-sm">Sign in to your account</p>
+      </div>
 
-        <div className="space-y-3">
-          <ControlledInput<SignInSchema> name="email" label="Email" />
-          <ControlledInput<SignInSchema> name="password" label="Password" type="password" />
-        </div>
-
-        <Button type="submit" className="w-full" disabled={isPending} aria-busy={isPending}>
-          {isPending && (
-            <Loader2Icon className="animate-spin" aria-hidden="true" data-testid="loader-icon" />
+      <FieldGroup>
+        <Controller
+          name="email"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <Input
+                {...field}
+                id={field.name}
+                type="email"
+                placeholder="Email"
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
-          Sign in
-        </Button>
+        />
 
-        <div className="text-center text-sm">
-          Don&apos;t have an account?
-          <Link href="/sign-up" className="text-primary ml-1 font-medium hover:underline">
-            Sign up
-          </Link>
-        </div>
-      </form>
-    </FormProvider>
+        <Controller
+          name="password"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <Input
+                {...field}
+                id={field.name}
+                type="password"
+                placeholder="Password"
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+      </FieldGroup>
+
+      <Button type="submit" className="w-full hover:cursor-pointer" disabled={isPending} aria-busy={isPending}>
+        {isPending && (
+          <Loader2Icon className="animate-spin" aria-hidden="true" data-testid="loader-icon" />
+        )}
+        Sign in
+      </Button>
+
+      <div className="text-center text-sm">
+        Don&apos;t have an account?
+        <Link href="/sign-up" className="text-primary ml-1 font-medium hover:underline">
+          Sign up
+        </Link>
+      </div>
+    </form>
   );
 }
