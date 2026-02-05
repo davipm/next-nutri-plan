@@ -1,54 +1,20 @@
 'use client';
 
-import { Toaster } from '@/components/ui/sonner';
-import { AlertDialogProvider } from '@/providers/alert-dialog-provider';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { ReactNode } from 'react';
-import { toast } from 'sonner';
+import type { ReactNode } from 'react';
+import { Toaster } from '@/components/ui/sonner';
+import { queryClient } from '@/lib/orpc';
+import { ThemeProvider } from '@/providers/theme-provider';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    mutations: {
-      onError: (error) => {
-        if (error.message === 'NEXT_REDIRECT') return;
-        toast.error(error.message);
-      },
-      onSuccess: () => {
-        toast.success('Operation was successful');
-      },
-    },
-  },
-});
-
-type Props = {
-  children: ReactNode;
-};
-
-/**
- * A context provider component that wraps its children with necessary providers
- * such as NextThemesProvider for theme management, QueryClientProvider for
- * React Query, and other necessary UI utilities.
- *
- * @param {object} props - The property object.
- * @param {React.ReactNode} props.children - The child components to be wrapped by the providers.
- * @return The wrapped components with all applicable providers.
- */
-export function Providers({ children }: Props) {
+export function Providers({ children }: { children: ReactNode }) {
   return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
+    <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange enableSystem>
       <QueryClientProvider client={queryClient}>
         {children}
-        <Toaster />
-        <AlertDialogProvider />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </NextThemesProvider>
+      <Toaster richColors />
+    </ThemeProvider>
   );
 }

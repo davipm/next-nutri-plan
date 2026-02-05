@@ -1,34 +1,47 @@
 'use client';
 
-import { useSignIn } from '@/app/(auth)/sign-in/_services/use-mutations';
-import {
-  SignInSchema,
-  signInDefaultValues,
-  signInSchema,
-} from '@/app/(auth)/sign-in/_types/sign-in-schema';
-import { ControlledInput } from '@/components/controlled-input';
-import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
+import { Role } from '@/app/(dashboard)/_types/nav';
+import { ControlledInput } from '@/components/controlled-input';
+import { Button } from '@/components/ui/button';
+import { signIn, useSession } from '@/lib/auth-client';
 
-/**
- * SingInForm is a React functional component that renders a sign-in form allowing users to authenticate with their email and password.
- * It integrates with a form state management library and performs form validation and submission using Zod schemas. Upon successful submission, it triggers a sign-in mutation to handle the authentication logic.
- */
+const signInSchema = z.object({
+  email: z.string().min(1, 'Email is required.'),
+  password: z.string().min(1, 'Password is required.'),
+});
+
+type SignInSchema = z.infer<typeof signInSchema>;
+
 export function SignInForm() {
-  const { mutate: signInMutation, isPending } = useSignIn();
+  const { isPending, data: session } = useSession();
+  const router = useRouter();
 
-  const form = useForm<SignInSchema>({
-    defaultValues: signInDefaultValues,
+  const form = useForm({
     resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  const onSubmit: SubmitHandler<SignInSchema> = (data: SignInSchema) => {
-    signInMutation(data, {
-      onError: () => {
-        form.reset(signInDefaultValues);
+  const onSubmit: SubmitHandler<SignInSchema> = async (data: SignInSchema) => {
+    await signIn.email(data, {
+      onSuccess: () => {
+        const route =
+          session?.user?.role === Role.ADMIN ? '/admin/food-management/foods' : '/client';
+        toast.success(`Logged as ${session?.user}`);
+        router.push(route);
+      },
+      onError: ({ error }) => {
+        toast.error(error.message);
+        form.reset();
       },
     });
   };

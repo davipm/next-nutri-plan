@@ -1,7 +1,7 @@
-import { Role } from '@/app/(dashboard)/_types/nav';
-import type { RouteGroupType } from '@/app/(dashboard)/_types/nav';
-import { routes } from '@/lib/utils';
 import { Apple, Boxes, Ruler, Utensils } from 'lucide-react';
+import type { RouteGroupType } from '@/app/(dashboard)/_types/nav';
+import { Role } from '@/app/(dashboard)/_types/nav';
+import { routes } from '@/lib/utils';
 
 export const patterns = {
   zeroTo9999: /^(|0|0\.\d{0,2}|[1-9]\d{0,3}(\.\d{0,2})?)$/,

@@ -1,17 +1,13 @@
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  MoreHorizontalIcon,
-} from "lucide-react";
-import { useEffect, useMemo, useRef } from "react";
-import { cn } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
-import { buttonVariants } from "@/components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { buttonVariants } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
 type PaginationProps = {
   currentPage: number;
   totalPages: number | undefined;
-  updatePage: (action: "next" | "prev" | number) => void;
+  updatePage: (action: 'next' | 'prev' | number) => void;
   className?: string;
   scrollToTopOnPaginate?: boolean;
 };
@@ -23,12 +19,46 @@ const useScrollToTopOnPaginate = (currentPage: number, enabled: boolean) => {
     if (enabled && prevPageRef.current !== currentPage) {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
     prevPageRef.current = currentPage;
   }, [currentPage, enabled]);
 };
+
+/**
+ * Calculate pagination pages to display
+ * Hoisted outside component to avoid recreation on every render
+ */
+const calculatePages = (currentPage: number, totalPages: number): (number | 'ellipsis')[] => {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  if (currentPage < 5) {
+    return [1, 2, 3, 4, 5, 'ellipsis', totalPages];
+  }
+  if (currentPage > totalPages - 4) {
+    return [
+      1,
+      'ellipsis',
+      totalPages - 4,
+      totalPages - 3,
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+  return [1, 'ellipsis', currentPage - 1, currentPage, currentPage + 1, 'ellipsis', totalPages];
+};
+
+// Static skeleton array to avoid recreation
+const SKELETON_ITEMS = [
+  { className: 'h-9 w-24', key: 'prev' },
+  { className: 'h-9 w-9', key: '1' },
+  { className: 'h-9 w-9', key: '2' },
+  { className: 'h-9 w-9', key: '3' },
+  { className: 'h-9 w-24', key: 'next' },
+] as const;
 
 /**
  * Renders a pagination component for navigating between pages.
@@ -42,45 +72,20 @@ export function Pagination({
 }: PaginationProps) {
   useScrollToTopOnPaginate(currentPage, scrollToTopOnPaginate);
 
-  const pages = useMemo(() => {
-    if (!totalPages) return [];
-    if (totalPages <= 7) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
-    if (currentPage < 5) {
-      return [1, 2, 3, 4, 5, "ellipsis", totalPages];
-    }
-    if (currentPage > totalPages - 4) {
-      return [
-        1,
-        "ellipsis",
-        totalPages - 4,
-        totalPages - 3,
-        totalPages - 2,
-        totalPages - 1,
-        totalPages,
-      ];
-    }
-    return [
-      1,
-      "ellipsis",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "ellipsis",
-      totalPages,
-    ];
-  }, [currentPage, totalPages]);
+  // Optimize: Calculate derived state during rendering (5.1)
+  // Avoid useMemo for simple derived values (5.3)
+  const pages = totalPages ? calculatePages(currentPage, totalPages) : [];
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = currentPage === totalPages || !totalPages;
 
+  // Early return for loading state (7.8)
   if (totalPages === undefined) {
     return (
       <div className="flex justify-center">
         <div className="flex items-center gap-1">
-          <Skeleton className="h-9 w-24" />
-          <Skeleton className="h-9 w-9" />
-          <Skeleton className="h-9 w-9" />
-          <Skeleton className="h-9 w-9" />
-          <Skeleton className="h-9 w-24" />
+          {SKELETON_ITEMS.map(({ className, key }) => (
+            <Skeleton key={key} className={className} />
+          ))}
         </div>
       </div>
     );
@@ -88,24 +93,24 @@ export function Pagination({
 
   return (
     <nav
-      role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn("mx-auto flex w-full justify-center", className)}
+      className={cn('mx-auto flex w-full justify-center', className)}
     >
       <ul className="flex flex-row items-center gap-1">
         <li>
           <button
-            onClick={() => updatePage("prev")}
-            disabled={currentPage === 1}
+            type="button"
+            onClick={() => updatePage('prev')}
+            disabled={isPrevDisabled}
             aria-label="Go to previous page"
             className={cn(
               buttonVariants({
-                variant: "ghost",
-                size: "default",
+                variant: 'ghost',
+                size: 'default',
               }),
-              "gap-1 px-2.5 sm:pl-2.5",
-              currentPage === 1 && "pointer-events-none opacity-50",
+              'gap-1 px-2.5 sm:pl-2.5',
+              isPrevDisabled && 'pointer-events-none opacity-50',
             )}
           >
             <ChevronLeftIcon />
@@ -114,8 +119,14 @@ export function Pagination({
         </li>
 
         {pages.map((page, index) => (
-          <li key={`${page}-${index}`} data-slot="pagination-ellipses">
-            {page === "ellipsis" ? (
+          <li
+            key={`${page}-${
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+              index
+            }`}
+            data-slot="pagination-ellipses"
+          >
+            {page === 'ellipsis' ? (
               <span
                 aria-hidden
                 data-slot="pagination-ellipsis"
@@ -126,13 +137,14 @@ export function Pagination({
               </span>
             ) : (
               <button
+                type="button"
                 onClick={() => updatePage(page as number)}
-                aria-current={currentPage === page ? "page" : undefined}
+                aria-current={currentPage === page ? 'page' : undefined}
                 data-active={currentPage === page}
                 className={cn(
                   buttonVariants({
-                    variant: currentPage === page ? "outline" : "ghost",
-                    size: "icon",
+                    variant: currentPage === page ? 'outline' : 'ghost',
+                    size: 'icon',
                   }),
                 )}
               >
@@ -144,17 +156,17 @@ export function Pagination({
 
         <li>
           <button
-            onClick={() => updatePage("next")}
-            disabled={currentPage === totalPages || !totalPages}
+            type="button"
+            onClick={() => updatePage('next')}
+            disabled={isNextDisabled}
             aria-label="Go to next page"
             className={cn(
               buttonVariants({
-                variant: "ghost",
-                size: "default",
+                variant: 'ghost',
+                size: 'default',
               }),
-              "gap-1 px-2.5 sm:pr-2.5",
-              (currentPage === totalPages || !totalPages) &&
-                "pointer-events-none opacity-50",
+              'gap-1 px-2.5 sm:pr-2.5',
+              isNextDisabled && 'pointer-events-none opacity-50',
             )}
           >
             <span className="hidden sm:block">Next</span>

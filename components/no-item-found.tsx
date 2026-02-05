@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { CircleOff } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 type NoItemsFoundProps = {
   onClick: () => void;

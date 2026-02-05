@@ -1,5 +1,7 @@
 'use client';
 
+import { X } from 'lucide-react';
+import { Controller, type FieldValues, type Path, useFormContext } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -10,9 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ValueLabel } from '@/types/value-labels';
-import { X } from 'lucide-react';
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+
+type ValueLabel = {
+  value: string | number;
+  label: string;
+};
 
 type SelectProps<T extends FieldValues> = {
   name: Path<T>;
@@ -22,9 +26,6 @@ type SelectProps<T extends FieldValues> = {
   clearable?: boolean;
 };
 
-/**
- * A controlled Select component for react-hook-form.
- */
 export const ControlledSelect = <T extends FieldValues>({
   label,
   name,

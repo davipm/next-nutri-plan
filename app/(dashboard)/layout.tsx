@@ -1,17 +1,20 @@
-import { DashboardLayout } from '@/app/(dashboard)/_components/dashboard-layout';
+// import { DashboardLayout } from '@/app/(dashboard)/_components/dashboard-layout';
 //import { Role } from '@/app/(dashboard)/_types/nav';
-import { auth } from '@/lib/auth';
-import { routes } from '@/lib/utils';
+// import { auth } from '@/lib/auth';
+// import { routes } from '@/lib/utils';
 import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
+// import { redirect } from 'next/navigation';
+import type { ReactNode } from 'react';
+import { auth } from '@/server/auth';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  if (!session) redirect(routes.signIn);
+  console.log(session);
 
-  return <DashboardLayout>{children}</DashboardLayout>;
+  // if (!session) redirect(routes.signIn);
+
+  return <div>{children}</div>;
 }

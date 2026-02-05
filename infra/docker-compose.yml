@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: next-db-postgres
+    environment:
+      POSTGRES_DB: next-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - next-db_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+#  next-app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: next-app
+#    environment:
+#      - NODE_ENV=development
+#      - NEXT_TELEMETRY_DISABLED=1
+#      - DATABASE_URL=postgresql://postgres:password@postgres:5432/next-db?schema=public
+#      - BETTER_AUTH_SECRET="370661040adb4032e55a1b995ab78ba8c1c3cc14a8c502551b07f9dd81797842"
+#      - BETTER_AUTH_URL=http://localhost:3000
+#      - CORS_ORIGIN=http://localhost:3000
+#      - NEXT_PUBLIC_URL=http://localhost:3000
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - .:/app
+#      - /app/node_modules
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    restart: unless-stopped
+
+volumes:
+  next-db_postgres_data:

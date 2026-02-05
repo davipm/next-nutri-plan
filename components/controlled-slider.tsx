@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils';
 import * as SliderPrimitive from '@radix-ui/react-slider';
-import { ComponentProps } from 'react';
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+import type { ComponentProps } from 'react';
+import { Controller, type FieldValues, type Path, useFormContext } from 'react-hook-form';
+import { cn } from '@/lib/utils';
 
 interface SliderProps<T extends FieldValues>
   extends Omit<
@@ -15,9 +15,6 @@ interface SliderProps<T extends FieldValues>
   formatRangeLabel?: (index: number) => string;
 }
 
-/**
- * A controlled slider component for forms, supporting single values and ranges.
- */
 export function ControlledSlider<T extends FieldValues>({
   className,
   name,
@@ -54,6 +51,7 @@ export function ControlledSlider<T extends FieldValues>({
         return (
           <div className="grid w-full gap-4 rounded-md border border-[#14424C]/20 p-4">
             {label && (
+              // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                 {label}
               </label>
@@ -65,15 +63,17 @@ export function ControlledSlider<T extends FieldValues>({
               min={min}
               max={max}
               className={cn(
-                'relative flex w-full touch-none select-none items-center data-[disabled]:opacity-50',
+                'relative flex w-full touch-none select-none items-center data-disabled:opacity-50',
                 className,
               )}
             >
               <SliderPrimitive.Track className="bg-muted relative h-1.5 w-full grow cursor-pointer overflow-hidden rounded-full">
                 <SliderPrimitive.Range className="bg-primary absolute h-full" />
               </SliderPrimitive.Track>
+
               {values?.map((_, index) => (
                 <SliderPrimitive.Thumb
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   key={index}
                   className="border-primary bg-background ring-offset-background focus-visible:ring-ring block size-4 cursor-pointer rounded-full border shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                 />
@@ -84,7 +84,7 @@ export function ControlledSlider<T extends FieldValues>({
               <ol className="flex w-full items-center gap-3">
                 {values?.map((singleValue, index) => (
                   <li
-                    key={index}
+                    key={singleValue}
                     className="flex h-10 w-full items-center justify-between rounded-md border px-3"
                   >
                     <span>{formatRangeLabel(index)}</span>
