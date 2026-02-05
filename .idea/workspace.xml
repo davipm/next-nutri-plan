@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: generate Prisma client models and update UI components with improved type safety and consistency">
-      <change afterPath="$PROJECT_DIR$/store/create-store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/use-global-store.ts" afterDir="false" />
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/_components/dashboard-layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/_components/dashboard-layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/_components/router-group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/_components/router-group.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bun.lock" beforeDir="false" afterPath="$PROJECT_DIR$/bun.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/modules/category/category.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/category/category.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,6 +188,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="refactor: generate Prisma client models and update UI components with improved type safety and consistency" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: generate Prisma client models and update UI components with improved type safety and consistency" />
+    <MESSAGE value="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components" />
   </component>
 </project>

@@ -32,7 +32,7 @@ class CategoryService {
   }
 
   async update(data: UpdateCategorySchema) {
-    const category = await this.prisma.category.findUnique({ where: { id: data.id } });
+    const category = await this.find(data);
 
     if (!category) {
       throw new ORPCError('NOT_FOUND', {
@@ -47,7 +47,7 @@ class CategoryService {
   }
 
   async delete(data: DeleteCategorySchema) {
-    const category = await this.prisma.category.findUnique({ where: { id: data.id } });
+    const category = await this.find(data);
 
     if (!category) {
       throw new ORPCError('NOT_FOUND', {

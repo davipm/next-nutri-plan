@@ -1,20 +1,18 @@
-// import { DashboardLayout } from '@/app/(dashboard)/_components/dashboard-layout';
-//import { Role } from '@/app/(dashboard)/_types/nav';
-// import { auth } from '@/lib/auth';
-// import { routes } from '@/lib/utils';
 import { headers } from 'next/headers';
-// import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { auth } from '@/server/auth';
+import { DashboardLayout } from '@/app/(dashboard)/_components/dashboard-layout';
+import { getSession } from '@/lib/auth-client';
 
 export default async function Layout({ children }: { children: ReactNode }) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
+  const session = await getSession({
+    fetchOptions: {
+      headers: await headers(),
+      throw: true,
+    },
   });
 
-  console.log(session);
+  if (!session) redirect('/sign-in');
 
-  // if (!session) redirect(routes.signIn);
-
-  return <div>{children}</div>;
+  return <DashboardLayout>{children}</DashboardLayout>;
 }

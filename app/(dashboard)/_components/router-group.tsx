@@ -10,16 +10,6 @@ import type { RouteGroupType } from '@/app/(dashboard)/_types/nav';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-/**
- * Renders a `RouterGroup` component that groups a set of navigational items under a collapsible
- * section, with the ability to expand or collapse the group based on the current route.
- *
- * @param props - The props for the RouterGroup component.
- * @param props.group - The name of the route group to be displayed.
- * @param {Array} props.items - An array of route items, where each item represents a navigation link.
- * Each item should include `href`, `icon`, and `label` properties.
- * @return A collapsible component containing route items for navigation.
- */
 export function RouterGroup({ group, items }: RouteGroupType) {
   const pathname = usePathname();
   const [open, setOpen] = useState(() => items.some((item) => pathname.startsWith(item.href)));

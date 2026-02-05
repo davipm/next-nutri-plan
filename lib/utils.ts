@@ -23,8 +23,8 @@ export const routes = {
   signUp: '/sign-up',
   client: '/client',
   admin: {
-    category: '/admin/foods-management/categories',
-    foods: '/admin/foods-management/foods',
-    servingUnits: '/admin/foods-management/serving-units',
+    category: '/admin/food-management/categories',
+    foods: '/admin/food-management/foods',
+    servingUnits: '/admin/food-management/serving-units',
   },
 };

@@ -2,7 +2,7 @@
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronLeft, LogOut, Menu } from 'lucide-react';
-import { type ReactNode, useMemo, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 // import { useSignOut } from '@/app/(auth)/sign-in/_services/use-mutations';
 import { RouterGroup } from '@/app/(dashboard)/_components/router-group';
 import { Role } from '@/app/(dashboard)/_types/nav';
@@ -26,26 +26,15 @@ type Props = {
   children: ReactNode;
 };
 
-/**
- * Renders the dashboard layout component, which includes a collapsible sidebar,
- * a top navigation bar, and a main content area. The layout adjusts based
- * on the user's role and supports dynamic routing for the allowed role-based
- * navigation groups.
- *
- * @param props The properties passed to the component.
- * @param props.children The content to be displayed within the main layout area.
- * @returns The rendered dashboard layout component.
- */
 export function DashboardLayout({ children }: Props) {
   const [open, setOpen] = useState(false);
   // const { mutate: signOutMutation } = useSignOut();
   const { data: session } = useSession();
 
   const userRole = session?.user?.role === Role.ADMIN ? Role.ADMIN : Role.USER;
-
-  const filteredRouterGroup = useMemo(() => {
-    return ROUTE_GROUPS.filter((group) => group.allowedRoles.includes(userRole as Role.ADMIN));
-  }, [userRole]);
+  const filteredRouterGroup = ROUTE_GROUPS.filter((group) =>
+    group.allowedRoles.includes(userRole as Role.ADMIN),
+  );
 
   const handleSignOut = () => {
     // signOutMutation();
