@@ -1,17 +1,13 @@
-'use client';
+import { Skeleton } from '@/components/ui/skeleton';
 
-import { useState } from 'react';
-
-type Props = {
-  name: string;
-};
-
-export function CategoryCardsSkeleton({ name }: Props) {
-  const [item, setItem] = useState(null);
-
+export function CategoryCardsSkeleton() {
   return (
-    <div>
-      <p></p>
+    <div className="flex flex-col justify-between gap-3 rounded-lg border p-6">
+      <Skeleton className="h-5 w-24" />
+      <div className="flex gap-1">
+        <Skeleton className="size-6 rounded-md" />
+        <Skeleton className="size-6 rounded-md" />
+      </div>
     </div>
   );
 }

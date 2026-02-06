@@ -3,15 +3,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Edit, Trash } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCategoriesStore } from '@/app/(dashboard)/admin/food-management/categories/_lib/use-categories-store';
 import { Button } from '@/components/ui/button';
 import { orpc } from '@/lib/orpc';
+import { useCategoriesStore } from '@/store/use-categories-store';
 import { alert } from '@/store/use-global-store';
 
-type Props = {
+interface Props {
   id: number;
   name: string;
-};
+}
 
 export function CategoryCard({ name, id }: Props) {
   const queryClient = useQueryClient();
@@ -44,10 +44,27 @@ export function CategoryCard({ name, id }: Props) {
       <p className="truncate font-medium">{name}</p>
 
       <div className="flex items-center gap-1">
-        <Button>
+        <Button
+          className="size-6"
+          variant="ghost"
+          size="icon"
+          type="button"
+          onClick={handleEdit}
+          aria-label={`Edit ${name}`}
+          title={`Edit ${name}`}
+        >
           <Edit />
         </Button>
-        <Button>
+        <Button
+          className="size-6"
+          variant="ghost"
+          size="icon"
+          type="button"
+          onClick={handleDelete}
+          aria-label={`Delete ${name}`}
+          disabled={isPending}
+          aria-disabled={isPending}
+        >
           <Trash />
         </Button>
       </div>

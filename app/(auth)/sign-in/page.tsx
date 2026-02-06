@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { SignInForm } from '@/app/(auth)/sign-in/_components/sign-in-form';
 import { Role } from '@/app/(dashboard)/_types/nav';
+import { SignInForm } from '@/components/sign-in-form';
 import { getSession } from '@/lib/auth-client';
 
 export default async function Page() {
