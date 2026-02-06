@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components">
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: reorganize components and implement category management with improved UI and accessibility">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-in/_components/sign-in-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sign-in-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-up/_components/sign-up-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sign-up-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-up/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards-skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards-skeleton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_lib/use-categories-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-categories-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/use-categories-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-categories-store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,6 +189,7 @@
     <MESSAGE value="init" />
     <MESSAGE value="refactor: generate Prisma client models and update UI components with improved type safety and consistency" />
     <MESSAGE value="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components" />
+    <MESSAGE value="refactor: reorganize components and implement category management with improved UI and accessibility" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: reorganize components and implement category management with improved UI and accessibility" />
   </component>
 </project>

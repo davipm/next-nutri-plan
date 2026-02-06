@@ -5,7 +5,7 @@ import { Edit, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { orpc } from '@/lib/orpc';
-import { useCategoriesStore } from '@/store/use-categories-store';
+import { openEditCategoryDialog } from '@/store/use-categories-store';
 import { alert } from '@/store/use-global-store';
 
 interface Props {
@@ -15,7 +15,6 @@ interface Props {
 
 export function CategoryCard({ name, id }: Props) {
   const queryClient = useQueryClient();
-  const { setSelectedCategoryId, setCategoryDialogOpen } = useCategoriesStore();
 
   const { mutate: deleteCategory, isPending } = useMutation(
     orpc.categories.delete.mutationOptions({
@@ -27,8 +26,7 @@ export function CategoryCard({ name, id }: Props) {
   );
 
   const handleEdit = () => {
-    setSelectedCategoryId(id);
-    setCategoryDialogOpen(true);
+    openEditCategoryDialog(id);
   };
 
   const handleDelete = () => {

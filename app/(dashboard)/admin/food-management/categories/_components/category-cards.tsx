@@ -6,10 +6,9 @@ import { CategoryCardsSkeleton } from '@/app/(dashboard)/admin/food-management/c
 import { HasError } from '@/components/has-error';
 import { NoItemFound } from '@/components/no-item-found';
 import { orpc } from '@/lib/orpc';
-import { useCategoriesStore } from '@/store/use-categories-store';
+import { openCreateCategoryDialog } from '@/store/use-categories-store';
 
 export function CategoryCards() {
-  const { setCategoryDialogOpen } = useCategoriesStore();
   const {
     data = [],
     isLoading,
@@ -34,7 +33,7 @@ export function CategoryCards() {
   }
 
   if (!data.length) {
-    return <NoItemFound onClick={() => setCategoryDialogOpen(true)} />;
+    return <NoItemFound onClick={() => openCreateCategoryDialog()} />;
   }
 
   return (
