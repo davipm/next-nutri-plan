@@ -2,8 +2,8 @@
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronLeft, LogOut, Menu } from 'lucide-react';
+import { useRouter } from 'next/router';
 import { type ReactNode, useState } from 'react';
-// import { useSignOut } from '@/app/(auth)/sign-in/_services/use-mutations';
 import { RouterGroup } from '@/app/(dashboard)/_components/router-group';
 import { Role } from '@/app/(dashboard)/_types/nav';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
-import { useSession } from '@/lib/auth-client';
+import { signOut, useSession } from '@/lib/auth-client';
 import { ROUTE_GROUPS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
@@ -28,8 +28,8 @@ type Props = {
 
 export function DashboardLayout({ children }: Props) {
   const [open, setOpen] = useState(false);
-  // const { mutate: signOutMutation } = useSignOut();
   const { data: session } = useSession();
+  const router = useRouter();
 
   const userRole = session?.user?.role === Role.ADMIN ? Role.ADMIN : Role.USER;
   const filteredRouterGroup = ROUTE_GROUPS.filter((group) =>
@@ -37,7 +37,13 @@ export function DashboardLayout({ children }: Props) {
   );
 
   const handleSignOut = () => {
-    // signOutMutation();
+    signOut({
+      fetchOptions: {
+        onSuccess: async () => {
+          await router.push('/sign-in');
+        },
+      },
+    });
   };
 
   return (
