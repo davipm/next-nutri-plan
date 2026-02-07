@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="feat: implement category form dialog with full CRUD operations and enhanced store management">
-      <change afterPath="$PROJECT_DIR$/components/crud-card/crud-card.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/crud-card/crud-cards.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/crud-card/crud-context.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/crud-card/crud-form-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/category/category.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/category/category.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/_components/dashboard-layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/_components/dashboard-layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,6 +187,7 @@
     <MESSAGE value="refactor: generate Prisma client models and update UI components with improved type safety and consistency" />
     <MESSAGE value="refactor: implement dashboard layout with collapsible sidebar, global store, and enhanced navigation components" />
     <MESSAGE value="refactor: reorganize components and implement category management with improved UI and accessibility" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: reorganize components and implement category management with improved UI and accessibility" />
+    <MESSAGE value="feat: implement category form dialog with full CRUD operations and enhanced store management" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement category form dialog with full CRUD operations and enhanced store management" />
   </component>
 </project>

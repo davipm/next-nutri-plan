@@ -39,8 +39,8 @@ export function DashboardLayout({ children }: Props) {
   const handleSignOut = () => {
     signOut({
       fetchOptions: {
-        onSuccess: async () => {
-          await router.push('/sign-in');
+        onSuccess: () => {
+          router.push('/sign-in');
         },
       },
     });
