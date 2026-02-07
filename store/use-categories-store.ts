@@ -1,3 +1,4 @@
+import { useShallow } from 'zustand/react/shallow';
 import { createStore } from '@/store/create-store';
 
 /**
@@ -114,33 +115,40 @@ export const useSelectedCategoryId = () => useCategoriesStore((state) => state.s
 /**
  * Get dialog state (open + mode)
  * Only re-renders when dialog state changes
+ * Uses shallow comparison to prevent unnecessary re-renders
  */
 export const useCategoryDialogState = () =>
-  useCategoriesStore((state) => ({
-    open: state.categoryDialogOpen,
-    mode: state.dialogMode,
-    selectedId: state.selectedCategoryId,
-  }));
+  useCategoriesStore(
+    useShallow((state) => ({
+      open: state.categoryDialogOpen,
+      mode: state.dialogMode,
+      selectedId: state.selectedCategoryId,
+    })),
+  );
 
 /**
  * Get only the dialog actions (never re-renders)
  * Use this when you only need actions, not state
  */
 export const useCategoryDialogActions = () =>
-  useCategoriesStore((state) => ({
-    openCreate: state.openCreateDialog,
-    openEdit: state.openEditDialog,
-    close: state.closeDialog,
-  }));
+  useCategoriesStore(
+    useShallow((state) => ({
+      openCreate: state.openCreateDialog,
+      openEdit: state.openEditDialog,
+      close: state.closeDialog,
+    })),
+  );
 
 /**
  * Get only selection actions (never re-renders)
  */
 export const useCategorySelectionActions = () =>
-  useCategoriesStore((state) => ({
-    select: state.setSelectedCategoryId,
-    clear: state.clearSelection,
-  }));
+  useCategoriesStore(
+    useShallow((state) => ({
+      select: state.setSelectedCategoryId,
+      clear: state.clearSelection,
+    })),
+  );
 
 // =============================================================================
 // Convenience functions for imperative usage

@@ -2,7 +2,7 @@
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronLeft, LogOut, Menu } from 'lucide-react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { type ReactNode, useState } from 'react';
 import { RouterGroup } from '@/app/(dashboard)/_components/router-group';
 import { Role } from '@/app/(dashboard)/_types/nav';

@@ -48,7 +48,7 @@ export function RouterGroup({ group, items }: RouteGroupType) {
                 className="w-full justify-start font-normal"
               >
                 <Link
-                  href={item.href}
+                  href={item.href as any}
                   className={cn(
                     'flex items-center rounded-md px-5 py-1 transition-all',
                     pathname === item.href

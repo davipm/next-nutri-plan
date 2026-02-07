@@ -14,7 +14,7 @@ export const toNumberSafe = (value: unknown): number => {
   if (typeof value === 'number') return value;
 
   const parsedValue = Number(value);
-  return isNaN(parsedValue) ? 0 : parsedValue;
+  return Number.isNaN(parsedValue) ? 0 : parsedValue;
 };
 
 export const routes = {
