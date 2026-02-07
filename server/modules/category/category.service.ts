@@ -12,7 +12,7 @@ class CategoryService {
   constructor(private readonly prisma: PrismaClient) {}
 
   list() {
-    return this.prisma.category.findMany();
+    return this.prisma.category.findMany({ orderBy: { id: 'asc' } });
   }
 
   async find(data: ListCategorySchema) {
