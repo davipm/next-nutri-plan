@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { CategoryCard } from '@/app/(dashboard)/admin/food-management/categories/_components/category-card';
-import { CategoryCardsSkeleton } from '@/app/(dashboard)/admin/food-management/categories/_components/category-cards-skeleton';
+import { CardSkeleton } from '@/components/card-skeleton';
 import { HasError } from '@/components/has-error';
 import { NoItemFound } from '@/components/no-item-found';
 import { orpc } from '@/lib/orpc';
@@ -22,7 +22,7 @@ export function CategoryCards() {
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 12 }).map((_, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-          <CategoryCardsSkeleton key={index} />
+          <CardSkeleton key={index} />
         ))}
       </div>
     );

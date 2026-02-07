@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { ServingUnitCard } from '@/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-card';
-import { ServingUnitSkeleton } from '@/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards-skeleton';
+import { CardSkeleton } from '@/components/card-skeleton';
 import { HasError } from '@/components/has-error';
 import { NoItemFound } from '@/components/no-item-found';
 import { orpc } from '@/lib/orpc';
@@ -22,7 +22,7 @@ export function ServingUnitCards() {
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 12 }).map((_, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-          <ServingUnitSkeleton key={index} />
+          <CardSkeleton key={index} />
         ))}
       </div>
     );

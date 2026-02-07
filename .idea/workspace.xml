@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="feat: implement category form dialog with full CRUD operations and enhanced store management">
-      <change afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-card.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards-skeleton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/use-serving-unit-store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-card.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards-skeleton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/card-skeleton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards-skeleton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards-skeleton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +80,7 @@
     "npm.Next.js: server-side.executor": "Run",
     "npm.db:generate.executor": "Run",
     "npm.db:migrate.executor": "Run",
-    "settings.editor.selected.configurable": "Settings.Biome",
+    "settings.editor.selected.configurable": "editing.templates",
     "ts.external.directory.path": "/Users/davi/WebstormProjects/next-nutri-plan/node_modules/typescript/lib"
   }
 }]]></component>
@@ -101,6 +102,7 @@
       <recent name="$PROJECT_DIR$/app/(dashboard)/admin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components" />
       <recent name="$PROJECT_DIR$/store" />
       <recent name="$PROJECT_DIR$/components" />
       <recent name="$PROJECT_DIR$/server" />
