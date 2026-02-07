@@ -18,9 +18,9 @@ import {
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { orpc } from '@/lib/orpc';
-import { closeCategoryDialog, openCreateCategoryDialog } from '@/store/use-categories-store';
 import {
   closeServingUnitDialog,
+  openCreateServingUnitDialog,
   useSelectedServingUnitId,
   useServingUnitDialogState,
 } from '@/store/use-serving-unit-store';
@@ -89,10 +89,10 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
   }, [isEditMode, servingUnitToEdit, form]);
 
   const handleDialogOpenChange = () => {
-    openCreateCategoryDialog();
+    openCreateServingUnitDialog();
 
     if (open) {
-      closeCategoryDialog();
+      closeServingUnitDialog();
       form.reset();
     }
   };
