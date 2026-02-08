@@ -3,7 +3,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronLeft, LogOut, Menu } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { type ReactNode, useState } from 'react';
+import { Activity, type ReactNode, useState } from 'react';
 import { RouterGroup } from '@/app/(dashboard)/_components/router-group';
 import { Role } from '@/app/(dashboard)/_types/nav';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -59,14 +59,14 @@ export function DashboardLayout({ children }: Props) {
 
         <div className="flex">
           <ThemeToggle />
-          {session && (
+          <Activity mode={session ? 'visible' : 'hidden'}>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex h-9 items-center gap-2 px-2">
                   <Avatar className="size-8">
-                    <AvatarFallback>{session.user?.name?.[0]}</AvatarFallback>
+                    <AvatarFallback>{session?.user.name[0]}</AvatarFallback>
                   </Avatar>
-                  <span className="hidden md:inline">{session.user?.name}</span>
+                  <span className="hidden md:inline">{session?.user.name}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
@@ -74,11 +74,11 @@ export function DashboardLayout({ children }: Props) {
                 <DropdownMenuSeparator />
                 <div className="flex items-center gap-3 px-2 py-1.5">
                   <Avatar className="size-10">
-                    <AvatarFallback>{session.user?.name?.[0]}</AvatarFallback>
+                    <AvatarFallback>{session?.user.name[0]}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-medium">{session.user?.name}</p>
-                    <p className="text-muted-foreground text-sm">{session.user?.email}</p>
+                    <p className="text-sm font-medium">{session?.user.name}</p>
+                    <p className="text-muted-foreground text-sm">{session?.user.email}</p>
                   </div>
                 </div>
                 <DropdownMenuSeparator />
@@ -91,7 +91,7 @@ export function DashboardLayout({ children }: Props) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          )}
+          </Activity>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export function DashboardLayout({ children }: Props) {
 
             <div className="mt-4 flex flex-col">
               {filteredRouterGroup.map((group) => (
-                <RouterGroup {...group} key={group.group} />
+                <RouterGroup key={group.group} {...group} />
               ))}
             </div>
           </div>
