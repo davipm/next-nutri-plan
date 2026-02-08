@@ -42,6 +42,13 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
 
   const isEditMode = !!selectedId;
 
+  const form = useForm({
+    resolver: zodResolver(categorySchema),
+    defaultValues: {
+      name: '',
+    },
+  });
+
   const { data: categoryToEdit } = useQuery(
     orpc.categories.find.queryOptions({
       input: { id: selectedId },
@@ -68,13 +75,6 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
   );
 
   const isPending = createIsPending || updateIsPending;
-
-  const form = useForm({
-    resolver: zodResolver(categorySchema),
-    defaultValues: {
-      name: '',
-    },
-  });
 
   useEffect(() => {
     if (isEditMode && categoryToEdit) {
