@@ -21,7 +21,6 @@ import { orpc } from '@/lib/orpc';
 import {
   closeServingUnitDialog,
   openCreateServingUnitDialog,
-  useSelectedServingUnitId,
   useServingUnitDialogState,
 } from '@/store/use-serving-unit-store';
 
@@ -37,14 +36,13 @@ type ServingUnitSchema = z.infer<typeof servingUnitSchema>;
 
 export function ServingUnitFormDialog({ smallTrigger }: Props) {
   const queryClient = useQueryClient();
-  const { open } = useServingUnitDialogState();
-  const selectedId = useSelectedServingUnitId()!;
+  const { open, selectedId } = useServingUnitDialogState();
 
   const isEditMode = !!selectedId;
 
   const { data: servingUnitToEdit } = useQuery(
     orpc['serving-units'].find.queryOptions({
-      input: { id: selectedId },
+      input: { id: selectedId! },
       enabled: !!selectedId,
     }),
   );

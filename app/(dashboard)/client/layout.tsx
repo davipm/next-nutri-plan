@@ -1,5 +1,14 @@
+import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
+import { getSession } from '@/lib/auth-client';
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return <div>{children}</div>;
+export default async function Layout({ children }: { children: ReactNode }) {
+  const session = await getSession({
+    fetchOptions: {
+      headers: await headers(),
+      throw: true,
+    },
+  });
+
+  return <div className="mx-auto max-w-7xl p-6">{children}</div>;
 }

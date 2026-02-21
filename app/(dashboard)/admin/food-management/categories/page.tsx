@@ -1,7 +1,7 @@
 import { CategoryCards } from '@/app/(dashboard)/admin/food-management/categories/_components/category-cards';
 import { CategoryFormDialog } from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
 
-export default function Page() {
+export default function CategoriesPage() {
   return (
     <>
       <div className="mb-6 flex items-center justify-between">

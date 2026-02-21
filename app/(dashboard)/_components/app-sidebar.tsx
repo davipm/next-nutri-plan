@@ -1,18 +1,10 @@
 'use client';
 
-import {
-  BookOpen,
-  Bot,
-  ChevronRight,
-  ChevronsUpDown,
-  Command,
-  LogOut,
-  Settings2,
-  SquareTerminal,
-} from 'lucide-react';
+import { Apple, Bot, ChevronRight, ChevronsUpDown, Command, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import type * as React from 'react';
+import { Role } from '@/app/(dashboard)/_types/nav';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
@@ -43,87 +35,33 @@ import { signOut, useSession } from '@/lib/auth-client';
 const data = {
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
+      title: 'Foods Management',
+      icon: Apple,
       isActive: true,
+      allowedRoles: [Role.ADMIN, Role.CLIENT, Role.USER],
       items: [
         {
-          title: 'History',
-          url: '/admin',
+          title: 'Foods',
+          url: '/admin/food-management/foods',
         },
         {
-          title: 'Starred',
-          url: '#',
+          title: 'Categories',
+          url: '/admin/food-management/categories',
         },
         {
-          title: 'Settings',
-          url: '#',
+          title: 'Serving Units',
+          url: '/admin/food-management/serving-units',
         },
       ],
     },
     {
-      title: 'Models',
-      url: '#',
+      title: 'Meals Management',
       icon: Bot,
+      allowedRoles: [Role.ADMIN, Role.CLIENT, Role.USER],
       items: [
         {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
+          title: 'Meals',
+          url: '/client',
         },
       ],
     },
@@ -134,6 +72,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const router = useRouter();
   const { isMobile } = useSidebar();
   const { data: session } = useSession();
+  const pathname = usePathname();
+
+  const userRole = session?.user?.role === Role.ADMIN ? Role.ADMIN : Role.USER;
+  const filteredNavMain = data.navMain.filter((item) => item.allowedRoles.includes(userRole));
 
   const handleSignOut = () => {
     signOut({
@@ -151,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="#">
+              <Link href="/client">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Command className="size-4" />
                 </div>
@@ -168,7 +110,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarGroupLabel>Platform</SidebarGroupLabel>
           <SidebarMenu>
-            {data.navMain.map((item) => (
+            {filteredNavMain.map((item) => (
               <Collapsible
                 key={item.title}
                 asChild
@@ -177,10 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               >
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild tooltip={item.title}>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                   {item.items?.length ? (
                     <>
@@ -194,10 +133,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <SidebarMenuSub>
                           {item.items?.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild>
-                                <a href={subItem.url}>
+                              <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
+                                <Link href={subItem.url as any}>
                                   <span>{subItem.title}</span>
-                                </a>
+                                </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           ))}

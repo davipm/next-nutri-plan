@@ -22,7 +22,6 @@ import {
   closeCategoryDialog,
   openCreateCategoryDialog,
   useCategoryDialogState,
-  useSelectedCategoryId,
 } from '@/store/use-categories-store';
 
 interface Props {
@@ -37,8 +36,7 @@ type CategorySchema = z.infer<typeof categorySchema>;
 
 export function CategoryFormDialog({ smallTrigger = false }: Props) {
   const queryClient = useQueryClient();
-  const { open } = useCategoryDialogState();
-  const selectedId = useSelectedCategoryId()!;
+  const { open, selectedId } = useCategoryDialogState();
 
   const isEditMode = !!selectedId;
 
@@ -51,7 +49,7 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
 
   const { data: categoryToEdit } = useQuery(
     orpc.categories.find.queryOptions({
-      input: { id: selectedId },
+      input: { id: selectedId! },
       enabled: !!selectedId,
     }),
   );
