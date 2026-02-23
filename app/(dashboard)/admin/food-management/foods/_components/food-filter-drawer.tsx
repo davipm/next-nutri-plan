@@ -7,7 +7,7 @@ export function FoodFilterDrawer() {
 
   return (
     <div>
-      <p></p>
+      <p>FoodFilterDrawer</p>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export function FoodServingUnitInput({ name }: Props) {
 
   return (
     <div>
-      <p></p>
+      <p>FoodServingUnitInput</p>
     </div>
   );
 }

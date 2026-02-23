@@ -11,7 +11,7 @@ export function SpecifyFoodServingUnits({ name }: Props) {
 
   return (
     <div>
-      <p></p>
+      <p>SpecifyFoodServingUnits</p>
     </div>
   );
 }

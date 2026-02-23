@@ -7,7 +7,7 @@ interface Props {
 export function NutritionalInfo({ label, value, unit }: Props) {
   return (
     <div>
-      <p></p>
+      <p>NutritionalInfo</p>
     </div>
   );
 }

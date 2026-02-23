@@ -7,7 +7,7 @@ export function FoodFormDialog() {
 
   return (
     <div>
-      <p></p>
+      <p>FoodFormDialog</p>
     </div>
   );
 }

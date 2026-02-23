@@ -14,9 +14,9 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
-type Props = {
+interface Props {
   children: ReactNode;
-};
+}
 
 export function DashboardLayout({ children }: Props) {
   const pathname = usePathname();

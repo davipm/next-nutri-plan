@@ -17,7 +17,6 @@ export type PaginateResult<T> = {
   totalPages: number;
 };
 
-// Typed payload for food with serving units
 export type FoodWithServingUnits = Prisma.FoodGetPayload<{
   include: {
     foodServingUnits: {
@@ -28,12 +27,15 @@ export type FoodWithServingUnits = Prisma.FoodGetPayload<{
   };
 }>;
 
+const FOOD_INCLUDE = {
+  foodServingUnits: {
+    include: { servingUnit: true },
+  },
+} as const satisfies Prisma.FoodInclude;
+
 class FoodService {
   constructor(private readonly prisma: PrismaClient) {}
 
-  /**
-   * Fetches paginated foods with filters and sorting
-   */
   async list(filters: FoodFiltersInput): Promise<PaginateResult<FoodWithServingUnits>> {
     const {
       searchTerm,
@@ -61,11 +63,7 @@ class FoodService {
         skip,
         take: pageSize,
         orderBy: { [sortBy]: sortOrder } as Prisma.FoodOrderByWithRelationInput,
-        include: {
-          foodServingUnits: {
-            include: { servingUnit: true },
-          },
-        },
+        include: FOOD_INCLUDE,
       }),
     ]);
 
@@ -78,17 +76,10 @@ class FoodService {
     };
   }
 
-  /**
-   * Retrieves a single food item with serving units
-   */
   async find(data: FindFoodInput) {
     const food = await this.prisma.food.findUnique({
       where: { id: data.id },
-      include: {
-        foodServingUnits: {
-          include: { servingUnit: true },
-        },
-      },
+      include: FOOD_INCLUDE,
     });
 
     if (!food) {
@@ -100,82 +91,44 @@ class FoodService {
     return food;
   }
 
-  /**
-   * Creates a new food item with serving units
-   */
   async create(data: CreateFoodInput) {
+    const { foodServingUnits, ...foodData } = data;
+
     return this.prisma.$transaction(async (tx) => {
       const food = await tx.food.create({
-        data: {
-          name: data.name,
-          calories: data.calories,
-          carbohydrates: data.carbohydrates,
-          fat: data.fat,
-          protein: data.protein,
-          categoryId: data.categoryId,
-          sugar: data.sugar,
-          fiber: data.fiber,
-        },
+        data: foodData,
       });
 
-      if (data.foodServingUnits?.length) {
-        await tx.foodServingUnit.createMany({
-          data: data.foodServingUnits.map((unit) => ({
-            foodId: food.id,
-            servingUnitId: unit.servingUnitId,
-            grams: unit.grams,
-          })),
-        });
+      if (foodServingUnits?.length) {
+        await this.createServingUnits(tx, food.id, foodServingUnits);
       }
 
       return food;
     });
   }
 
-  /**
-   * Updates an existing food item and its serving units
-   */
   async update(data: UpdateFoodInput) {
-    // Verify existence before update
     await this.find({ id: data.id });
+
+    const { id, foodServingUnits, ...foodData } = data;
 
     return this.prisma.$transaction(async (tx) => {
       const food = await tx.food.update({
-        where: { id: data.id },
-        data: {
-          name: data.name,
-          calories: data.calories,
-          carbohydrates: data.carbohydrates,
-          fat: data.fat,
-          protein: data.protein,
-          categoryId: data.categoryId,
-          sugar: data.sugar,
-          fiber: data.fiber,
-        },
+        where: { id },
+        data: foodData,
       });
 
-      // Replace all serving units
-      await tx.foodServingUnit.deleteMany({ where: { foodId: data.id } });
+      await tx.foodServingUnit.deleteMany({ where: { foodId: id } });
 
-      if (data.foodServingUnits?.length) {
-        await tx.foodServingUnit.createMany({
-          data: data.foodServingUnits.map((unit) => ({
-            foodId: food.id,
-            servingUnitId: unit.servingUnitId,
-            grams: unit.grams,
-          })),
-        });
+      if (foodServingUnits?.length) {
+        await this.createServingUnits(tx, id, foodServingUnits);
       }
 
       return food;
     });
   }
 
-  /**
-   * Deletes a food item and its associated serving units
-   */
   async delete(data: DeleteFoodInput) {
-    // Verify existence before delete
     await this.find({ id: data.id });
 
     return this.prisma.$transaction(async (tx) => {
@@ -184,7 +137,20 @@ class FoodService {
     });
   }
 
-  // =============== PRIVATE HELPERS ===============
+  private async createServingUnits(
+    tx: Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'>,
+    foodId: number,
+    servingUnits: Array<{ servingUnitId: number; grams: number }>,
+  ) {
+    await tx.foodServingUnit.createMany({
+      data: servingUnits.map((unit) => ({
+        foodId,
+        servingUnitId: unit.servingUnitId,
+        grams: unit.grams,
+      })),
+    });
+  }
+
   private buildWhereClause({
     searchTerm,
     caloriesRange,
