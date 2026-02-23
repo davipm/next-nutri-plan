@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve dialog state management and navigation with role-based filtering and enhanced routing">
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: simplify layout logic, improve tabs configuration, and enhance rendering efficiency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,6 +200,19 @@
     <MESSAGE value="feat: implement serving unit management with full CRUD operations and enhanced UI components" />
     <MESSAGE value="feat: implement modern sidebar navigation with collapsible layout and breadcrumb navigation" />
     <MESSAGE value="refactor: improve dialog state management and navigation with role-based filtering and enhanced routing" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: improve dialog state management and navigation with role-based filtering and enhanced routing" />
+    <MESSAGE value="refactor: simplify layout logic, improve tabs configuration, and enhance rendering efficiency" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: simplify layout logic, improve tabs configuration, and enhance rendering efficiency" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-card.tsx</url>
+          <line>42</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
