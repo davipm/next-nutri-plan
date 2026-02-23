@@ -6,40 +6,56 @@ import type { ReactNode } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ROUTE_GROUPS } from '@/lib/constants';
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+interface FoodManagementTab {
+  value: string;
+  label: string;
+  href: string;
+  icon: ReactNode;
+}
 
+function getTabsConfig(): FoodManagementTab[] {
   const foodsGroup = ROUTE_GROUPS.find((group) => group.group === 'Foods Management');
 
-  const tabsConfig = foodsGroup
-    ? foodsGroup.items
-        .filter((item) => item.icon)
-        .map((item) => ({
-          value: item.value,
-          label: item.label,
-          href: item.href,
-          icon: item.icon,
-        }))
-    : [];
+  if (!foodsGroup) {
+    return [];
+  }
 
-  const defaultTab = tabsConfig.find((tab) => pathname.startsWith(tab.href))?.value || 'foods';
+  return foodsGroup.items
+    .filter((item) => item.icon)
+    .map((item) => ({
+      value: item.value,
+      label: item.label,
+      href: String(item.href),
+      icon: <item.icon className="size-4" />,
+    }));
+}
+
+function getCurrentTab(pathname: string, tabs: FoodManagementTab[]): string {
+  return tabs.find((tab) => pathname.startsWith(tab.href))?.value ?? 'foods';
+}
+
+export default function Layout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const tabsConfig = getTabsConfig();
+  const currentTab = getCurrentTab(pathname, tabsConfig);
+
+  if (tabsConfig.length === 0) {
+    return <div className="mx-auto max-w-7xl p-6">{children}</div>;
+  }
 
   return (
     <div className="mx-auto max-w-7xl p-6">
       <div className="mb-6">
-        <Tabs value={defaultTab}>
+        <Tabs value={currentTab} orientation="horizontal">
           <TabsList>
-            {tabsConfig.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <TabsTrigger key={tab.value} value={tab.value} asChild>
-                  <Link href={tab.href as any} className="flex items-center justify-center gap-2">
-                    <Icon />
-                    {tab.label}
-                  </Link>
-                </TabsTrigger>
-              );
-            })}
+            {tabsConfig.map((tab) => (
+              <TabsTrigger key={tab.value} value={tab.value} asChild>
+                <Link href={tab.href as any} className="flex items-center gap-2">
+                  {tab.icon}
+                  {tab.label}
+                </Link>
+              </TabsTrigger>
+            ))}
           </TabsList>
         </Tabs>
       </div>

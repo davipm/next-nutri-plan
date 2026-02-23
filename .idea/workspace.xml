@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="feat: implement modern sidebar navigation with collapsible layout and breadcrumb navigation">
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve dialog state management and navigation with role-based filtering and enhanced routing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/_components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/_components/app-sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="137" />
+    <option name="cachedIndexableFilesCount" value="138" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -78,7 +74,7 @@
     &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
     &quot;npm.db:generate.executor&quot;: &quot;Run&quot;,
     &quot;npm.db:migrate.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AcpAgentsConfigurable&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/davi/WebstormProjects/next-nutri-plan/node_modules/typescript/lib&quot;
   }
 }</component>
@@ -203,6 +199,7 @@
     <MESSAGE value="feat: implement category form dialog with full CRUD operations and enhanced store management" />
     <MESSAGE value="feat: implement serving unit management with full CRUD operations and enhanced UI components" />
     <MESSAGE value="feat: implement modern sidebar navigation with collapsible layout and breadcrumb navigation" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement modern sidebar navigation with collapsible layout and breadcrumb navigation" />
+    <MESSAGE value="refactor: improve dialog state management and navigation with role-based filtering and enhanced routing" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: improve dialog state management and navigation with role-based filtering and enhanced routing" />
   </component>
 </project>
