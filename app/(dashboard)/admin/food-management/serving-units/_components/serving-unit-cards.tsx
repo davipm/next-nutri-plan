@@ -63,7 +63,7 @@ export function ServingUnitCards() {
   }
 
   if (!data.length) {
-    return <NoItemFound onClick={() => openCreateServingUnitDialog()} />;
+    return <NoItemFound onClick={openCreateServingUnitDialog} />;
   }
 
   return (

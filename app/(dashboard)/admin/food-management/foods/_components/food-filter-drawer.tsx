@@ -1,13 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { Input } from '@/components/ui/input';
 
 export function FoodFilterDrawer() {
-  const [item, setItem] = useState(null);
-
   return (
-    <div>
-      <p>FoodFilterDrawer</p>
-    </div>
+    <Drawer direction="right">
+      <div className="flex gap-2">
+        <Input type="text" name="searchTerm" placeholder="Quick Search" className="max-w-48" />
+        <DrawerTrigger asChild>
+          <Button>Filter</Button>
+        </DrawerTrigger>
+      </div>
+
+      <DrawerContent>
+        <form></form>
+      </DrawerContent>
+    </Drawer>
   );
 }

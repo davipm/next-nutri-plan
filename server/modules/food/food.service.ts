@@ -138,7 +138,10 @@ class FoodService {
   }
 
   private async createServingUnits(
-    tx: Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'>,
+    tx: Omit<
+      PrismaClient,
+      '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
+    >,
     foodId: number,
     servingUnits: Array<{ servingUnitId: number; grams: number }>,
   ) {

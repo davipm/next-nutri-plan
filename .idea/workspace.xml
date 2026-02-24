@@ -5,18 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve store architecture and update components for cleaner state management">
-      <change afterPath="$PROJECT_DIR$/components/ui/pagination.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/ui/drawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/_components/dashboard-layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/_components/dashboard-layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-drawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-serving-unit-input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-serving-unit-input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/nutritional-info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/nutritional-info.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/ood-filter-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/ood-filter-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/specify-food-serving-units.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/specify-food-serving-units.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth/[...all]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/[...all]/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/rpc/[[...rest]]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/rpc/[[...rest]]/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biome.json" beforeDir="false" afterPath="$PROJECT_DIR$/biome.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bun.lock" beforeDir="false" afterPath="$PROJECT_DIR$/bun.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/alert-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/alert-dialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/avatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/badge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/badge.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/breadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/breadcrumb.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/calendar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/calendar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/collapsible.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/collapsible.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/dialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/dropdown-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/dropdown-menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/input-group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/input-group.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/label.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/password-input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/password-input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/separator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/separator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/sheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/skeleton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/sonner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/sonner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/textarea.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/tooltip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/tooltip.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/use-mobile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/use-mobile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postcss.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/postcss.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/browser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/browser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Session.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Session.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/modules/food/food.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/use-food-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-food-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/orpc/context.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/orpc/context.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/orpc/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/orpc/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +66,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="138" />
+    <option name="cachedIndexableFilesCount" value="139" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -63,31 +105,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.infra.postgres: Compose Deployment.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "dev",
-    "javascript.preferred.runtime.type.id": "bun",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/davi/WebstormProjects/next-nutri-plan/app/(dashboard)/admin/food-management/serving-units/_components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "bun",
-    "npm.Next.js: server-side.executor": "Run",
-    "npm.db:generate.executor": "Run",
-    "npm.db:migrate.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/davi/WebstormProjects/next-nutri-plan/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.infra.postgres: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;bun&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/davi/WebstormProjects/next-nutri-plan/app/(dashboard)/admin/food-management/serving-units/_components&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;bun&quot;,
+    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
+    &quot;npm.db:generate.executor&quot;: &quot;Run&quot;,
+    &quot;npm.db:migrate.executor&quot;: &quot;Run&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.import&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/davi/WebstormProjects/next-nutri-plan/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -120,7 +163,7 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.Next.js: server-side">
+  <component name="RunManager" selected="npm.format">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
     </configuration>
@@ -173,8 +216,19 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="format" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.format" />
         <item itemvalue="npm.db:migrate" />
         <item itemvalue="npm.db:generate" />
         <item itemvalue="Docker.infra.postgres: Compose Deployment" />
