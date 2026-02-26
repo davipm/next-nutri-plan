@@ -23,13 +23,13 @@ export function ServingUnitCards() {
     isError,
     refetch,
     isRefetching,
-  } = useQuery(orpc['serving-units'].list.queryOptions());
+  } = useQuery(orpc.servingUnits.list.queryOptions());
 
   const { mutate: deleteServingUnit, isPending } = useMutation(
-    orpc['serving-units'].delete.mutationOptions({
+    orpc.servingUnits.delete.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: orpc['serving-units'].key({ type: 'query' }),
+          queryKey: orpc.servingUnits.key({ type: 'query' }),
         });
         toast.success('Serving Unit deleted successfully.');
       },

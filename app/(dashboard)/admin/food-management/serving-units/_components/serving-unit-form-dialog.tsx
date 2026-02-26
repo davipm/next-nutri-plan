@@ -41,29 +41,29 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
   const isEditMode = !!selectedId;
 
   const { data: servingUnitToEdit } = useQuery(
-    orpc['serving-units'].find.queryOptions({
+    orpc.servingUnits.find.queryOptions({
       input: { id: selectedId! },
       enabled: !!selectedId,
     }),
   );
 
   const { mutate: createServingUnitMutation, isPending: createIsPending } = useMutation(
-    orpc['serving-units'].create.mutationOptions({
+    orpc.servingUnits.create.mutationOptions({
       onSuccess: async () => {
         closeServingUnitDialog();
         await queryClient.invalidateQueries({
-          queryKey: orpc['serving-units'].key({ type: 'query' }),
+          queryKey: orpc.servingUnits.key({ type: 'query' }),
         });
       },
     }),
   );
 
   const { mutate: updateServingUnitMutation, isPending: updateIsPending } = useMutation(
-    orpc['serving-units'].update.mutationOptions({
+    orpc.servingUnits.update.mutationOptions({
       onSuccess: async () => {
         closeServingUnitDialog();
         await queryClient.invalidateQueries({
-          queryKey: orpc['serving-units'].key({ type: 'query' }),
+          queryKey: orpc.servingUnits.key({ type: 'query' }),
         });
       },
     }),

@@ -7,7 +7,7 @@ import { protectedProcedure, publicProcedure } from '@/server/orpc';
 export const appRouter = {
   categories: categoryRouter,
   foods: foodRouter,
-  'serving-units': servingUnitRouter,
+  servingUnits: servingUnitRouter,
   healthCheck: publicProcedure.handler(() => 'OK'),
   privateData: protectedProcedure.handler(({ context }) => ({
     message: 'This is private',

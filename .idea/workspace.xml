@@ -4,61 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve store architecture and update components for cleaner state management">
-      <change afterPath="$PROJECT_DIR$/components/ui/drawer.tsx" afterDir="false" />
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: unify code style by standardizing to single quotes and updating component structure for consistency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-drawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/[...all]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/[...all]/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/rpc/[[...rest]]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/rpc/[[...rest]]/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biome.json" beforeDir="false" afterPath="$PROJECT_DIR$/biome.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bun.lock" beforeDir="false" afterPath="$PROJECT_DIR$/bun.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/controlled-select.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/controlled-slider.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ui/alert-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/alert-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/avatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/badge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/badge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/breadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/breadcrumb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/calendar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/calendar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/collapsible.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/collapsible.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/dropdown-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/dropdown-menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/input-group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/input-group.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/label.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/password-input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/password-input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/separator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/separator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/sheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/skeleton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/sonner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/sonner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/textarea.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/tooltip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/tooltip.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/use-mobile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/use-mobile.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postcss.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/postcss.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/browser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/browser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Session.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Session.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/food/food.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/orpc/context.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/orpc/context.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/orpc/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/orpc/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/orpc/routers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/orpc/routers/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,10 +95,10 @@
   </component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1772973045245" />
-    <option name="spentUsd" value="0.06531275" />
+    <option name="spentUsd" value="0.08153956" />
   </component>
   <component name="RecapUselessUpdatesCounter">
-    <option name="suspendCountdown" value="8" />
+    <option name="suspendCountdown" value="0" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -163,7 +116,7 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.format">
+  <component name="RunManager" selected="npm.Next.js: server-side">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
     </configuration>
@@ -267,6 +220,7 @@
     <MESSAGE value="refactor: simplify layout logic, improve tabs configuration, and enhance rendering efficiency" />
     <MESSAGE value="refactor: merge serving unit card logic into parent component to simplify structure" />
     <MESSAGE value="refactor: improve store architecture and update components for cleaner state management" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: improve store architecture and update components for cleaner state management" />
+    <MESSAGE value="refactor: unify code style by standardizing to single quotes and updating component structure for consistency" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: unify code style by standardizing to single quotes and updating component structure for consistency" />
   </component>
 </project>
