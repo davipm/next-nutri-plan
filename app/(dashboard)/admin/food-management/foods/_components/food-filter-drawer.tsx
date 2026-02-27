@@ -16,7 +16,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { Field, FieldError, FieldGroup } from '@/components/ui/field';
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -25,13 +32,19 @@ import {
   SelectGroup,
   SelectItem,
   SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { useDebounce } from '@/lib/use-debounce';
 import { type FoodFiltersInput, foodFiltersSchema } from '@/server/modules/food/food.schema';
-import { useFoodFilterActions, useFoodFilters, useFoodFiltersDrawer } from '@/store/use-food-store';
+import {
+  useFoodFilterActions,
+  useFoodFilters,
+  useFoodFiltersDrawer,
+  useFoodsStore,
+} from '@/store/use-food-store';
 
 const sortByOptions = [
   { label: 'Name', value: 'name' },
@@ -49,6 +62,7 @@ const sortOrderOptions = [
 export function FoodFilterDrawer() {
   const { setFilters, setSearchTerm } = useFoodFilterActions();
   const { closeDrawer } = useFoodFiltersDrawer();
+  const { foodFiltersDrawerOpen } = useFoodsStore();
   const filters = useFoodFilters();
 
   const form = useForm<FoodFiltersInput>({
@@ -57,7 +71,7 @@ export function FoodFilterDrawer() {
   });
 
   const searchTerm = useWatch({ control: form.control, name: 'searchTerm' });
-  const debouncedSearchTerm = useDebounce(searchTerm, 400);
+  const debouncedSearchTerm = useDebounce(searchTerm as string, 400);
 
   const onSubmit: SubmitHandler<FoodFiltersInput> = (data) => {
     setFilters(data);
@@ -71,6 +85,12 @@ export function FoodFilterDrawer() {
   useEffect(() => {
     setSearchTerm(debouncedSearchTerm);
   }, [debouncedSearchTerm, setSearchTerm]);
+
+  useEffect(() => {
+    if (!foodFiltersDrawerOpen) {
+      form.reset(filters);
+    }
+  }, [foodFiltersDrawerOpen, filters, form.reset]);
 
   return (
     <Drawer direction="right" handleOnly>
@@ -103,7 +123,7 @@ export function FoodFilterDrawer() {
       </div>
 
       <DrawerContent>
-        <form className="h-full flex-col">
+        <form className="h-full flex-col" onSubmit={form.handleSubmit(onSubmit)}>
           <DrawerHeader>
             <DrawerTitle>Filters</DrawerTitle>
             <DrawerDescription>Customize your food search criteria.</DrawerDescription>
@@ -161,18 +181,41 @@ export function FoodFilterDrawer() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              <div className="mx-auto grid w-full gap-3">
-                <div className="flex items-center justify-between gap-2">
-                  <Label htmlFor="slider-demo-temperature">Calories</Label>
-                  <span className="text-muted-foreground text-sm">250 g</span>
-                </div>
-                <Slider
-                  defaultValue={[75]}
-                  max={9999}
-                  step={1}
-                  className="mx-auto w-full max-w-xs"
+              <FieldGroup>
+                <Controller
+                  name="sortBy"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field orientation="responsive" data-invalid={fieldState.invalid}>
+                      <FieldContent>
+                        <FieldLabel htmlFor="form-rhf-select-language">Spoken Language</FieldLabel>
+                        <FieldDescription>
+                          For best results, select the language you speak.
+                        </FieldDescription>
+                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                      </FieldContent>
+
+                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          id="form-rhf-select-language"
+                          aria-invalid={fieldState.invalid}
+                        >
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent position="item-aligned">
+                          <SelectItem value="auto">Auto</SelectItem>
+                          <SelectSeparator />
+                          {sortByOptions.map((language) => (
+                            <SelectItem key={language.value} value={language.value}>
+                              {language.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  )}
                 />
-              </div>
+              </FieldGroup>
 
               <div className="mx-auto grid w-full gap-3">
                 <div className="flex items-center justify-between gap-2">
