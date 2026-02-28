@@ -1,6 +1,7 @@
 'use client';
 
 import { Apple, Bot, ChevronRight, ChevronsUpDown, Command, LogOut } from 'lucide-react';
+import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import type * as React from 'react';
@@ -134,7 +135,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           {item.items?.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
-                                <Link href={subItem.url}>
+                                <Link href={subItem.url as Route}>
                                   <span>{subItem.title}</span>
                                 </Link>
                               </SidebarMenuSubButton>

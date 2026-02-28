@@ -1,5 +1,6 @@
 'use client';
 
+import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -7,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ROUTE_GROUPS } from '@/lib/constants';
 
 interface FoodManagementTab {
-  href: string;
+  href: Route;
   icon: ReactNode;
   label: string;
   value: string;
@@ -25,7 +26,7 @@ function getTabsConfig(): FoodManagementTab[] {
     .map((item) => ({
       value: item.value,
       label: item.label,
-      href: String(item.href),
+      href: item.href as Route,
       icon: <item.icon className="size-4" />,
     }));
 }
