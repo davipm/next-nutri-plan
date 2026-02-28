@@ -10,5 +10,7 @@ export default async function ClientLayout({ children }: { children: ReactNode }
     },
   });
 
+  console.log(session?.user.role);
+
   return <div className="mx-auto max-w-7xl p-6">{children}</div>;
 }
