@@ -72,7 +72,7 @@ const initialState: FoodsState = {
  * Filters are excluded from persistence as they are transient UI state.
  */
 export const useFoodsStore = createStore<FoodsStore>(
-  (set, get) => ({
+  (set) => ({
     // Initial state
     ...initialState,
 

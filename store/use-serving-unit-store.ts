@@ -4,32 +4,32 @@ import { createStore } from '@/store/create-store';
 /**
  * State shape for the serving units store
  */
-type ServingUnitsState = {
+interface ServingUnitsState {
+  /** Mode of the dialog - create new or edit existing */
+  dialogMode: 'create' | 'edit';
   /** Currently selected serving unit ID for viewing/editing */
   selectedServingUnitId: number | null;
   /** Controls the serving unit create/edit dialog visibility */
   servingUnitDialogOpen: boolean;
-  /** Mode of the dialog - create new or edit existing */
-  dialogMode: 'create' | 'edit';
-};
+}
 
 /**
  * Actions available in the serving units store
  */
-type ServingUnitsActions = {
-  // Selection actions
-  setSelectedServingUnitId: (id: number | null) => void;
+interface ServingUnitsActions {
   clearSelection: () => void;
-
-  // Dialog actions
-  setServingUnitDialogOpen: (isOpen: boolean) => void;
+  closeDialog: () => void;
   openCreateDialog: () => void;
   openEditDialog: (servingUnitId: number) => void;
-  closeDialog: () => void;
 
   // Composite actions
   resetStore: () => void;
-};
+  // Selection actions
+  setSelectedServingUnitId: (id: number | null) => void;
+
+  // Dialog actions
+  setServingUnitDialogOpen: (isOpen: boolean) => void;
+}
 
 type ServingUnitsStore = ServingUnitsState & ServingUnitsActions;
 
@@ -47,7 +47,7 @@ const initialState: ServingUnitsState = {
  * Dialog state is excluded from persistence as it's transient UI state
  */
 export const useServingUnitsStore = createStore<ServingUnitsStore>(
-  (set, get) => ({
+  (set) => ({
     // Initial state
     ...initialState,
 

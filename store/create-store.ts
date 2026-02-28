@@ -3,20 +3,20 @@ import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-type StoreConfig<T> = {
-  name?: string;
-  storage?: Storage;
-  skipPersist?: boolean;
-  excludeFromPersist?: Array<keyof T>;
+interface StoreConfig<T> {
   devtools?: {
     enabled?: boolean;
     name?: string;
   };
-  partialize?: (state: T) => Partial<T>;
+  excludeFromPersist?: Array<keyof T>;
   merge?: (persistedState: unknown, currentState: T) => T;
-  version?: number;
   migrate?: (persistedState: unknown, version: number) => T | Promise<T>;
-};
+  name?: string;
+  partialize?: (state: T) => Partial<T>;
+  skipPersist?: boolean;
+  storage?: Storage;
+  version?: number;
+}
 
 export const createStore = <T extends object>(
   storeCreator: StateCreator<T, [['zustand/immer', never]], []>,

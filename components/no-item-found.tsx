@@ -1,9 +1,9 @@
 import { CircleOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-type NoItemsFoundProps = {
+interface NoItemsFoundProps {
   onClick: () => void;
-};
+}
 
 export function NoItemFound({ onClick }: NoItemsFoundProps) {
   return (

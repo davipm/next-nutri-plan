@@ -4,32 +4,32 @@ import { createStore } from '@/store/create-store';
 /**
  * State shape for the categories store
  */
-type CategoriesState = {
-  /** Currently selected category ID for viewing/editing */
-  selectedCategoryId: number | null;
+interface CategoriesState {
   /** Controls the category create/edit dialog visibility */
   categoryDialogOpen: boolean;
   /** Mode of the dialog - create new or edit existing */
   dialogMode: 'create' | 'edit';
-};
+  /** Currently selected category ID for viewing/editing */
+  selectedCategoryId: number | null;
+}
 
 /**
  * Actions available in the categories store
  */
-type CategoriesActions = {
-  // Selection actions
-  setSelectedCategoryId: (id: number | null) => void;
+interface CategoriesActions {
   clearSelection: () => void;
-
-  // Dialog actions
-  setCategoryDialogOpen: (isOpen: boolean) => void;
+  closeDialog: () => void;
   openCreateDialog: () => void;
   openEditDialog: (categoryId: number) => void;
-  closeDialog: () => void;
 
   // Composite actions
   resetStore: () => void;
-};
+
+  // Dialog actions
+  setCategoryDialogOpen: (isOpen: boolean) => void;
+  // Selection actions
+  setSelectedCategoryId: (id: number | null) => void;
+}
 
 type CategoriesStore = CategoriesState & CategoriesActions;
 
@@ -47,7 +47,7 @@ const initialState: CategoriesState = {
  * Dialog state is excluded from persistence as it's transient UI state
  */
 export const useCategoriesStore = createStore<CategoriesStore>(
-  (set, get) => ({
+  (set) => ({
     // Initial state
     ...initialState,
 

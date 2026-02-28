@@ -4,50 +4,50 @@ import { createStore } from '@/store/create-store';
 /**
  * Configuration for alert dialogs
  */
-export type AlertConfig = {
-  /** Alert title */
-  title?: string;
-  /** Alert description/message */
-  description?: string;
-  /** Custom confirm button label */
-  confirmLabel?: string;
+export interface AlertConfig {
   /** Custom cancel button label */
   cancelLabel?: string;
-  /** Callback when user confirms */
-  onConfirm?: () => void | Promise<void>;
+  /** Custom confirm button label */
+  confirmLabel?: string;
+  /** Alert description/message */
+  description?: string;
   /** Callback when user cancels */
   onCancel?: () => void | Promise<void>;
-  /** Alert variant/severity */
-  variant?: 'default' | 'destructive' | 'warning' | 'info';
+  /** Callback when user confirms */
+  onConfirm?: () => void | Promise<void>;
   /** Hide cancel button for info-only alerts */
   showCancel?: boolean;
-};
+  /** Alert title */
+  title?: string;
+  /** Alert variant/severity */
+  variant?: 'default' | 'destructive' | 'warning' | 'info';
+}
 
 /**
  * State shape for the global store
  */
-type GlobalState = {
+interface GlobalState {
+  alertConfig: AlertConfig | null;
   // Alert state
   alertOpen: boolean;
-  alertConfig: AlertConfig | null;
 
   // Add other global state here as needed
   // Example: toast notifications, global loading, etc.
-};
+}
 
 /**
  * Actions available in the global store
  */
-type GlobalActions = {
+interface GlobalActions {
+  closeAlert: () => void;
+  handleAlertCancel: () => void;
+  handleAlertConfirm: () => Promise<void>;
   // Alert actions
   showAlert: (config: AlertConfig) => void;
-  closeAlert: () => void;
-  handleAlertConfirm: () => Promise<void>;
-  handleAlertCancel: () => void;
 
   // Future: Add other global actions
   // resetStore: () => void;
-};
+}
 
 type GlobalStore = GlobalState & GlobalActions;
 

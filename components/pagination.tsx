@@ -4,13 +4,13 @@ import { buttonVariants } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
-type PaginationProps = {
+interface PaginationProps {
+  className?: string;
   currentPage: number;
+  scrollToTopOnPaginate?: boolean;
   totalPages: number | undefined;
   updatePage: (action: 'next' | 'prev' | number) => void;
-  className?: string;
-  scrollToTopOnPaginate?: boolean;
-};
+}
 
 const useScrollToTopOnPaginate = (currentPage: number, enabled: boolean) => {
   const prevPageRef = useRef(currentPage);

@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 
-type Props = {
-  refetchAction: () => void;
+interface Props {
   isRefetching: boolean;
   message?: string;
-};
+  refetchAction: () => void;
+}
 
 export function HasError({ isRefetching, refetchAction, message = 'Failed to load data' }: Props) {
   return (

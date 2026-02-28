@@ -5,17 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: unify code style by standardizing to single quotes and updating component structure for consistency">
-      <change afterPath="$PROJECT_DIR$/components/global-alert-dialog.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prisma/migrations/20260228085803_init/migration.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-expert/SKILL.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/categories/_components/category-cards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-cards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biome.json" beforeDir="false" afterPath="$PROJECT_DIR$/biome.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/has-error.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/has-error.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/providers/providers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/providers/providers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/no-item-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/no-item-found.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/pagination.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skills-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/skills-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/create-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/create-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/use-categories-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-categories-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/use-food-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-food-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/use-global-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-global-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/use-serving-unit-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-serving-unit-store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,11 +143,11 @@
       <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.aiassistant/rules" />
       <recent name="$PROJECT_DIR$/hooks" />
       <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components" />
       <recent name="$PROJECT_DIR$/store" />
       <recent name="$PROJECT_DIR$/components" />
-      <recent name="$PROJECT_DIR$/server" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
