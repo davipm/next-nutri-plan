@@ -7,10 +7,10 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ROUTE_GROUPS } from '@/lib/constants';
 
 interface FoodManagementTab {
-  value: string;
-  label: string;
   href: string;
   icon: ReactNode;
+  label: string;
+  value: string;
 }
 
 function getTabsConfig(): FoodManagementTab[] {
@@ -46,11 +46,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl p-6">
       <div className="mb-6">
-        <Tabs value={currentTab} orientation="horizontal">
+        <Tabs orientation="horizontal" value={currentTab}>
           <TabsList>
             {tabsConfig.map((tab) => (
-              <TabsTrigger key={tab.value} value={tab.value} asChild>
-                <Link href={tab.href as any} className="flex items-center gap-2">
+              <TabsTrigger asChild key={tab.value} value={tab.value}>
+                <Link className="flex items-center gap-2" href={tab.href as any}>
                   {tab.icon}
                   {tab.label}
                 </Link>

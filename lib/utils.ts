@@ -10,8 +10,12 @@ export const toStringSafe = (value: unknown): string => {
 };
 
 export const toNumberSafe = (value: unknown): number => {
-  if (value === null) return 0;
-  if (typeof value === 'number') return value;
+  if (value === null) {
+    return 0;
+  }
+  if (typeof value === 'number') {
+    return value;
+  }
 
   const parsedValue = Number(value);
   return Number.isNaN(parsedValue) ? 0 : parsedValue;

@@ -92,9 +92,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton asChild size="lg">
               <Link href="/client">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -112,10 +112,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenu>
             {filteredNavMain.map((item) => (
               <Collapsible
-                key={item.title}
                 asChild
-                defaultOpen={item.isActive}
                 className="group/collapsible"
+                defaultOpen={item.isActive}
+                key={item.title}
               >
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild tooltip={item.title}>
@@ -156,12 +156,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
-                  size="lg"
                   className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  size="lg"
                 >
                   <Avatar className="h-8 w-8 rounded-lg">
                     {session?.user.image && (
-                      <AvatarImage src={session?.user.image} alt={session?.user.name} />
+                      <AvatarImage alt={session?.user.name} src={session?.user.image} />
                     )}
                     <AvatarFallback className="rounded-lg">
                       {session?.user.name.slice(0, 2).toUpperCase()}
@@ -175,16 +175,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
+                align="end"
                 className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
                 side={isMobile ? 'bottom' : 'right'}
-                align="end"
                 sideOffset={4}
               >
                 <DropdownMenuLabel className="p-0 font-normal">
                   <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                     <Avatar className="h-8 w-8 rounded-lg">
                       {session?.user.image && (
-                        <AvatarImage src={session?.user.image} alt={session?.user.name} />
+                        <AvatarImage alt={session?.user.name} src={session?.user.image} />
                       )}
                       <AvatarFallback className="rounded-lg">
                         {session?.user.name.slice(0, 2).toUpperCase()}

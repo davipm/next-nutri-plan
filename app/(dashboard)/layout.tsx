@@ -12,7 +12,9 @@ export default async function Layout({ children }: { children: ReactNode }) {
     },
   });
 
-  if (!session) redirect('/sign-in');
+  if (!session) {
+    redirect('/sign-in');
+  }
 
   return <DashboardLayout>{children}</DashboardLayout>;
 }

@@ -1,7 +1,7 @@
 interface Props {
   label: string;
-  value: number | null;
   unit: string;
+  value: number | null;
 }
 
 export function NutritionalInfo({ label, value, unit }: Props) {

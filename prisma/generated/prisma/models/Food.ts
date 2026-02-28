@@ -1638,57 +1638,167 @@ export interface FoodDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Food']; meta: { name: 'Food' } };
   /**
-   * Find zero or one Food that matches the filter.
-   * @param {FoodFindUniqueArgs} args - Arguments to find a Food
+   * Allows you to perform aggregations operations on a Food.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {FoodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one Food
-   * const food = await prisma.food.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends FoodAggregateArgs>(
+    args: Prisma.Subset<T, FoodAggregateArgs>
+  ): Prisma.PrismaPromise<GetFoodAggregateType<T>>;
+
+  /**
+   * Count the number of Foods.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {FoodCountArgs} args - Arguments to filter Foods to count.
+   * @example
+   * // Count the number of Foods
+   * const count = await prisma.food.count({
+   *   where: {
+   *     // ... the filter for the Foods we want to count
    *   }
    * })
+   **/
+  count<T extends FoodCountArgs>(
+    args?: Prisma.Subset<T, FoodCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], FoodCountAggregateOutputType>
+      : number
+  >;
+
+  /**
+   * Create a Food.
+   * @param {FoodCreateArgs} args - Arguments to create a Food.
+   * @example
+   * // Create one Food
+   * const Food = await prisma.food.create({
+   *   data: {
+   *     // ... data to create a Food
+   *   }
+   * })
+   *
    */
-  findUnique<T extends FoodFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, FoodFindUniqueArgs<ExtArgs>>,
+  create<T extends FoodCreateArgs>(
+    args: Prisma.SelectSubset<T, FoodCreateArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
+    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
+    never,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Find one Food that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {FoodFindUniqueOrThrowArgs} args - Arguments to find a Food
+   * Create many Foods.
+   * @param {FoodCreateManyArgs} args - Arguments to create many Foods.
    * @example
-   * // Get one Food
-   * const food = await prisma.food.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
-   *   }
+   * // Create many Foods
+   * const food = await prisma.food.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
    * })
+   *
    */
-  findUniqueOrThrow<T extends FoodFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, FoodFindUniqueOrThrowArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodClient<
+  createMany<T extends FoodCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, FoodCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many Foods and returns the data saved in the database.
+   * @param {FoodCreateManyAndReturnArgs} args - Arguments to create many Foods.
+   * @example
+   * // Create many Foods
+   * const food = await prisma.food.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many Foods and only return the `id`
+   * const foodWithIdOnly = await prisma.food.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends FoodCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, FoodCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$FoodPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'createManyAndReturn',
       GlobalOmitOptions
-    >,
+    >
+  >;
+
+  /**
+   * Delete a Food.
+   * @param {FoodDeleteArgs} args - Arguments to delete one Food.
+   * @example
+   * // Delete one Food
+   * const Food = await prisma.food.delete({
+   *   where: {
+   *     // ... filter to delete one Food
+   *   }
+   * })
+   *
+   */
+  delete<T extends FoodDeleteArgs>(
+    args: Prisma.SelectSubset<T, FoodDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodClient<
+    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Delete zero or more Foods.
+   * @param {FoodDeleteManyArgs} args - Arguments to filter Foods to delete.
+   * @example
+   * // Delete a few Foods
+   * const { count } = await prisma.food.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends FoodDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, FoodDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the Food model
+   */
+  readonly fields: FoodFieldRefs;
 
   /**
    * Find the first Food that matches the filter.
@@ -1704,7 +1814,7 @@ export interface FoodDelegate<
    * })
    */
   findFirst<T extends FoodFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, FoodFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, FoodFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodPayload<ExtArgs>,
@@ -1732,7 +1842,7 @@ export interface FoodDelegate<
    * })
    */
   findFirstOrThrow<T extends FoodFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, FoodFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, FoodFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodPayload<ExtArgs>,
@@ -1762,278 +1872,60 @@ export interface FoodDelegate<
    *
    */
   findMany<T extends FoodFindManyArgs>(
-    args?: Prisma.SelectSubset<T, FoodFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, FoodFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
-
   /**
-   * Create a Food.
-   * @param {FoodCreateArgs} args - Arguments to create a Food.
+   * Find zero or one Food that matches the filter.
+   * @param {FoodFindUniqueArgs} args - Arguments to find a Food
    * @example
-   * // Create one Food
-   * const Food = await prisma.food.create({
-   *   data: {
-   *     // ... data to create a Food
+   * // Get one Food
+   * const food = await prisma.food.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends FoodCreateArgs>(
-    args: Prisma.SelectSubset<T, FoodCreateArgs<ExtArgs>>,
+  findUnique<T extends FoodFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, FoodFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
-    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Create many Foods.
-   * @param {FoodCreateManyArgs} args - Arguments to create many Foods.
-   * @example
-   * // Create many Foods
-   * const food = await prisma.food.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends FoodCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, FoodCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many Foods and returns the data saved in the database.
-   * @param {FoodCreateManyAndReturnArgs} args - Arguments to create many Foods.
-   * @example
-   * // Create many Foods
-   * const food = await prisma.food.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many Foods and only return the `id`
-   * const foodWithIdOnly = await prisma.food.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends FoodCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, FoodCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$FoodPayload<ExtArgs>,
       T,
-      'createManyAndReturn',
+      'findUnique',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a Food.
-   * @param {FoodDeleteArgs} args - Arguments to delete one Food.
-   * @example
-   * // Delete one Food
-   * const Food = await prisma.food.delete({
-   *   where: {
-   *     // ... filter to delete one Food
-   *   }
-   * })
-   *
-   */
-  delete<T extends FoodDeleteArgs>(
-    args: Prisma.SelectSubset<T, FoodDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodClient<
-    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
-    never,
+    > | null,
+    null,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Update one Food.
-   * @param {FoodUpdateArgs} args - Arguments to update one Food.
+   * Find one Food that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {FoodFindUniqueOrThrowArgs} args - Arguments to find a Food
    * @example
-   * // Update one Food
-   * const food = await prisma.food.update({
+   * // Get one Food
+   * const food = await prisma.food.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
    *   }
    * })
-   *
    */
-  update<T extends FoodUpdateArgs>(
-    args: Prisma.SelectSubset<T, FoodUpdateArgs<ExtArgs>>,
+  findUniqueOrThrow<T extends FoodFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, FoodFindUniqueOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
-    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more Foods.
-   * @param {FoodDeleteManyArgs} args - Arguments to filter Foods to delete.
-   * @example
-   * // Delete a few Foods
-   * const { count } = await prisma.food.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends FoodDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, FoodDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Foods.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {FoodUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many Foods
-   * const food = await prisma.food.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends FoodUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, FoodUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Foods and returns the data updated in the database.
-   * @param {FoodUpdateManyAndReturnArgs} args - Arguments to update many Foods.
-   * @example
-   * // Update many Foods
-   * const food = await prisma.food.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more Foods and only return the `id`
-   * const foodWithIdOnly = await prisma.food.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends FoodUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, FoodUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$FoodPayload<ExtArgs>,
       T,
-      'updateManyAndReturn',
+      'findUniqueOrThrow',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one Food.
-   * @param {FoodUpsertArgs} args - Arguments to update or create a Food.
-   * @example
-   * // Update or create a Food
-   * const food = await prisma.food.upsert({
-   *   create: {
-   *     // ... data to create a Food
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the Food we want to update
-   *   }
-   * })
-   */
-  upsert<T extends FoodUpsertArgs>(
-    args: Prisma.SelectSubset<T, FoodUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodClient<
-    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Count the number of Foods.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {FoodCountArgs} args - Arguments to filter Foods to count.
-   * @example
-   * // Count the number of Foods
-   * const count = await prisma.food.count({
-   *   where: {
-   *     // ... the filter for the Foods we want to count
-   *   }
-   * })
-   **/
-  count<T extends FoodCountArgs>(
-    args?: Prisma.Subset<T, FoodCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], FoodCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a Food.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {FoodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends FoodAggregateArgs>(
-    args: Prisma.Subset<T, FoodAggregateArgs>,
-  ): Prisma.PrismaPromise<GetFoodAggregateType<T>>;
 
   /**
    * Group by Food.
@@ -2108,12 +2000,119 @@ export interface FoodDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, FoodGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, FoodGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetFoodGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the Food model
+   * Update one Food.
+   * @param {FoodUpdateArgs} args - Arguments to update one Food.
+   * @example
+   * // Update one Food
+   * const food = await prisma.food.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: FoodFieldRefs;
+  update<T extends FoodUpdateArgs>(
+    args: Prisma.SelectSubset<T, FoodUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodClient<
+    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more Foods.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {FoodUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Foods
+   * const food = await prisma.food.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends FoodUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, FoodUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more Foods and returns the data updated in the database.
+   * @param {FoodUpdateManyAndReturnArgs} args - Arguments to update many Foods.
+   * @example
+   * // Update many Foods
+   * const food = await prisma.food.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more Foods and only return the `id`
+   * const foodWithIdOnly = await prisma.food.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends FoodUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, FoodUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one Food.
+   * @param {FoodUpsertArgs} args - Arguments to update or create a Food.
+   * @example
+   * // Update or create a Food
+   * const food = await prisma.food.upsert({
+   *   create: {
+   *     // ... data to create a Food
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Food we want to update
+   *   }
+   * })
+   */
+  upsert<T extends FoodUpsertArgs>(
+    args: Prisma.SelectSubset<T, FoodUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodClient<
+    runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Food']; meta: { name: 'Food' } };
 }
 
 /**
@@ -2128,9 +2127,16 @@ export interface Prisma__FoodClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
   category<T extends Prisma.Food$categoryArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Food$categoryArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.Food$categoryArgs<ExtArgs>>
   ): Prisma.Prisma__CategoryClient<
     runtime.Types.Result.GetResult<
       Prisma.$CategoryPayload<ExtArgs>,
@@ -2142,8 +2148,26 @@ export interface Prisma__FoodClient<
     ExtArgs,
     GlobalOmitOptions
   >;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  foodServingUnits<T extends Prisma.Food$foodServingUnitsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.Food$foodServingUnitsArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$FoodServingUnitPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   meal<T extends Prisma.Food$mealArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Food$mealArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.Food$mealArgs<ExtArgs>>
   ): Prisma.Prisma__MealClient<
     runtime.Types.Result.GetResult<
       Prisma.$MealPayload<ExtArgs>,
@@ -2155,19 +2179,8 @@ export interface Prisma__FoodClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-  foodServingUnits<T extends Prisma.Food$foodServingUnitsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Food$foodServingUnitsArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$FoodServingUnitPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
-  >;
   mealFood<T extends Prisma.Food$mealFoodArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Food$mealFoodArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.Food$mealFoodArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$MealFoodPayload<ExtArgs>,
@@ -2178,7 +2191,7 @@ export interface Prisma__FoodClient<
     | Null
   >;
   servingUnit<T extends Prisma.Food$servingUnitArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Food$servingUnitArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.Food$servingUnitArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$ServingUnitPayload<ExtArgs>,
@@ -2196,41 +2209,27 @@ export interface Prisma__FoodClient<
    */
   then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the Food model
  */
 export interface FoodFieldRefs {
-  readonly id: Prisma.FieldRef<'Food', 'Int'>;
-  readonly name: Prisma.FieldRef<'Food', 'String'>;
   readonly calories: Prisma.FieldRef<'Food', 'Float'>;
-  readonly protein: Prisma.FieldRef<'Food', 'Float'>;
-  readonly fat: Prisma.FieldRef<'Food', 'Float'>;
   readonly carbohydrates: Prisma.FieldRef<'Food', 'Float'>;
-  readonly fiber: Prisma.FieldRef<'Food', 'Float'>;
-  readonly sugar: Prisma.FieldRef<'Food', 'Float'>;
   readonly categoryId: Prisma.FieldRef<'Food', 'Int'>;
   readonly createdAt: Prisma.FieldRef<'Food', 'DateTime'>;
-  readonly updateAt: Prisma.FieldRef<'Food', 'DateTime'>;
+  readonly fat: Prisma.FieldRef<'Food', 'Float'>;
+  readonly fiber: Prisma.FieldRef<'Food', 'Float'>;
+  readonly id: Prisma.FieldRef<'Food', 'Int'>;
   readonly mealId: Prisma.FieldRef<'Food', 'Int'>;
+  readonly name: Prisma.FieldRef<'Food', 'String'>;
+  readonly protein: Prisma.FieldRef<'Food', 'Float'>;
+  readonly sugar: Prisma.FieldRef<'Food', 'Float'>;
+  readonly updateAt: Prisma.FieldRef<'Food', 'DateTime'>;
 }
 
 // Custom InputTypes

@@ -424,60 +424,177 @@ export interface VerificationDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['Verification'];
-    meta: { name: 'Verification' };
-  };
   /**
-   * Find zero or one Verification that matches the filter.
-   * @param {VerificationFindUniqueArgs} args - Arguments to find a Verification
+   * Allows you to perform aggregations operations on a Verification.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {VerificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one Verification
-   * const verification = await prisma.verification.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends VerificationAggregateArgs>(
+    args: Prisma.Subset<T, VerificationAggregateArgs>
+  ): Prisma.PrismaPromise<GetVerificationAggregateType<T>>;
+
+  /**
+   * Count the number of Verifications.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {VerificationCountArgs} args - Arguments to filter Verifications to count.
+   * @example
+   * // Count the number of Verifications
+   * const count = await prisma.verification.count({
+   *   where: {
+   *     // ... the filter for the Verifications we want to count
    *   }
    * })
-   */
-  findUnique<T extends VerificationFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, VerificationFindUniqueArgs<ExtArgs>>,
-  ): Prisma.Prisma__VerificationClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$VerificationPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
-    ExtArgs,
-    GlobalOmitOptions
+   **/
+  count<T extends VerificationCountArgs>(
+    args?: Prisma.Subset<T, VerificationCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], VerificationCountAggregateOutputType>
+      : number
   >;
 
   /**
-   * Find one Verification that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {VerificationFindUniqueOrThrowArgs} args - Arguments to find a Verification
+   * Create a Verification.
+   * @param {VerificationCreateArgs} args - Arguments to create a Verification.
    * @example
-   * // Get one Verification
-   * const verification = await prisma.verification.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
+   * // Create one Verification
+   * const Verification = await prisma.verification.create({
+   *   data: {
+   *     // ... data to create a Verification
    *   }
    * })
+   *
    */
-  findUniqueOrThrow<T extends VerificationFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, VerificationFindUniqueOrThrowArgs<ExtArgs>>,
+  create<T extends VerificationCreateArgs>(
+    args: Prisma.SelectSubset<T, VerificationCreateArgs<ExtArgs>>
   ): Prisma.Prisma__VerificationClient<
     runtime.Types.Result.GetResult<
       Prisma.$VerificationPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'create',
       GlobalOmitOptions
     >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Create many Verifications.
+   * @param {VerificationCreateManyArgs} args - Arguments to create many Verifications.
+   * @example
+   * // Create many Verifications
+   * const verification = await prisma.verification.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   */
+  createMany<T extends VerificationCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, VerificationCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many Verifications and returns the data saved in the database.
+   * @param {VerificationCreateManyAndReturnArgs} args - Arguments to create many Verifications.
+   * @example
+   * // Create many Verifications
+   * const verification = await prisma.verification.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many Verifications and only return the `id`
+   * const verificationWithIdOnly = await prisma.verification.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends VerificationCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, VerificationCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$VerificationPayload<ExtArgs>,
+      T,
+      'createManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Delete a Verification.
+   * @param {VerificationDeleteArgs} args - Arguments to delete one Verification.
+   * @example
+   * // Delete one Verification
+   * const Verification = await prisma.verification.delete({
+   *   where: {
+   *     // ... filter to delete one Verification
+   *   }
+   * })
+   *
+   */
+  delete<T extends VerificationDeleteArgs>(
+    args: Prisma.SelectSubset<T, VerificationDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__VerificationClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$VerificationPayload<ExtArgs>,
+      T,
+      'delete',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Delete zero or more Verifications.
+   * @param {VerificationDeleteManyArgs} args - Arguments to filter Verifications to delete.
+   * @example
+   * // Delete a few Verifications
+   * const { count } = await prisma.verification.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends VerificationDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, VerificationDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the Verification model
+   */
+  readonly fields: VerificationFieldRefs;
 
   /**
    * Find the first Verification that matches the filter.
@@ -493,7 +610,7 @@ export interface VerificationDelegate<
    * })
    */
   findFirst<T extends VerificationFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, VerificationFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, VerificationFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__VerificationClient<
     runtime.Types.Result.GetResult<
       Prisma.$VerificationPayload<ExtArgs>,
@@ -521,7 +638,7 @@ export interface VerificationDelegate<
    * })
    */
   findFirstOrThrow<T extends VerificationFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, VerificationFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, VerificationFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__VerificationClient<
     runtime.Types.Result.GetResult<
       Prisma.$VerificationPayload<ExtArgs>,
@@ -551,7 +668,7 @@ export interface VerificationDelegate<
    *
    */
   findMany<T extends VerificationFindManyArgs>(
-    args?: Prisma.SelectSubset<T, VerificationFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, VerificationFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$VerificationPayload<ExtArgs>,
@@ -560,294 +677,56 @@ export interface VerificationDelegate<
       GlobalOmitOptions
     >
   >;
-
   /**
-   * Create a Verification.
-   * @param {VerificationCreateArgs} args - Arguments to create a Verification.
+   * Find zero or one Verification that matches the filter.
+   * @param {VerificationFindUniqueArgs} args - Arguments to find a Verification
    * @example
-   * // Create one Verification
-   * const Verification = await prisma.verification.create({
-   *   data: {
-   *     // ... data to create a Verification
+   * // Get one Verification
+   * const verification = await prisma.verification.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends VerificationCreateArgs>(
-    args: Prisma.SelectSubset<T, VerificationCreateArgs<ExtArgs>>,
+  findUnique<T extends VerificationFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, VerificationFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__VerificationClient<
     runtime.Types.Result.GetResult<
       Prisma.$VerificationPayload<ExtArgs>,
       T,
-      'create',
+      'findUnique',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Find one Verification that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {VerificationFindUniqueOrThrowArgs} args - Arguments to find a Verification
+   * @example
+   * // Get one Verification
+   * const verification = await prisma.verification.findUniqueOrThrow({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findUniqueOrThrow<T extends VerificationFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, VerificationFindUniqueOrThrowArgs<ExtArgs>>
+  ): Prisma.Prisma__VerificationClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$VerificationPayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
       GlobalOmitOptions
     >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Create many Verifications.
-   * @param {VerificationCreateManyArgs} args - Arguments to create many Verifications.
-   * @example
-   * // Create many Verifications
-   * const verification = await prisma.verification.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends VerificationCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, VerificationCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many Verifications and returns the data saved in the database.
-   * @param {VerificationCreateManyAndReturnArgs} args - Arguments to create many Verifications.
-   * @example
-   * // Create many Verifications
-   * const verification = await prisma.verification.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many Verifications and only return the `id`
-   * const verificationWithIdOnly = await prisma.verification.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends VerificationCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, VerificationCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$VerificationPayload<ExtArgs>,
-      T,
-      'createManyAndReturn',
-      GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a Verification.
-   * @param {VerificationDeleteArgs} args - Arguments to delete one Verification.
-   * @example
-   * // Delete one Verification
-   * const Verification = await prisma.verification.delete({
-   *   where: {
-   *     // ... filter to delete one Verification
-   *   }
-   * })
-   *
-   */
-  delete<T extends VerificationDeleteArgs>(
-    args: Prisma.SelectSubset<T, VerificationDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__VerificationClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$VerificationPayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Update one Verification.
-   * @param {VerificationUpdateArgs} args - Arguments to update one Verification.
-   * @example
-   * // Update one Verification
-   * const verification = await prisma.verification.update({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  update<T extends VerificationUpdateArgs>(
-    args: Prisma.SelectSubset<T, VerificationUpdateArgs<ExtArgs>>,
-  ): Prisma.Prisma__VerificationClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$VerificationPayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more Verifications.
-   * @param {VerificationDeleteManyArgs} args - Arguments to filter Verifications to delete.
-   * @example
-   * // Delete a few Verifications
-   * const { count } = await prisma.verification.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends VerificationDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, VerificationDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Verifications.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {VerificationUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many Verifications
-   * const verification = await prisma.verification.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends VerificationUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, VerificationUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Verifications and returns the data updated in the database.
-   * @param {VerificationUpdateManyAndReturnArgs} args - Arguments to update many Verifications.
-   * @example
-   * // Update many Verifications
-   * const verification = await prisma.verification.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more Verifications and only return the `id`
-   * const verificationWithIdOnly = await prisma.verification.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends VerificationUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, VerificationUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$VerificationPayload<ExtArgs>,
-      T,
-      'updateManyAndReturn',
-      GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one Verification.
-   * @param {VerificationUpsertArgs} args - Arguments to update or create a Verification.
-   * @example
-   * // Update or create a Verification
-   * const verification = await prisma.verification.upsert({
-   *   create: {
-   *     // ... data to create a Verification
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the Verification we want to update
-   *   }
-   * })
-   */
-  upsert<T extends VerificationUpsertArgs>(
-    args: Prisma.SelectSubset<T, VerificationUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__VerificationClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$VerificationPayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Count the number of Verifications.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {VerificationCountArgs} args - Arguments to filter Verifications to count.
-   * @example
-   * // Count the number of Verifications
-   * const count = await prisma.verification.count({
-   *   where: {
-   *     // ... the filter for the Verifications we want to count
-   *   }
-   * })
-   **/
-  count<T extends VerificationCountArgs>(
-    args?: Prisma.Subset<T, VerificationCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], VerificationCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a Verification.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {VerificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends VerificationAggregateArgs>(
-    args: Prisma.Subset<T, VerificationAggregateArgs>,
-  ): Prisma.PrismaPromise<GetVerificationAggregateType<T>>;
 
   /**
    * Group by Verification.
@@ -922,12 +801,132 @@ export interface VerificationDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, VerificationGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, VerificationGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetVerificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the Verification model
+   * Update one Verification.
+   * @param {VerificationUpdateArgs} args - Arguments to update one Verification.
+   * @example
+   * // Update one Verification
+   * const verification = await prisma.verification.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: VerificationFieldRefs;
+  update<T extends VerificationUpdateArgs>(
+    args: Prisma.SelectSubset<T, VerificationUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__VerificationClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$VerificationPayload<ExtArgs>,
+      T,
+      'update',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more Verifications.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {VerificationUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Verifications
+   * const verification = await prisma.verification.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends VerificationUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, VerificationUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more Verifications and returns the data updated in the database.
+   * @param {VerificationUpdateManyAndReturnArgs} args - Arguments to update many Verifications.
+   * @example
+   * // Update many Verifications
+   * const verification = await prisma.verification.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more Verifications and only return the `id`
+   * const verificationWithIdOnly = await prisma.verification.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends VerificationUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, VerificationUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$VerificationPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one Verification.
+   * @param {VerificationUpsertArgs} args - Arguments to update or create a Verification.
+   * @example
+   * // Update or create a Verification
+   * const verification = await prisma.verification.upsert({
+   *   create: {
+   *     // ... data to create a Verification
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Verification we want to update
+   *   }
+   * })
+   */
+  upsert<T extends VerificationUpsertArgs>(
+    args: Prisma.SelectSubset<T, VerificationUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__VerificationClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$VerificationPayload<ExtArgs>,
+      T,
+      'upsert',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>['model']['Verification'];
+    meta: { name: 'Verification' };
+  };
 }
 
 /**
@@ -942,24 +941,13 @@ export interface Prisma__VerificationClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
-  /**
-   * Attaches callbacks for the resolution and/or rejection of the Promise.
-   * @param onfulfilled The callback to execute when the Promise is resolved.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of which ever callback is executed.
-   */
-  then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -968,18 +956,29 @@ export interface Prisma__VerificationClient<
    * @returns A Promise for the completion of the callback.
    */
   finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the Verification model
  */
 export interface VerificationFieldRefs {
+  readonly createdAt: Prisma.FieldRef<'Verification', 'DateTime'>;
+  readonly expiresAt: Prisma.FieldRef<'Verification', 'DateTime'>;
   readonly id: Prisma.FieldRef<'Verification', 'String'>;
   readonly identifier: Prisma.FieldRef<'Verification', 'String'>;
-  readonly value: Prisma.FieldRef<'Verification', 'String'>;
-  readonly expiresAt: Prisma.FieldRef<'Verification', 'DateTime'>;
-  readonly createdAt: Prisma.FieldRef<'Verification', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'Verification', 'DateTime'>;
+  readonly value: Prisma.FieldRef<'Verification', 'String'>;
 }
 
 // Custom InputTypes

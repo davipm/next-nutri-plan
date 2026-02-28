@@ -911,60 +911,177 @@ export interface ServingUnitDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['ServingUnit'];
-    meta: { name: 'ServingUnit' };
-  };
   /**
-   * Find zero or one ServingUnit that matches the filter.
-   * @param {ServingUnitFindUniqueArgs} args - Arguments to find a ServingUnit
+   * Allows you to perform aggregations operations on a ServingUnit.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {ServingUnitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one ServingUnit
-   * const servingUnit = await prisma.servingUnit.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends ServingUnitAggregateArgs>(
+    args: Prisma.Subset<T, ServingUnitAggregateArgs>
+  ): Prisma.PrismaPromise<GetServingUnitAggregateType<T>>;
+
+  /**
+   * Count the number of ServingUnits.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {ServingUnitCountArgs} args - Arguments to filter ServingUnits to count.
+   * @example
+   * // Count the number of ServingUnits
+   * const count = await prisma.servingUnit.count({
+   *   where: {
+   *     // ... the filter for the ServingUnits we want to count
    *   }
    * })
-   */
-  findUnique<T extends ServingUnitFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitFindUniqueArgs<ExtArgs>>,
-  ): Prisma.Prisma__ServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$ServingUnitPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
-    ExtArgs,
-    GlobalOmitOptions
+   **/
+  count<T extends ServingUnitCountArgs>(
+    args?: Prisma.Subset<T, ServingUnitCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], ServingUnitCountAggregateOutputType>
+      : number
   >;
 
   /**
-   * Find one ServingUnit that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {ServingUnitFindUniqueOrThrowArgs} args - Arguments to find a ServingUnit
+   * Create a ServingUnit.
+   * @param {ServingUnitCreateArgs} args - Arguments to create a ServingUnit.
    * @example
-   * // Get one ServingUnit
-   * const servingUnit = await prisma.servingUnit.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
+   * // Create one ServingUnit
+   * const ServingUnit = await prisma.servingUnit.create({
+   *   data: {
+   *     // ... data to create a ServingUnit
    *   }
    * })
+   *
    */
-  findUniqueOrThrow<T extends ServingUnitFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitFindUniqueOrThrowArgs<ExtArgs>>,
+  create<T extends ServingUnitCreateArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitCreateArgs<ExtArgs>>
   ): Prisma.Prisma__ServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$ServingUnitPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'create',
       GlobalOmitOptions
     >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Create many ServingUnits.
+   * @param {ServingUnitCreateManyArgs} args - Arguments to create many ServingUnits.
+   * @example
+   * // Create many ServingUnits
+   * const servingUnit = await prisma.servingUnit.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   */
+  createMany<T extends ServingUnitCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, ServingUnitCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many ServingUnits and returns the data saved in the database.
+   * @param {ServingUnitCreateManyAndReturnArgs} args - Arguments to create many ServingUnits.
+   * @example
+   * // Create many ServingUnits
+   * const servingUnit = await prisma.servingUnit.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many ServingUnits and only return the `id`
+   * const servingUnitWithIdOnly = await prisma.servingUnit.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends ServingUnitCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, ServingUnitCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$ServingUnitPayload<ExtArgs>,
+      T,
+      'createManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Delete a ServingUnit.
+   * @param {ServingUnitDeleteArgs} args - Arguments to delete one ServingUnit.
+   * @example
+   * // Delete one ServingUnit
+   * const ServingUnit = await prisma.servingUnit.delete({
+   *   where: {
+   *     // ... filter to delete one ServingUnit
+   *   }
+   * })
+   *
+   */
+  delete<T extends ServingUnitDeleteArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__ServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$ServingUnitPayload<ExtArgs>,
+      T,
+      'delete',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Delete zero or more ServingUnits.
+   * @param {ServingUnitDeleteManyArgs} args - Arguments to filter ServingUnits to delete.
+   * @example
+   * // Delete a few ServingUnits
+   * const { count } = await prisma.servingUnit.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends ServingUnitDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, ServingUnitDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the ServingUnit model
+   */
+  readonly fields: ServingUnitFieldRefs;
 
   /**
    * Find the first ServingUnit that matches the filter.
@@ -980,7 +1097,7 @@ export interface ServingUnitDelegate<
    * })
    */
   findFirst<T extends ServingUnitFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, ServingUnitFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, ServingUnitFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__ServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$ServingUnitPayload<ExtArgs>,
@@ -1008,7 +1125,7 @@ export interface ServingUnitDelegate<
    * })
    */
   findFirstOrThrow<T extends ServingUnitFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, ServingUnitFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, ServingUnitFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__ServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$ServingUnitPayload<ExtArgs>,
@@ -1038,7 +1155,7 @@ export interface ServingUnitDelegate<
    *
    */
   findMany<T extends ServingUnitFindManyArgs>(
-    args?: Prisma.SelectSubset<T, ServingUnitFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, ServingUnitFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$ServingUnitPayload<ExtArgs>,
@@ -1047,294 +1164,56 @@ export interface ServingUnitDelegate<
       GlobalOmitOptions
     >
   >;
-
   /**
-   * Create a ServingUnit.
-   * @param {ServingUnitCreateArgs} args - Arguments to create a ServingUnit.
+   * Find zero or one ServingUnit that matches the filter.
+   * @param {ServingUnitFindUniqueArgs} args - Arguments to find a ServingUnit
    * @example
-   * // Create one ServingUnit
-   * const ServingUnit = await prisma.servingUnit.create({
-   *   data: {
-   *     // ... data to create a ServingUnit
+   * // Get one ServingUnit
+   * const servingUnit = await prisma.servingUnit.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends ServingUnitCreateArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitCreateArgs<ExtArgs>>,
+  findUnique<T extends ServingUnitFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__ServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$ServingUnitPayload<ExtArgs>,
       T,
-      'create',
+      'findUnique',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Find one ServingUnit that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {ServingUnitFindUniqueOrThrowArgs} args - Arguments to find a ServingUnit
+   * @example
+   * // Get one ServingUnit
+   * const servingUnit = await prisma.servingUnit.findUniqueOrThrow({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findUniqueOrThrow<T extends ServingUnitFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitFindUniqueOrThrowArgs<ExtArgs>>
+  ): Prisma.Prisma__ServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$ServingUnitPayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
       GlobalOmitOptions
     >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Create many ServingUnits.
-   * @param {ServingUnitCreateManyArgs} args - Arguments to create many ServingUnits.
-   * @example
-   * // Create many ServingUnits
-   * const servingUnit = await prisma.servingUnit.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends ServingUnitCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, ServingUnitCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many ServingUnits and returns the data saved in the database.
-   * @param {ServingUnitCreateManyAndReturnArgs} args - Arguments to create many ServingUnits.
-   * @example
-   * // Create many ServingUnits
-   * const servingUnit = await prisma.servingUnit.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many ServingUnits and only return the `id`
-   * const servingUnitWithIdOnly = await prisma.servingUnit.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends ServingUnitCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, ServingUnitCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$ServingUnitPayload<ExtArgs>,
-      T,
-      'createManyAndReturn',
-      GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a ServingUnit.
-   * @param {ServingUnitDeleteArgs} args - Arguments to delete one ServingUnit.
-   * @example
-   * // Delete one ServingUnit
-   * const ServingUnit = await prisma.servingUnit.delete({
-   *   where: {
-   *     // ... filter to delete one ServingUnit
-   *   }
-   * })
-   *
-   */
-  delete<T extends ServingUnitDeleteArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__ServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$ServingUnitPayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Update one ServingUnit.
-   * @param {ServingUnitUpdateArgs} args - Arguments to update one ServingUnit.
-   * @example
-   * // Update one ServingUnit
-   * const servingUnit = await prisma.servingUnit.update({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  update<T extends ServingUnitUpdateArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitUpdateArgs<ExtArgs>>,
-  ): Prisma.Prisma__ServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$ServingUnitPayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more ServingUnits.
-   * @param {ServingUnitDeleteManyArgs} args - Arguments to filter ServingUnits to delete.
-   * @example
-   * // Delete a few ServingUnits
-   * const { count } = await prisma.servingUnit.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends ServingUnitDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, ServingUnitDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more ServingUnits.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {ServingUnitUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many ServingUnits
-   * const servingUnit = await prisma.servingUnit.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends ServingUnitUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more ServingUnits and returns the data updated in the database.
-   * @param {ServingUnitUpdateManyAndReturnArgs} args - Arguments to update many ServingUnits.
-   * @example
-   * // Update many ServingUnits
-   * const servingUnit = await prisma.servingUnit.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more ServingUnits and only return the `id`
-   * const servingUnitWithIdOnly = await prisma.servingUnit.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends ServingUnitUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$ServingUnitPayload<ExtArgs>,
-      T,
-      'updateManyAndReturn',
-      GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one ServingUnit.
-   * @param {ServingUnitUpsertArgs} args - Arguments to update or create a ServingUnit.
-   * @example
-   * // Update or create a ServingUnit
-   * const servingUnit = await prisma.servingUnit.upsert({
-   *   create: {
-   *     // ... data to create a ServingUnit
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the ServingUnit we want to update
-   *   }
-   * })
-   */
-  upsert<T extends ServingUnitUpsertArgs>(
-    args: Prisma.SelectSubset<T, ServingUnitUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__ServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$ServingUnitPayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Count the number of ServingUnits.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {ServingUnitCountArgs} args - Arguments to filter ServingUnits to count.
-   * @example
-   * // Count the number of ServingUnits
-   * const count = await prisma.servingUnit.count({
-   *   where: {
-   *     // ... the filter for the ServingUnits we want to count
-   *   }
-   * })
-   **/
-  count<T extends ServingUnitCountArgs>(
-    args?: Prisma.Subset<T, ServingUnitCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], ServingUnitCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a ServingUnit.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {ServingUnitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends ServingUnitAggregateArgs>(
-    args: Prisma.Subset<T, ServingUnitAggregateArgs>,
-  ): Prisma.PrismaPromise<GetServingUnitAggregateType<T>>;
 
   /**
    * Group by ServingUnit.
@@ -1409,12 +1288,132 @@ export interface ServingUnitDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, ServingUnitGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, ServingUnitGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetServingUnitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the ServingUnit model
+   * Update one ServingUnit.
+   * @param {ServingUnitUpdateArgs} args - Arguments to update one ServingUnit.
+   * @example
+   * // Update one ServingUnit
+   * const servingUnit = await prisma.servingUnit.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: ServingUnitFieldRefs;
+  update<T extends ServingUnitUpdateArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__ServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$ServingUnitPayload<ExtArgs>,
+      T,
+      'update',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more ServingUnits.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {ServingUnitUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many ServingUnits
+   * const servingUnit = await prisma.servingUnit.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends ServingUnitUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more ServingUnits and returns the data updated in the database.
+   * @param {ServingUnitUpdateManyAndReturnArgs} args - Arguments to update many ServingUnits.
+   * @example
+   * // Update many ServingUnits
+   * const servingUnit = await prisma.servingUnit.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more ServingUnits and only return the `id`
+   * const servingUnitWithIdOnly = await prisma.servingUnit.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends ServingUnitUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$ServingUnitPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one ServingUnit.
+   * @param {ServingUnitUpsertArgs} args - Arguments to update or create a ServingUnit.
+   * @example
+   * // Update or create a ServingUnit
+   * const servingUnit = await prisma.servingUnit.upsert({
+   *   create: {
+   *     // ... data to create a ServingUnit
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the ServingUnit we want to update
+   *   }
+   * })
+   */
+  upsert<T extends ServingUnitUpsertArgs>(
+    args: Prisma.SelectSubset<T, ServingUnitUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__ServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$ServingUnitPayload<ExtArgs>,
+      T,
+      'upsert',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>['model']['ServingUnit'];
+    meta: { name: 'ServingUnit' };
+  };
 }
 
 /**
@@ -1429,9 +1428,16 @@ export interface Prisma__ServingUnitClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
   FoodServingUnit<T extends Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$FoodServingUnitPayload<ExtArgs>,
@@ -1441,19 +1447,15 @@ export interface Prisma__ServingUnitClient<
       >
     | Null
   >;
-  mealFood<T extends Prisma.ServingUnit$mealFoodArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.ServingUnit$mealFoodArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$MealFoodPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
-  >;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
   food<T extends Prisma.ServingUnit$foodArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.ServingUnit$foodArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.ServingUnit$foodArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodPayload<ExtArgs>,
@@ -1465,6 +1467,17 @@ export interface Prisma__ServingUnitClient<
     ExtArgs,
     GlobalOmitOptions
   >;
+  mealFood<T extends Prisma.ServingUnit$mealFoodArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.ServingUnit$mealFoodArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$MealFoodPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1473,33 +1486,19 @@ export interface Prisma__ServingUnitClient<
    */
   then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the ServingUnit model
  */
 export interface ServingUnitFieldRefs {
+  readonly createdAt: Prisma.FieldRef<'ServingUnit', 'DateTime'>;
+  readonly foodId: Prisma.FieldRef<'ServingUnit', 'Int'>;
   readonly id: Prisma.FieldRef<'ServingUnit', 'Int'>;
   readonly name: Prisma.FieldRef<'ServingUnit', 'String'>;
-  readonly foodId: Prisma.FieldRef<'ServingUnit', 'Int'>;
-  readonly createdAt: Prisma.FieldRef<'ServingUnit', 'DateTime'>;
   readonly updateAt: Prisma.FieldRef<'ServingUnit', 'DateTime'>;
 }
 

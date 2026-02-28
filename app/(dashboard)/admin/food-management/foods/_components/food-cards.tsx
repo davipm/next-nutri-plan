@@ -22,7 +22,7 @@ export function FoodCards() {
   const { setPage } = useFoodFilterActions();
 
   const { data, isLoading, isError, ...rest } = useQuery(
-    orpc.foods.list.queryOptions({ input: foodFilters }),
+    orpc.foods.list.queryOptions({ input: foodFilters })
   );
 
   if (isLoading) {
@@ -36,7 +36,7 @@ export function FoodCards() {
   }
 
   if (isError) {
-    return <HasError refetchAction={rest.refetch} isRefetching={rest.isRefetching} />;
+    return <HasError isRefetching={rest.isRefetching} refetchAction={rest.refetch} />;
   }
 
   if (!data?.data.length) {
@@ -47,7 +47,7 @@ export function FoodCards() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-4">
         {data.data.map((item) => (
-          <div key={item.id} className="flex flex-col gap-3 rounded-lg border p-6">
+          <div className="flex flex-col gap-3 rounded-lg border p-6" key={item.id}>
             <div className="flex justify-between">
               <p className="truncate">{item.name}</p>
               <div className="flex gap-1">

@@ -8,13 +8,13 @@ export enum Role {
 
 export interface RouteItemType {
   href: string;
-  label: string;
   icon: ComponentType<{ className?: string }>;
+  label: string;
   value: string;
 }
 
 export interface RouteGroupType {
+  allowedRoles: Role[];
   group: string;
   items: RouteItemType[];
-  allowedRoles: Role[];
 }

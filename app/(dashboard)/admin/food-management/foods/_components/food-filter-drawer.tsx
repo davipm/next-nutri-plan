@@ -1,9 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
 import { FilterIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import type { z } from 'zod';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,16 +18,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -36,22 +30,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
+import { orpc } from '@/lib/orpc';
 import { useDebounce } from '@/lib/use-debounce';
 import { type FoodFiltersInput, foodFiltersSchema } from '@/server/modules/food/food.schema';
 import {
+  foodFiltersDefaultValues,
   useFoodFilterActions,
   useFoodFilters,
   useFoodFiltersDrawer,
-  useFoodsStore,
 } from '@/store/use-food-store';
 
 const sortByOptions = [
   { label: 'Name', value: 'name' },
   { label: 'Calories', value: 'calories' },
-  { label: 'Carbohydrates', value: 'carbohydrates' },
-  { label: 'Fat', value: 'fat' },
   { label: 'Protein', value: 'protein' },
+  { label: 'Most Recent', value: 'createdAt' },
 ];
 
 const sortOrderOptions = [
@@ -59,27 +52,68 @@ const sortOrderOptions = [
   { label: 'Descending', value: 'desc' },
 ];
 
+const ALL_CATEGORIES_VALUE = 'all';
+type FoodFiltersFormValues = z.input<typeof foodFiltersSchema>;
+
+function getActiveFiltersCount(filters: FoodFiltersInput): number {
+  let count = 0;
+
+  if (filters.searchTerm?.trim()) {
+    count += 1;
+  }
+  if (filters.categoryId?.trim()) {
+    count += 1;
+  }
+  if (filters.sortBy !== foodFiltersDefaultValues.sortBy) {
+    count += 1;
+  }
+  if (filters.sortOrder !== foodFiltersDefaultValues.sortOrder) {
+    count += 1;
+  }
+
+  if (
+    filters.caloriesRange[0] !== foodFiltersDefaultValues.caloriesRange[0] ||
+    filters.caloriesRange[1] !== foodFiltersDefaultValues.caloriesRange[1]
+  ) {
+    count += 1;
+  }
+
+  if (
+    filters.proteinRange[0] !== foodFiltersDefaultValues.proteinRange[0] ||
+    filters.proteinRange[1] !== foodFiltersDefaultValues.proteinRange[1]
+  ) {
+    count += 1;
+  }
+
+  return count;
+}
+
 export function FoodFilterDrawer() {
-  const { setFilters, setSearchTerm } = useFoodFilterActions();
-  const { closeDrawer } = useFoodFiltersDrawer();
-  const { foodFiltersDrawerOpen } = useFoodsStore();
+  const { data: categories = [] } = useQuery(orpc.categories.list.queryOptions());
+  const { setFilters, setSearchTerm, resetFilters } = useFoodFilterActions();
+  const { open: foodFiltersDrawerOpen, openDrawer, closeDrawer } = useFoodFiltersDrawer();
   const filters = useFoodFilters();
 
-  const form = useForm<FoodFiltersInput>({
+  const form = useForm<FoodFiltersFormValues>({
     defaultValues: filters,
     resolver: zodResolver(foodFiltersSchema),
   });
 
-  const searchTerm = useWatch({ control: form.control, name: 'searchTerm' });
-  const debouncedSearchTerm = useDebounce(searchTerm as string, 400);
+  const activeFiltersCount = getActiveFiltersCount(filters);
+  const searchTerm = useWatch({ control: form.control, name: 'searchTerm' }) ?? '';
+  const debouncedSearchTerm = useDebounce(searchTerm, 400);
 
-  const onSubmit: SubmitHandler<FoodFiltersInput> = (data) => {
-    setFilters(data);
+  const onSubmit: SubmitHandler<FoodFiltersFormValues> = (data) => {
+    const parsedFilters = foodFiltersSchema.parse(data);
+
+    setFilters({ ...parsedFilters, page: 1 });
     closeDrawer();
   };
 
   const handleReset = () => {
-    form.reset();
+    resetFilters();
+    form.reset(foodFiltersDefaultValues);
+    closeDrawer();
   };
 
   useEffect(() => {
@@ -90,23 +124,35 @@ export function FoodFilterDrawer() {
     if (!foodFiltersDrawerOpen) {
       form.reset(filters);
     }
-  }, [foodFiltersDrawerOpen, filters, form.reset]);
+  }, [foodFiltersDrawerOpen, filters, form]);
 
   return (
-    <Drawer direction="right" handleOnly>
+    <Drawer
+      direction="right"
+      handleOnly
+      onOpenChange={(isOpen) => {
+        if (isOpen) {
+          openDrawer();
+          return;
+        }
+
+        closeDrawer();
+      }}
+      open={foodFiltersDrawerOpen}
+    >
       <div className="flex gap-2">
         <FieldGroup className="max-w-48">
           <Controller
-            name="searchTerm"
             control={form.control}
+            name="searchTerm"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <Input
                   {...field}
-                  id={field.name}
-                  type="text"
-                  placeholder="Quick Search"
                   aria-invalid={fieldState.invalid}
+                  id={field.name}
+                  placeholder="Quick Search"
+                  type="text"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
@@ -114,129 +160,208 @@ export function FoodFilterDrawer() {
           />
         </FieldGroup>
         <DrawerTrigger asChild>
-          <Button>
+          <Button type="button">
             <FilterIcon />
             Filter
-            <Badge>Badge</Badge>
+            {activeFiltersCount > 0 && <Badge>{activeFiltersCount}</Badge>}
           </Button>
         </DrawerTrigger>
       </div>
 
       <DrawerContent>
-        <form className="h-full flex-col" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="flex h-full flex-col" onSubmit={form.handleSubmit(onSubmit)}>
           <DrawerHeader>
             <DrawerTitle>Filters</DrawerTitle>
             <DrawerDescription>Customize your food search criteria.</DrawerDescription>
           </DrawerHeader>
 
-          <div className="space-y-4 px-4">
-            <div className="flex flex-wrap gap-2">
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Sort By" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Sort By</SelectLabel>
-                    {sortByOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Sort Order" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Sort Order</SelectLabel>
-                    {sortOrderOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <FieldGroup>
-                <Controller
-                  name="sortBy"
-                  control={form.control}
-                  render={({ field, fieldState }) => (
-                    <Field orientation="responsive" data-invalid={fieldState.invalid}>
-                      <FieldContent>
-                        <FieldLabel htmlFor="form-rhf-select-language">Spoken Language</FieldLabel>
-                        <FieldDescription>
-                          For best results, select the language you speak.
-                        </FieldDescription>
-                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                      </FieldContent>
-
-                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger
-                          id="form-rhf-select-language"
-                          aria-invalid={fieldState.invalid}
-                        >
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent position="item-aligned">
-                          <SelectItem value="auto">Auto</SelectItem>
-                          <SelectSeparator />
-                          {sortByOptions.map((language) => (
-                            <SelectItem key={language.value} value={language.value}>
-                              {language.label}
+          <div className="flex-1 space-y-6 overflow-y-auto px-4 pb-2">
+            <FieldGroup>
+              <Controller
+                control={form.control}
+                name="categoryId"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="food-category-filter">Category</FieldLabel>
+                    <Select
+                      name={field.name}
+                      onValueChange={(value) =>
+                        field.onChange(value === ALL_CATEGORIES_VALUE ? '' : value)
+                      }
+                      value={field.value?.trim() ? field.value : ALL_CATEGORIES_VALUE}
+                    >
+                      <SelectTrigger aria-invalid={fieldState.invalid} id="food-category-filter">
+                        <SelectValue placeholder="All categories" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Categories</SelectLabel>
+                          <SelectItem value={ALL_CATEGORIES_VALUE}>All categories</SelectItem>
+                          {!!categories.length && <SelectSeparator />}
+                          {categories.map((category) => (
+                            <SelectItem key={category.id} value={String(category.id)}>
+                              {category.name}
                             </SelectItem>
                           ))}
-                        </SelectContent>
-                      </Select>
-                    </Field>
-                  )}
-                />
-              </FieldGroup>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
 
-              <div className="mx-auto grid w-full gap-3">
-                <div className="flex items-center justify-between gap-2">
-                  <Label htmlFor="slider-demo-temperature">Protein</Label>
-                  <span className="text-muted-foreground text-sm">250 g</span>
-                </div>
-                <Slider
-                  defaultValue={[75]}
-                  max={9999}
-                  step={1}
-                  className="mx-auto w-full max-w-xs"
-                />
-              </div>
-            </div>
+              <Controller
+                control={form.control}
+                name="sortBy"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="food-sort-by-filter">Sort By</FieldLabel>
+                    <Select
+                      name={field.name}
+                      onValueChange={field.onChange}
+                      value={field.value ?? foodFiltersDefaultValues.sortBy}
+                    >
+                      <SelectTrigger aria-invalid={fieldState.invalid} id="food-sort-by-filter">
+                        <SelectValue placeholder="Sort by" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Sort By</SelectLabel>
+                          {sortByOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={form.control}
+                name="sortOrder"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="food-sort-order-filter">Sort Order</FieldLabel>
+                    <Select
+                      name={field.name}
+                      onValueChange={field.onChange}
+                      value={field.value ?? foodFiltersDefaultValues.sortOrder}
+                    >
+                      <SelectTrigger aria-invalid={fieldState.invalid} id="food-sort-order-filter">
+                        <SelectValue placeholder="Sort order" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Sort Order</SelectLabel>
+                          {sortOrderOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+
+            <FieldGroup>
+              <Controller
+                control={form.control}
+                name="caloriesRange.0"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Calories Min</FieldLabel>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      min={0}
+                      placeholder="0"
+                      step="any"
+                      type="number"
+                    />
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={form.control}
+                name="caloriesRange.1"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Calories Max</FieldLabel>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      min={0}
+                      placeholder="9999"
+                      step="any"
+                      type="number"
+                    />
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={form.control}
+                name="proteinRange.0"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Protein Min (g)</FieldLabel>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      min={0}
+                      placeholder="0"
+                      step="any"
+                      type="number"
+                    />
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={form.control}
+                name="proteinRange.1"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Protein Max (g)</FieldLabel>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      min={0}
+                      placeholder="9999"
+                      step="any"
+                      type="number"
+                    />
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
           </div>
 
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
             </DrawerClose>
-            <Button variant="outline" type="button">
+            <Button onClick={handleReset} type="button" variant="outline">
               Reset
             </Button>
             <Button type="submit">Apply Filters</Button>

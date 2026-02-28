@@ -897,57 +897,167 @@ export interface AccountDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Account']; meta: { name: 'Account' } };
   /**
-   * Find zero or one Account that matches the filter.
-   * @param {AccountFindUniqueArgs} args - Arguments to find a Account
+   * Allows you to perform aggregations operations on a Account.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {AccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one Account
-   * const account = await prisma.account.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends AccountAggregateArgs>(
+    args: Prisma.Subset<T, AccountAggregateArgs>
+  ): Prisma.PrismaPromise<GetAccountAggregateType<T>>;
+
+  /**
+   * Count the number of Accounts.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {AccountCountArgs} args - Arguments to filter Accounts to count.
+   * @example
+   * // Count the number of Accounts
+   * const count = await prisma.account.count({
+   *   where: {
+   *     // ... the filter for the Accounts we want to count
    *   }
    * })
+   **/
+  count<T extends AccountCountArgs>(
+    args?: Prisma.Subset<T, AccountCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], AccountCountAggregateOutputType>
+      : number
+  >;
+
+  /**
+   * Create a Account.
+   * @param {AccountCreateArgs} args - Arguments to create a Account.
+   * @example
+   * // Create one Account
+   * const Account = await prisma.account.create({
+   *   data: {
+   *     // ... data to create a Account
+   *   }
+   * })
+   *
    */
-  findUnique<T extends AccountFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, AccountFindUniqueArgs<ExtArgs>>,
+  create<T extends AccountCreateArgs>(
+    args: Prisma.SelectSubset<T, AccountCreateArgs<ExtArgs>>
   ): Prisma.Prisma__AccountClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$AccountPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
+    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
+    never,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Find one Account that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {AccountFindUniqueOrThrowArgs} args - Arguments to find a Account
+   * Create many Accounts.
+   * @param {AccountCreateManyArgs} args - Arguments to create many Accounts.
    * @example
-   * // Get one Account
-   * const account = await prisma.account.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
-   *   }
+   * // Create many Accounts
+   * const account = await prisma.account.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
    * })
+   *
    */
-  findUniqueOrThrow<T extends AccountFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, AccountFindUniqueOrThrowArgs<ExtArgs>>,
-  ): Prisma.Prisma__AccountClient<
+  createMany<T extends AccountCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, AccountCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many Accounts and returns the data saved in the database.
+   * @param {AccountCreateManyAndReturnArgs} args - Arguments to create many Accounts.
+   * @example
+   * // Create many Accounts
+   * const account = await prisma.account.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many Accounts and only return the `id`
+   * const accountWithIdOnly = await prisma.account.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends AccountCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, AccountCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$AccountPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'createManyAndReturn',
       GlobalOmitOptions
-    >,
+    >
+  >;
+
+  /**
+   * Delete a Account.
+   * @param {AccountDeleteArgs} args - Arguments to delete one Account.
+   * @example
+   * // Delete one Account
+   * const Account = await prisma.account.delete({
+   *   where: {
+   *     // ... filter to delete one Account
+   *   }
+   * })
+   *
+   */
+  delete<T extends AccountDeleteArgs>(
+    args: Prisma.SelectSubset<T, AccountDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__AccountClient<
+    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Delete zero or more Accounts.
+   * @param {AccountDeleteManyArgs} args - Arguments to filter Accounts to delete.
+   * @example
+   * // Delete a few Accounts
+   * const { count } = await prisma.account.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends AccountDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, AccountDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the Account model
+   */
+  readonly fields: AccountFieldRefs;
 
   /**
    * Find the first Account that matches the filter.
@@ -963,7 +1073,7 @@ export interface AccountDelegate<
    * })
    */
   findFirst<T extends AccountFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, AccountFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, AccountFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__AccountClient<
     runtime.Types.Result.GetResult<
       Prisma.$AccountPayload<ExtArgs>,
@@ -991,7 +1101,7 @@ export interface AccountDelegate<
    * })
    */
   findFirstOrThrow<T extends AccountFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, AccountFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, AccountFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__AccountClient<
     runtime.Types.Result.GetResult<
       Prisma.$AccountPayload<ExtArgs>,
@@ -1021,7 +1131,7 @@ export interface AccountDelegate<
    *
    */
   findMany<T extends AccountFindManyArgs>(
-    args?: Prisma.SelectSubset<T, AccountFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, AccountFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$AccountPayload<ExtArgs>,
@@ -1030,274 +1140,56 @@ export interface AccountDelegate<
       GlobalOmitOptions
     >
   >;
-
   /**
-   * Create a Account.
-   * @param {AccountCreateArgs} args - Arguments to create a Account.
+   * Find zero or one Account that matches the filter.
+   * @param {AccountFindUniqueArgs} args - Arguments to find a Account
    * @example
-   * // Create one Account
-   * const Account = await prisma.account.create({
-   *   data: {
-   *     // ... data to create a Account
+   * // Get one Account
+   * const account = await prisma.account.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends AccountCreateArgs>(
-    args: Prisma.SelectSubset<T, AccountCreateArgs<ExtArgs>>,
+  findUnique<T extends AccountFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, AccountFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__AccountClient<
-    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Create many Accounts.
-   * @param {AccountCreateManyArgs} args - Arguments to create many Accounts.
-   * @example
-   * // Create many Accounts
-   * const account = await prisma.account.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends AccountCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, AccountCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many Accounts and returns the data saved in the database.
-   * @param {AccountCreateManyAndReturnArgs} args - Arguments to create many Accounts.
-   * @example
-   * // Create many Accounts
-   * const account = await prisma.account.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many Accounts and only return the `id`
-   * const accountWithIdOnly = await prisma.account.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends AccountCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, AccountCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$AccountPayload<ExtArgs>,
       T,
-      'createManyAndReturn',
+      'findUnique',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a Account.
-   * @param {AccountDeleteArgs} args - Arguments to delete one Account.
-   * @example
-   * // Delete one Account
-   * const Account = await prisma.account.delete({
-   *   where: {
-   *     // ... filter to delete one Account
-   *   }
-   * })
-   *
-   */
-  delete<T extends AccountDeleteArgs>(
-    args: Prisma.SelectSubset<T, AccountDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__AccountClient<
-    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
-    never,
+    > | null,
+    null,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Update one Account.
-   * @param {AccountUpdateArgs} args - Arguments to update one Account.
+   * Find one Account that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {AccountFindUniqueOrThrowArgs} args - Arguments to find a Account
    * @example
-   * // Update one Account
-   * const account = await prisma.account.update({
+   * // Get one Account
+   * const account = await prisma.account.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
    *   }
    * })
-   *
    */
-  update<T extends AccountUpdateArgs>(
-    args: Prisma.SelectSubset<T, AccountUpdateArgs<ExtArgs>>,
+  findUniqueOrThrow<T extends AccountFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, AccountFindUniqueOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__AccountClient<
-    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more Accounts.
-   * @param {AccountDeleteManyArgs} args - Arguments to filter Accounts to delete.
-   * @example
-   * // Delete a few Accounts
-   * const { count } = await prisma.account.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends AccountDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, AccountDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Accounts.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {AccountUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many Accounts
-   * const account = await prisma.account.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends AccountUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, AccountUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Accounts and returns the data updated in the database.
-   * @param {AccountUpdateManyAndReturnArgs} args - Arguments to update many Accounts.
-   * @example
-   * // Update many Accounts
-   * const account = await prisma.account.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more Accounts and only return the `id`
-   * const accountWithIdOnly = await prisma.account.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends AccountUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, AccountUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$AccountPayload<ExtArgs>,
       T,
-      'updateManyAndReturn',
+      'findUniqueOrThrow',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one Account.
-   * @param {AccountUpsertArgs} args - Arguments to update or create a Account.
-   * @example
-   * // Update or create a Account
-   * const account = await prisma.account.upsert({
-   *   create: {
-   *     // ... data to create a Account
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the Account we want to update
-   *   }
-   * })
-   */
-  upsert<T extends AccountUpsertArgs>(
-    args: Prisma.SelectSubset<T, AccountUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__AccountClient<
-    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Count the number of Accounts.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {AccountCountArgs} args - Arguments to filter Accounts to count.
-   * @example
-   * // Count the number of Accounts
-   * const count = await prisma.account.count({
-   *   where: {
-   *     // ... the filter for the Accounts we want to count
-   *   }
-   * })
-   **/
-  count<T extends AccountCountArgs>(
-    args?: Prisma.Subset<T, AccountCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], AccountCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a Account.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {AccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends AccountAggregateArgs>(
-    args: Prisma.Subset<T, AccountAggregateArgs>,
-  ): Prisma.PrismaPromise<GetAccountAggregateType<T>>;
 
   /**
    * Group by Account.
@@ -1372,12 +1264,119 @@ export interface AccountDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, AccountGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, AccountGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the Account model
+   * Update one Account.
+   * @param {AccountUpdateArgs} args - Arguments to update one Account.
+   * @example
+   * // Update one Account
+   * const account = await prisma.account.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: AccountFieldRefs;
+  update<T extends AccountUpdateArgs>(
+    args: Prisma.SelectSubset<T, AccountUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__AccountClient<
+    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more Accounts.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {AccountUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Accounts
+   * const account = await prisma.account.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends AccountUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, AccountUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more Accounts and returns the data updated in the database.
+   * @param {AccountUpdateManyAndReturnArgs} args - Arguments to update many Accounts.
+   * @example
+   * // Update many Accounts
+   * const account = await prisma.account.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more Accounts and only return the `id`
+   * const accountWithIdOnly = await prisma.account.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends AccountUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, AccountUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$AccountPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one Account.
+   * @param {AccountUpsertArgs} args - Arguments to update or create a Account.
+   * @example
+   * // Update or create a Account
+   * const account = await prisma.account.upsert({
+   *   create: {
+   *     // ... data to create a Account
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Account we want to update
+   *   }
+   * })
+   */
+  upsert<T extends AccountUpsertArgs>(
+    args: Prisma.SelectSubset<T, AccountUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__AccountClient<
+    runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Account']; meta: { name: 'Account' } };
 }
 
 /**
@@ -1392,9 +1391,33 @@ export interface Prisma__AccountClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
     | runtime.Types.Result.GetResult<
         Prisma.$UserPayload<ExtArgs>,
@@ -1407,50 +1430,26 @@ export interface Prisma__AccountClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-  /**
-   * Attaches callbacks for the resolution and/or rejection of the Promise.
-   * @param onfulfilled The callback to execute when the Promise is resolved.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of which ever callback is executed.
-   */
-  then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the Account model
  */
 export interface AccountFieldRefs {
-  readonly id: Prisma.FieldRef<'Account', 'String'>;
-  readonly accountId: Prisma.FieldRef<'Account', 'String'>;
-  readonly providerId: Prisma.FieldRef<'Account', 'String'>;
-  readonly userId: Prisma.FieldRef<'Account', 'String'>;
   readonly accessToken: Prisma.FieldRef<'Account', 'String'>;
-  readonly refreshToken: Prisma.FieldRef<'Account', 'String'>;
-  readonly idToken: Prisma.FieldRef<'Account', 'String'>;
   readonly accessTokenExpiresAt: Prisma.FieldRef<'Account', 'DateTime'>;
+  readonly accountId: Prisma.FieldRef<'Account', 'String'>;
+  readonly createdAt: Prisma.FieldRef<'Account', 'DateTime'>;
+  readonly id: Prisma.FieldRef<'Account', 'String'>;
+  readonly idToken: Prisma.FieldRef<'Account', 'String'>;
+  readonly password: Prisma.FieldRef<'Account', 'String'>;
+  readonly providerId: Prisma.FieldRef<'Account', 'String'>;
+  readonly refreshToken: Prisma.FieldRef<'Account', 'String'>;
   readonly refreshTokenExpiresAt: Prisma.FieldRef<'Account', 'DateTime'>;
   readonly scope: Prisma.FieldRef<'Account', 'String'>;
-  readonly password: Prisma.FieldRef<'Account', 'String'>;
-  readonly createdAt: Prisma.FieldRef<'Account', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'Account', 'DateTime'>;
+  readonly userId: Prisma.FieldRef<'Account', 'String'>;
 }
 
 // Custom InputTypes

@@ -99,7 +99,7 @@ export const useServingUnitsStore = createStore<ServingUnitsStore>(
     name: 'serving-units-store',
     // Don't persist transient UI state
     excludeFromPersist: ['servingUnitDialogOpen', 'dialogMode', 'selectedServingUnitId'],
-  },
+  }
 );
 
 // =============================================================================
@@ -124,7 +124,7 @@ export const useServingUnitDialogState = () =>
       open: state.servingUnitDialogOpen,
       mode: state.dialogMode,
       selectedId: state.selectedServingUnitId,
-    })),
+    }))
   );
 
 /**
@@ -137,7 +137,7 @@ export const useServingUnitDialogActions = () =>
       openCreate: state.openCreateDialog,
       openEdit: state.openEditDialog,
       close: state.closeDialog,
-    })),
+    }))
   );
 
 /**
@@ -148,7 +148,7 @@ export const useServingUnitSelectionActions = () =>
     useShallow((state) => ({
       select: state.setSelectedServingUnitId,
       clear: state.clearSelection,
-    })),
+    }))
   );
 
 // =============================================================================

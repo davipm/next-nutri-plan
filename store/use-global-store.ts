@@ -106,7 +106,7 @@ export const useGlobalStore = createStore<GlobalStore>(
     name: 'global-store',
     // Exclude transient UI state from persistence
     excludeFromPersist: ['alertOpen', 'alertConfig'],
-  },
+  }
 );
 
 /**
@@ -157,7 +157,7 @@ export const useAlertState = () =>
     useShallow((state) => ({
       open: state.alertOpen,
       config: state.alertConfig,
-    })),
+    }))
   );
 
 export const useAlertActions = () =>
@@ -167,5 +167,5 @@ export const useAlertActions = () =>
       closeAlert: state.closeAlert,
       handleConfirm: state.handleAlertConfirm,
       handleCancel: state.handleAlertCancel,
-    })),
+    }))
   );

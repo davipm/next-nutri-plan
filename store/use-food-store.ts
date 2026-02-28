@@ -5,44 +5,44 @@ import { createStore } from '@/store/create-store';
 /**
  * State shape for the foods store
  */
-type FoodsState = {
-  /** Currently selected food ID for viewing/editing */
-  selectedFoodId: number | null;
+interface FoodsState {
   /** Controls the food create/edit dialog visibility */
   foodDialogOpen: boolean;
   /** Active filters applied to the food list */
   foodFilters: FoodFiltersInput;
   /** Controls the filters drawer visibility */
   foodFiltersDrawerOpen: boolean;
-};
+  /** Currently selected food ID for viewing/editing */
+  selectedFoodId: number | null;
+}
 
 /**
  * Actions available in the foods store
  */
-type FoodsActions = {
-  // Selection actions
-  setSelectedFoodId: (id: number | null) => void;
+interface FoodsActions {
   clearSelection: () => void;
-
-  // Dialog actions
-  setFoodDialogOpen: (isOpen: boolean) => void;
-  openFoodDialog: (foodId?: number) => void;
   closeFoodDialog: () => void;
-
-  // Filter actions
-  setFoodFilters: (filters: Partial<FoodFiltersInput>) => void;
-  resetFoodFilters: () => void;
-  setFoodFilterPage: (action: 'next' | 'prev' | number) => void;
-  setFoodFiltersSearchTerm: (term: string) => void;
-
-  // Filters drawer actions
-  setFoodFiltersDrawerOpen: (isOpen: boolean) => void;
-  openFoodFiltersDrawer: () => void;
   closeFoodFiltersDrawer: () => void;
+  openFoodDialog: (foodId?: number) => void;
+  openFoodFiltersDrawer: () => void;
+  resetFoodFilters: () => void;
 
   // Composite actions
   resetStore: () => void;
-};
+
+  // Dialog actions
+  setFoodDialogOpen: (isOpen: boolean) => void;
+  setFoodFilterPage: (action: 'next' | 'prev' | number) => void;
+
+  // Filter actions
+  setFoodFilters: (filters: Partial<FoodFiltersInput>) => void;
+
+  // Filters drawer actions
+  setFoodFiltersDrawerOpen: (isOpen: boolean) => void;
+  setFoodFiltersSearchTerm: (term: string) => void;
+  // Selection actions
+  setSelectedFoodId: (id: number | null) => void;
+}
 
 type FoodsStore = FoodsState & FoodsActions;
 
@@ -91,7 +91,9 @@ export const useFoodsStore = createStore<FoodsStore>(
     setFoodDialogOpen: (isOpen) =>
       set((state) => {
         state.foodDialogOpen = isOpen;
-        if (!isOpen) state.selectedFoodId = null;
+        if (!isOpen) {
+          state.selectedFoodId = null;
+        }
       }),
 
     openFoodDialog: (foodId) =>
@@ -164,7 +166,7 @@ export const useFoodsStore = createStore<FoodsStore>(
       'foodFiltersDrawerOpen',
       'selectedFoodId',
     ],
-  },
+  }
 );
 
 // =============================================================================
@@ -192,7 +194,7 @@ export const useFoodDialogState = () =>
     useShallow((state) => ({
       open: state.foodDialogOpen,
       selectedId: state.selectedFoodId,
-    })),
+    }))
   );
 
 /**
@@ -204,7 +206,7 @@ export const useFoodDialogActions = () =>
     useShallow((state) => ({
       open: state.openFoodDialog,
       close: state.closeFoodDialog,
-    })),
+    }))
   );
 
 /**
@@ -216,7 +218,7 @@ export const useFoodFiltersDrawer = () =>
       open: state.foodFiltersDrawerOpen,
       openDrawer: state.openFoodFiltersDrawer,
       closeDrawer: state.closeFoodFiltersDrawer,
-    })),
+    }))
   );
 
 /**
@@ -230,7 +232,7 @@ export const useFoodFilterActions = () =>
       resetFilters: state.resetFoodFilters,
       setPage: state.setFoodFilterPage,
       setSearchTerm: state.setFoodFiltersSearchTerm,
-    })),
+    }))
   );
 
 /**

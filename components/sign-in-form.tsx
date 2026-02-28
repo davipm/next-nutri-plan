@@ -55,22 +55,22 @@ export function SignInForm() {
       onSubmit={form.handleSubmit(onSubmit)}
     >
       <div className="text-center">
-        <h2 className="mb-1 text-2xl font-semibold">Welcome Back</h2>
+        <h2 className="mb-1 font-semibold text-2xl">Welcome Back</h2>
         <p className="text-muted-foreground text-sm">Sign in to your account</p>
       </div>
 
       <FieldGroup>
         <Controller
-          name="email"
           control={form.control}
+          name="email"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <Input
                 {...field}
-                id={field.name}
-                type="email"
-                placeholder="Email"
                 aria-invalid={fieldState.invalid}
+                id={field.name}
+                placeholder="Email"
+                type="email"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -78,15 +78,15 @@ export function SignInForm() {
         />
 
         <Controller
-          name="password"
           control={form.control}
+          name="password"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <PasswordInput
                 {...field}
+                aria-invalid={fieldState.invalid}
                 id={field.name}
                 placeholder="Password"
-                aria-invalid={fieldState.invalid}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -95,20 +95,20 @@ export function SignInForm() {
       </FieldGroup>
 
       <Button
-        type="submit"
+        aria-busy={isPending}
         className="w-full hover:cursor-pointer"
         disabled={isPending}
-        aria-busy={isPending}
+        type="submit"
       >
         {isPending && (
-          <Loader2Icon className="animate-spin" aria-hidden="true" data-testid="loader-icon" />
+          <Loader2Icon aria-hidden="true" className="animate-spin" data-testid="loader-icon" />
         )}
         Sign in
       </Button>
 
       <div className="text-center text-sm">
         Don&apos;t have an account?
-        <Link href="/sign-up" className="text-primary ml-1 font-medium hover:underline">
+        <Link className="ml-1 font-medium text-primary hover:underline" href="/sign-up">
           Sign up
         </Link>
       </div>

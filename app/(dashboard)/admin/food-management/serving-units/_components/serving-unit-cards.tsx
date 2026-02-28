@@ -33,7 +33,7 @@ export function ServingUnitCards() {
         });
         toast.success('Serving Unit deleted successfully.');
       },
-    }),
+    })
   );
 
   const handleEdit = (id: number) => {
@@ -43,7 +43,8 @@ export function ServingUnitCards() {
   const handleDelete = ({ name, id }: { name: string; id: number }) => {
     alert({
       title: `Delete Serving unit ${name}?`,
-      description: `Are you sure you want to delete this Serving unit? This action cannot be undone.`,
+      description:
+        'Are you sure you want to delete this Serving unit? This action cannot be undone.',
       onConfirm: () => deleteServingUnit({ id }),
     });
   };
@@ -59,7 +60,7 @@ export function ServingUnitCards() {
   }
 
   if (isError) {
-    return <HasError refetchAction={refetch} isRefetching={isRefetching} />;
+    return <HasError isRefetching={isRefetching} refetchAction={refetch} />;
   }
 
   if (!data.length) {
@@ -70,32 +71,32 @@ export function ServingUnitCards() {
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
       {data.map((servingUnit) => (
         <div
-          key={servingUnit.id}
           className="flex flex-col justify-between gap-3 rounded-lg border p-6"
+          key={servingUnit.id}
         >
           <p className="truncate font-medium">{servingUnit.name}</p>
 
           <div className="flex items-center gap-1">
             <Button
-              className="size-6"
-              variant="ghost"
-              size="icon"
-              type="button"
-              onClick={() => handleEdit(servingUnit.id)}
               aria-label={`Edit ${servingUnit.name}`}
+              className="size-6"
+              onClick={() => handleEdit(servingUnit.id)}
+              size="icon"
               title={`Edit ${servingUnit.name}`}
+              type="button"
+              variant="ghost"
             >
               <Edit />
             </Button>
             <Button
+              aria-disabled={isPending}
+              aria-label={`Delete ${servingUnit.name}`}
               className="size-6"
-              variant="ghost"
+              disabled={isPending}
+              onClick={() => handleDelete(servingUnit)}
               size="icon"
               type="button"
-              onClick={() => handleDelete(servingUnit)}
-              aria-label={`Delete ${servingUnit.name}`}
-              disabled={isPending}
-              aria-disabled={isPending}
+              variant="ghost"
             >
               <Trash />
             </Button>

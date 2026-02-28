@@ -99,7 +99,7 @@ export const useCategoriesStore = createStore<CategoriesStore>(
     name: 'categories-store',
     // Don't persist transient UI state
     excludeFromPersist: ['categoryDialogOpen', 'dialogMode', 'selectedCategoryId'],
-  },
+  }
 );
 
 // =============================================================================
@@ -123,7 +123,7 @@ export const useCategoryDialogState = () =>
       open: state.categoryDialogOpen,
       mode: state.dialogMode,
       selectedId: state.selectedCategoryId,
-    })),
+    }))
   );
 
 /**
@@ -136,7 +136,7 @@ export const useCategoryDialogActions = () =>
       openCreate: state.openCreateDialog,
       openEdit: state.openEditDialog,
       close: state.closeDialog,
-    })),
+    }))
   );
 
 /**
@@ -147,7 +147,7 @@ export const useCategorySelectionActions = () =>
     useShallow((state) => ({
       select: state.setSelectedCategoryId,
       clear: state.clearSelection,
-    })),
+    }))
   );
 
 // =============================================================================

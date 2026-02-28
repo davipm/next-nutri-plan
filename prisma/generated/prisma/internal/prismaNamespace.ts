@@ -186,17 +186,18 @@ export type XOR<T, U> = T extends object
 /**
  * Is T a Record?
  */
-type IsObject<T extends any> = T extends Array<any>
-  ? False
-  : T extends Date
+type IsObject<T extends any> =
+  T extends Array<any>
     ? False
-    : T extends Uint8Array
+    : T extends Date
       ? False
-      : T extends BigInt
+      : T extends Uint8Array
         ? False
-        : T extends object
-          ? True
-          : False;
+        : T extends BigInt
+          ? False
+          : T extends object
+            ? True
+            : False;
 
 /**
  * If it's T[], return T
@@ -234,7 +235,7 @@ export type PatchUndefined<O extends object, O1 extends object> = {
 
 /** Helper Types for "Merge" **/
 export type IntersectOf<U extends Union> = (U extends unknown ? (k: U) => void : never) extends (
-  k: infer I,
+  k: infer I
 ) => void
   ? I
   : never;
@@ -333,10 +334,8 @@ export type GetScalarType<T, O> = O extends object
     }
   : never;
 
-type FieldPaths<
-  T,
-  U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>,
-> = IsObject<T> extends True ? U : T;
+type FieldPaths<T, U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>> =
+  IsObject<T> extends True ? U : T;
 
 export type GetHavingFields<T> = {
   [K in keyof T]: Or<Or<Extends<'OR', K>, Extends<'AND', K>>, Extends<'NOT', K>> extends True
@@ -1534,9 +1533,8 @@ export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
 
 export type GetLogType<T> = CheckIsLogLevel<T extends LogDefinition ? T['level'] : T>;
 
-export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
-  ? GetLogType<T[number]>
-  : never;
+export type GetEvents<T extends any[]> =
+  T extends Array<LogLevel | LogDefinition> ? GetLogType<T[number]> : never;
 
 export type QueryEvent = {
   timestamp: Date;

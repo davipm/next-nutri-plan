@@ -143,7 +143,7 @@ class FoodService {
       '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
     >,
     foodId: number,
-    servingUnits: Array<{ servingUnitId: number; grams: number }>,
+    servingUnits: Array<{ servingUnitId: number; grams: number }>
   ) {
     await tx.foodServingUnit.createMany({
       data: servingUnits.map((unit) => ({
@@ -175,13 +175,19 @@ class FoodService {
     }
 
     const calorieFilter = this.buildRangeFilter(caloriesRange);
-    if (calorieFilter) where.calories = calorieFilter;
+    if (calorieFilter) {
+      where.calories = calorieFilter;
+    }
 
     const proteinFilter = this.buildRangeFilter(proteinRange);
-    if (proteinFilter) where.protein = proteinFilter;
+    if (proteinFilter) {
+      where.protein = proteinFilter;
+    }
 
     const categoryFilter = this.buildCategoryFilter(categoryId);
-    if (categoryFilter) where.category = categoryFilter;
+    if (categoryFilter) {
+      where.category = categoryFilter;
+    }
 
     return where;
   }
@@ -193,22 +199,32 @@ class FoodService {
     const min = this.parseNumericValue(minStr);
     const max = this.parseNumericValue(maxStr);
 
-    if (min === null && max === null) return null;
+    if (min === null && max === null) {
+      return null;
+    }
 
     const filter: { gte?: number; lte?: number } = {};
-    if (min !== null) filter.gte = min;
-    if (max !== null) filter.lte = max;
+    if (min !== null) {
+      filter.gte = min;
+    }
+    if (max !== null) {
+      filter.lte = max;
+    }
     return filter;
   }
 
   private buildCategoryFilter(categoryId?: string): { id: number } | null {
-    if (!categoryId?.trim()) return null;
+    if (!categoryId?.trim()) {
+      return null;
+    }
     const id = this.parseNumericValue(categoryId);
     return id && id > 0 ? { id } : null;
   }
 
   private parseNumericValue(value: string): number | null {
-    if (!value?.trim()) return null;
+    if (!value?.trim()) {
+      return null;
+    }
     const parsed = Number(value.trim());
     return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
   }

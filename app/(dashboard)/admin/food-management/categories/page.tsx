@@ -5,7 +5,7 @@ export default function CategoriesPage() {
   return (
     <>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Categories List</h1>
+        <h1 className="font-semibold text-3xl">Categories List</h1>
         <CategoryFormDialog />
       </div>
       <CategoryCards />

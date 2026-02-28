@@ -60,22 +60,22 @@ export function SignUpForm() {
       onSubmit={form.handleSubmit(onSubmit)}
     >
       <div className="text-center">
-        <h2 className="mb-1 text-2xl font-semibold">Create Account</h2>
+        <h2 className="mb-1 font-semibold text-2xl">Create Account</h2>
         <p className="text-muted-foreground text-sm">Sign up to get started</p>
       </div>
 
       <FieldGroup>
         <Controller
+          control={form.control}
           name="name"
-          control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <Input
                 {...field}
+                aria-invalid={fieldState.invalid}
                 id={field.name}
-                type="text"
                 placeholder="Name"
-                aria-invalid={fieldState.invalid}
+                type="text"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -83,16 +83,16 @@ export function SignUpForm() {
         />
 
         <Controller
-          name="email"
           control={form.control}
+          name="email"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <Input
                 {...field}
+                aria-invalid={fieldState.invalid}
                 id={field.name}
-                type="email"
                 placeholder="Email"
-                aria-invalid={fieldState.invalid}
+                type="email"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -100,15 +100,15 @@ export function SignUpForm() {
         />
 
         <Controller
+          control={form.control}
           name="password"
-          control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <PasswordInput
                 {...field}
+                aria-invalid={fieldState.invalid}
                 id={field.name}
                 placeholder="Password"
-                aria-invalid={fieldState.invalid}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -116,15 +116,15 @@ export function SignUpForm() {
         />
 
         <Controller
-          name="confirmPassword"
           control={form.control}
+          name="confirmPassword"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <PasswordInput
                 {...field}
+                aria-invalid={fieldState.invalid}
                 id={field.name}
                 placeholder="Password"
-                aria-invalid={fieldState.invalid}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -132,13 +132,13 @@ export function SignUpForm() {
         />
       </FieldGroup>
 
-      <Button type="submit" className="w-full" disabled={isPending} aria-busy={isPending}>
-        {isPending ? <Loader2Icon className="animate-spin" aria-hidden="true" /> : 'Sign up'}
+      <Button aria-busy={isPending} className="w-full" disabled={isPending} type="submit">
+        {isPending ? <Loader2Icon aria-hidden="true" className="animate-spin" /> : 'Sign up'}
       </Button>
 
       <div className="text-center text-sm">
         Already have an account?
-        <Link href="/sign-in" className="text-primary ml-1 font-medium hover:underline">
+        <Link className="ml-1 font-medium text-primary hover:underline" href="/sign-in">
           Sign in
         </Link>
       </div>

@@ -1,7 +1,5 @@
 import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { Role } from '@/app/(dashboard)/_types/nav';
 import { getSession } from '@/lib/auth-client';
 
 export default async function Layout({ children }: { children: ReactNode }) {

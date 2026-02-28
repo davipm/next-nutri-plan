@@ -865,57 +865,167 @@ export interface MealDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Meal']; meta: { name: 'Meal' } };
   /**
-   * Find zero or one Meal that matches the filter.
-   * @param {MealFindUniqueArgs} args - Arguments to find a Meal
+   * Allows you to perform aggregations operations on a Meal.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {MealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one Meal
-   * const meal = await prisma.meal.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends MealAggregateArgs>(
+    args: Prisma.Subset<T, MealAggregateArgs>
+  ): Prisma.PrismaPromise<GetMealAggregateType<T>>;
+
+  /**
+   * Count the number of Meals.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {MealCountArgs} args - Arguments to filter Meals to count.
+   * @example
+   * // Count the number of Meals
+   * const count = await prisma.meal.count({
+   *   where: {
+   *     // ... the filter for the Meals we want to count
    *   }
    * })
+   **/
+  count<T extends MealCountArgs>(
+    args?: Prisma.Subset<T, MealCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], MealCountAggregateOutputType>
+      : number
+  >;
+
+  /**
+   * Create a Meal.
+   * @param {MealCreateArgs} args - Arguments to create a Meal.
+   * @example
+   * // Create one Meal
+   * const Meal = await prisma.meal.create({
+   *   data: {
+   *     // ... data to create a Meal
+   *   }
+   * })
+   *
    */
-  findUnique<T extends MealFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, MealFindUniqueArgs<ExtArgs>>,
+  create<T extends MealCreateArgs>(
+    args: Prisma.SelectSubset<T, MealCreateArgs<ExtArgs>>
   ): Prisma.Prisma__MealClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$MealPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
+    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
+    never,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Find one Meal that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {MealFindUniqueOrThrowArgs} args - Arguments to find a Meal
+   * Create many Meals.
+   * @param {MealCreateManyArgs} args - Arguments to create many Meals.
    * @example
-   * // Get one Meal
-   * const meal = await prisma.meal.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
-   *   }
+   * // Create many Meals
+   * const meal = await prisma.meal.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
    * })
+   *
    */
-  findUniqueOrThrow<T extends MealFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, MealFindUniqueOrThrowArgs<ExtArgs>>,
-  ): Prisma.Prisma__MealClient<
+  createMany<T extends MealCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, MealCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many Meals and returns the data saved in the database.
+   * @param {MealCreateManyAndReturnArgs} args - Arguments to create many Meals.
+   * @example
+   * // Create many Meals
+   * const meal = await prisma.meal.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many Meals and only return the `id`
+   * const mealWithIdOnly = await prisma.meal.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends MealCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, MealCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$MealPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'createManyAndReturn',
       GlobalOmitOptions
-    >,
+    >
+  >;
+
+  /**
+   * Delete a Meal.
+   * @param {MealDeleteArgs} args - Arguments to delete one Meal.
+   * @example
+   * // Delete one Meal
+   * const Meal = await prisma.meal.delete({
+   *   where: {
+   *     // ... filter to delete one Meal
+   *   }
+   * })
+   *
+   */
+  delete<T extends MealDeleteArgs>(
+    args: Prisma.SelectSubset<T, MealDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__MealClient<
+    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Delete zero or more Meals.
+   * @param {MealDeleteManyArgs} args - Arguments to filter Meals to delete.
+   * @example
+   * // Delete a few Meals
+   * const { count } = await prisma.meal.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends MealDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, MealDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the Meal model
+   */
+  readonly fields: MealFieldRefs;
 
   /**
    * Find the first Meal that matches the filter.
@@ -931,7 +1041,7 @@ export interface MealDelegate<
    * })
    */
   findFirst<T extends MealFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, MealFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, MealFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__MealClient<
     runtime.Types.Result.GetResult<
       Prisma.$MealPayload<ExtArgs>,
@@ -959,7 +1069,7 @@ export interface MealDelegate<
    * })
    */
   findFirstOrThrow<T extends MealFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, MealFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, MealFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__MealClient<
     runtime.Types.Result.GetResult<
       Prisma.$MealPayload<ExtArgs>,
@@ -989,278 +1099,60 @@ export interface MealDelegate<
    *
    */
   findMany<T extends MealFindManyArgs>(
-    args?: Prisma.SelectSubset<T, MealFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, MealFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
-
   /**
-   * Create a Meal.
-   * @param {MealCreateArgs} args - Arguments to create a Meal.
+   * Find zero or one Meal that matches the filter.
+   * @param {MealFindUniqueArgs} args - Arguments to find a Meal
    * @example
-   * // Create one Meal
-   * const Meal = await prisma.meal.create({
-   *   data: {
-   *     // ... data to create a Meal
+   * // Get one Meal
+   * const meal = await prisma.meal.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends MealCreateArgs>(
-    args: Prisma.SelectSubset<T, MealCreateArgs<ExtArgs>>,
+  findUnique<T extends MealFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, MealFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__MealClient<
-    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Create many Meals.
-   * @param {MealCreateManyArgs} args - Arguments to create many Meals.
-   * @example
-   * // Create many Meals
-   * const meal = await prisma.meal.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends MealCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, MealCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many Meals and returns the data saved in the database.
-   * @param {MealCreateManyAndReturnArgs} args - Arguments to create many Meals.
-   * @example
-   * // Create many Meals
-   * const meal = await prisma.meal.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many Meals and only return the `id`
-   * const mealWithIdOnly = await prisma.meal.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends MealCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, MealCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$MealPayload<ExtArgs>,
       T,
-      'createManyAndReturn',
+      'findUnique',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a Meal.
-   * @param {MealDeleteArgs} args - Arguments to delete one Meal.
-   * @example
-   * // Delete one Meal
-   * const Meal = await prisma.meal.delete({
-   *   where: {
-   *     // ... filter to delete one Meal
-   *   }
-   * })
-   *
-   */
-  delete<T extends MealDeleteArgs>(
-    args: Prisma.SelectSubset<T, MealDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__MealClient<
-    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
-    never,
+    > | null,
+    null,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Update one Meal.
-   * @param {MealUpdateArgs} args - Arguments to update one Meal.
+   * Find one Meal that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {MealFindUniqueOrThrowArgs} args - Arguments to find a Meal
    * @example
-   * // Update one Meal
-   * const meal = await prisma.meal.update({
+   * // Get one Meal
+   * const meal = await prisma.meal.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
    *   }
    * })
-   *
    */
-  update<T extends MealUpdateArgs>(
-    args: Prisma.SelectSubset<T, MealUpdateArgs<ExtArgs>>,
+  findUniqueOrThrow<T extends MealFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, MealFindUniqueOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__MealClient<
-    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more Meals.
-   * @param {MealDeleteManyArgs} args - Arguments to filter Meals to delete.
-   * @example
-   * // Delete a few Meals
-   * const { count } = await prisma.meal.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends MealDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, MealDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Meals.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {MealUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many Meals
-   * const meal = await prisma.meal.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends MealUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, MealUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Meals and returns the data updated in the database.
-   * @param {MealUpdateManyAndReturnArgs} args - Arguments to update many Meals.
-   * @example
-   * // Update many Meals
-   * const meal = await prisma.meal.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more Meals and only return the `id`
-   * const mealWithIdOnly = await prisma.meal.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends MealUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, MealUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$MealPayload<ExtArgs>,
       T,
-      'updateManyAndReturn',
+      'findUniqueOrThrow',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one Meal.
-   * @param {MealUpsertArgs} args - Arguments to update or create a Meal.
-   * @example
-   * // Update or create a Meal
-   * const meal = await prisma.meal.upsert({
-   *   create: {
-   *     // ... data to create a Meal
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the Meal we want to update
-   *   }
-   * })
-   */
-  upsert<T extends MealUpsertArgs>(
-    args: Prisma.SelectSubset<T, MealUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__MealClient<
-    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Count the number of Meals.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {MealCountArgs} args - Arguments to filter Meals to count.
-   * @example
-   * // Count the number of Meals
-   * const count = await prisma.meal.count({
-   *   where: {
-   *     // ... the filter for the Meals we want to count
-   *   }
-   * })
-   **/
-  count<T extends MealCountArgs>(
-    args?: Prisma.Subset<T, MealCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], MealCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a Meal.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {MealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends MealAggregateArgs>(
-    args: Prisma.Subset<T, MealAggregateArgs>,
-  ): Prisma.PrismaPromise<GetMealAggregateType<T>>;
 
   /**
    * Group by Meal.
@@ -1335,12 +1227,119 @@ export interface MealDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, MealGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, MealGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetMealGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the Meal model
+   * Update one Meal.
+   * @param {MealUpdateArgs} args - Arguments to update one Meal.
+   * @example
+   * // Update one Meal
+   * const meal = await prisma.meal.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: MealFieldRefs;
+  update<T extends MealUpdateArgs>(
+    args: Prisma.SelectSubset<T, MealUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__MealClient<
+    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more Meals.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {MealUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Meals
+   * const meal = await prisma.meal.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends MealUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, MealUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more Meals and returns the data updated in the database.
+   * @param {MealUpdateManyAndReturnArgs} args - Arguments to update many Meals.
+   * @example
+   * // Update many Meals
+   * const meal = await prisma.meal.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more Meals and only return the `id`
+   * const mealWithIdOnly = await prisma.meal.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends MealUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, MealUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$MealPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one Meal.
+   * @param {MealUpsertArgs} args - Arguments to update or create a Meal.
+   * @example
+   * // Update or create a Meal
+   * const meal = await prisma.meal.upsert({
+   *   create: {
+   *     // ... data to create a Meal
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Meal we want to update
+   *   }
+   * })
+   */
+  upsert<T extends MealUpsertArgs>(
+    args: Prisma.SelectSubset<T, MealUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__MealClient<
+    runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Meal']; meta: { name: 'Meal' } };
 }
 
 /**
@@ -1355,28 +1354,29 @@ export interface Prisma__MealClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
   Food<T extends Prisma.Meal$FoodArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Meal$FoodArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.Meal$FoodArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
     | Null
   >;
-  user<T extends Prisma.Meal$userArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Meal$userArgs<ExtArgs>>,
-  ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$UserPayload<ExtArgs>,
-      T,
-      'findUniqueOrThrow',
-      GlobalOmitOptions
-    > | null,
-    null,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
   mealFoods<T extends Prisma.Meal$mealFoodsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Meal$mealFoodsArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.Meal$mealFoodsArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$MealFoodPayload<ExtArgs>,
@@ -1394,34 +1394,33 @@ export interface Prisma__MealClient<
    */
   then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  user<T extends Prisma.Meal$userArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.Meal$userArgs<ExtArgs>>
+  ): Prisma.Prisma__UserClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the Meal model
  */
 export interface MealFieldRefs {
-  readonly id: Prisma.FieldRef<'Meal', 'Int'>;
-  readonly dateTime: Prisma.FieldRef<'Meal', 'DateTime'>;
-  readonly userId: Prisma.FieldRef<'Meal', 'String'>;
   readonly createdAt: Prisma.FieldRef<'Meal', 'DateTime'>;
+  readonly dateTime: Prisma.FieldRef<'Meal', 'DateTime'>;
+  readonly id: Prisma.FieldRef<'Meal', 'Int'>;
   readonly updateAt: Prisma.FieldRef<'Meal', 'DateTime'>;
+  readonly userId: Prisma.FieldRef<'Meal', 'String'>;
 }
 
 // Custom InputTypes

@@ -44,7 +44,7 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
     orpc.servingUnits.find.queryOptions({
       input: { id: selectedId! },
       enabled: !!selectedId,
-    }),
+    })
   );
 
   const { mutate: createServingUnitMutation, isPending: createIsPending } = useMutation(
@@ -55,7 +55,7 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
           queryKey: orpc.servingUnits.key({ type: 'query' }),
         });
       },
-    }),
+    })
   );
 
   const { mutate: updateServingUnitMutation, isPending: updateIsPending } = useMutation(
@@ -66,7 +66,7 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
           queryKey: orpc.servingUnits.key({ type: 'query' }),
         });
       },
-    }),
+    })
   );
 
   const isPending = createIsPending || updateIsPending;
@@ -104,10 +104,10 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleDialogOpenChange}>
+    <Dialog onOpenChange={handleDialogOpenChange} open={open}>
       <DialogTrigger asChild>
         {smallTrigger ? (
-          <Button size="icon" variant="ghost" type="button">
+          <Button size="icon" type="button" variant="ghost">
             <Plus />
           </Button>
         ) : (
@@ -123,19 +123,19 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
             {isEditMode ? 'Edit Serving Unit' : 'Create a New Serving Unit'}
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
-              name="name"
               control={form.control}
+              name="name"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <Input
                     {...field}
-                    id={field.name}
-                    type="text"
-                    placeholder="Enter serving unit name"
                     aria-invalid={fieldState.invalid}
+                    id={field.name}
+                    placeholder="Enter serving unit name"
+                    type="text"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -143,7 +143,7 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
             />
           </FieldGroup>
           <DialogFooter>
-            <Button type="submit" disabled={isPending}>
+            <Button disabled={isPending} type="submit">
               {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
               {isEditMode ? 'Update serving unit' : 'Create serving unit'}
             </Button>

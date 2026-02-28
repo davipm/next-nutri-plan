@@ -886,60 +886,177 @@ export interface FoodServingUnitDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['FoodServingUnit'];
-    meta: { name: 'FoodServingUnit' };
-  };
   /**
-   * Find zero or one FoodServingUnit that matches the filter.
-   * @param {FoodServingUnitFindUniqueArgs} args - Arguments to find a FoodServingUnit
+   * Allows you to perform aggregations operations on a FoodServingUnit.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {FoodServingUnitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one FoodServingUnit
-   * const foodServingUnit = await prisma.foodServingUnit.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends FoodServingUnitAggregateArgs>(
+    args: Prisma.Subset<T, FoodServingUnitAggregateArgs>
+  ): Prisma.PrismaPromise<GetFoodServingUnitAggregateType<T>>;
+
+  /**
+   * Count the number of FoodServingUnits.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {FoodServingUnitCountArgs} args - Arguments to filter FoodServingUnits to count.
+   * @example
+   * // Count the number of FoodServingUnits
+   * const count = await prisma.foodServingUnit.count({
+   *   where: {
+   *     // ... the filter for the FoodServingUnits we want to count
    *   }
    * })
-   */
-  findUnique<T extends FoodServingUnitFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitFindUniqueArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodServingUnitPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
-    ExtArgs,
-    GlobalOmitOptions
+   **/
+  count<T extends FoodServingUnitCountArgs>(
+    args?: Prisma.Subset<T, FoodServingUnitCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], FoodServingUnitCountAggregateOutputType>
+      : number
   >;
 
   /**
-   * Find one FoodServingUnit that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {FoodServingUnitFindUniqueOrThrowArgs} args - Arguments to find a FoodServingUnit
+   * Create a FoodServingUnit.
+   * @param {FoodServingUnitCreateArgs} args - Arguments to create a FoodServingUnit.
    * @example
-   * // Get one FoodServingUnit
-   * const foodServingUnit = await prisma.foodServingUnit.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
+   * // Create one FoodServingUnit
+   * const FoodServingUnit = await prisma.foodServingUnit.create({
+   *   data: {
+   *     // ... data to create a FoodServingUnit
    *   }
    * })
+   *
    */
-  findUniqueOrThrow<T extends FoodServingUnitFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitFindUniqueOrThrowArgs<ExtArgs>>,
+  create<T extends FoodServingUnitCreateArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitCreateArgs<ExtArgs>>
   ): Prisma.Prisma__FoodServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodServingUnitPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'create',
       GlobalOmitOptions
     >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Create many FoodServingUnits.
+   * @param {FoodServingUnitCreateManyArgs} args - Arguments to create many FoodServingUnits.
+   * @example
+   * // Create many FoodServingUnits
+   * const foodServingUnit = await prisma.foodServingUnit.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   */
+  createMany<T extends FoodServingUnitCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, FoodServingUnitCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many FoodServingUnits and returns the data saved in the database.
+   * @param {FoodServingUnitCreateManyAndReturnArgs} args - Arguments to create many FoodServingUnits.
+   * @example
+   * // Create many FoodServingUnits
+   * const foodServingUnit = await prisma.foodServingUnit.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many FoodServingUnits and only return the `id`
+   * const foodServingUnitWithIdOnly = await prisma.foodServingUnit.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends FoodServingUnitCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, FoodServingUnitCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodServingUnitPayload<ExtArgs>,
+      T,
+      'createManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Delete a FoodServingUnit.
+   * @param {FoodServingUnitDeleteArgs} args - Arguments to delete one FoodServingUnit.
+   * @example
+   * // Delete one FoodServingUnit
+   * const FoodServingUnit = await prisma.foodServingUnit.delete({
+   *   where: {
+   *     // ... filter to delete one FoodServingUnit
+   *   }
+   * })
+   *
+   */
+  delete<T extends FoodServingUnitDeleteArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodServingUnitPayload<ExtArgs>,
+      T,
+      'delete',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Delete zero or more FoodServingUnits.
+   * @param {FoodServingUnitDeleteManyArgs} args - Arguments to filter FoodServingUnits to delete.
+   * @example
+   * // Delete a few FoodServingUnits
+   * const { count } = await prisma.foodServingUnit.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends FoodServingUnitDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, FoodServingUnitDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the FoodServingUnit model
+   */
+  readonly fields: FoodServingUnitFieldRefs;
 
   /**
    * Find the first FoodServingUnit that matches the filter.
@@ -955,7 +1072,7 @@ export interface FoodServingUnitDelegate<
    * })
    */
   findFirst<T extends FoodServingUnitFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, FoodServingUnitFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, FoodServingUnitFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__FoodServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodServingUnitPayload<ExtArgs>,
@@ -983,7 +1100,7 @@ export interface FoodServingUnitDelegate<
    * })
    */
   findFirstOrThrow<T extends FoodServingUnitFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, FoodServingUnitFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, FoodServingUnitFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__FoodServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodServingUnitPayload<ExtArgs>,
@@ -1013,7 +1130,7 @@ export interface FoodServingUnitDelegate<
    *
    */
   findMany<T extends FoodServingUnitFindManyArgs>(
-    args?: Prisma.SelectSubset<T, FoodServingUnitFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, FoodServingUnitFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$FoodServingUnitPayload<ExtArgs>,
@@ -1022,294 +1139,56 @@ export interface FoodServingUnitDelegate<
       GlobalOmitOptions
     >
   >;
-
   /**
-   * Create a FoodServingUnit.
-   * @param {FoodServingUnitCreateArgs} args - Arguments to create a FoodServingUnit.
+   * Find zero or one FoodServingUnit that matches the filter.
+   * @param {FoodServingUnitFindUniqueArgs} args - Arguments to find a FoodServingUnit
    * @example
-   * // Create one FoodServingUnit
-   * const FoodServingUnit = await prisma.foodServingUnit.create({
-   *   data: {
-   *     // ... data to create a FoodServingUnit
+   * // Get one FoodServingUnit
+   * const foodServingUnit = await prisma.foodServingUnit.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends FoodServingUnitCreateArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitCreateArgs<ExtArgs>>,
+  findUnique<T extends FoodServingUnitFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__FoodServingUnitClient<
     runtime.Types.Result.GetResult<
       Prisma.$FoodServingUnitPayload<ExtArgs>,
       T,
-      'create',
+      'findUnique',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Find one FoodServingUnit that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {FoodServingUnitFindUniqueOrThrowArgs} args - Arguments to find a FoodServingUnit
+   * @example
+   * // Get one FoodServingUnit
+   * const foodServingUnit = await prisma.foodServingUnit.findUniqueOrThrow({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findUniqueOrThrow<T extends FoodServingUnitFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitFindUniqueOrThrowArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodServingUnitPayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
       GlobalOmitOptions
     >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Create many FoodServingUnits.
-   * @param {FoodServingUnitCreateManyArgs} args - Arguments to create many FoodServingUnits.
-   * @example
-   * // Create many FoodServingUnits
-   * const foodServingUnit = await prisma.foodServingUnit.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends FoodServingUnitCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, FoodServingUnitCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many FoodServingUnits and returns the data saved in the database.
-   * @param {FoodServingUnitCreateManyAndReturnArgs} args - Arguments to create many FoodServingUnits.
-   * @example
-   * // Create many FoodServingUnits
-   * const foodServingUnit = await prisma.foodServingUnit.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many FoodServingUnits and only return the `id`
-   * const foodServingUnitWithIdOnly = await prisma.foodServingUnit.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends FoodServingUnitCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, FoodServingUnitCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodServingUnitPayload<ExtArgs>,
-      T,
-      'createManyAndReturn',
-      GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a FoodServingUnit.
-   * @param {FoodServingUnitDeleteArgs} args - Arguments to delete one FoodServingUnit.
-   * @example
-   * // Delete one FoodServingUnit
-   * const FoodServingUnit = await prisma.foodServingUnit.delete({
-   *   where: {
-   *     // ... filter to delete one FoodServingUnit
-   *   }
-   * })
-   *
-   */
-  delete<T extends FoodServingUnitDeleteArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodServingUnitPayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Update one FoodServingUnit.
-   * @param {FoodServingUnitUpdateArgs} args - Arguments to update one FoodServingUnit.
-   * @example
-   * // Update one FoodServingUnit
-   * const foodServingUnit = await prisma.foodServingUnit.update({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  update<T extends FoodServingUnitUpdateArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitUpdateArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodServingUnitPayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more FoodServingUnits.
-   * @param {FoodServingUnitDeleteManyArgs} args - Arguments to filter FoodServingUnits to delete.
-   * @example
-   * // Delete a few FoodServingUnits
-   * const { count } = await prisma.foodServingUnit.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends FoodServingUnitDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, FoodServingUnitDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more FoodServingUnits.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {FoodServingUnitUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many FoodServingUnits
-   * const foodServingUnit = await prisma.foodServingUnit.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends FoodServingUnitUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more FoodServingUnits and returns the data updated in the database.
-   * @param {FoodServingUnitUpdateManyAndReturnArgs} args - Arguments to update many FoodServingUnits.
-   * @example
-   * // Update many FoodServingUnits
-   * const foodServingUnit = await prisma.foodServingUnit.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more FoodServingUnits and only return the `id`
-   * const foodServingUnitWithIdOnly = await prisma.foodServingUnit.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends FoodServingUnitUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodServingUnitPayload<ExtArgs>,
-      T,
-      'updateManyAndReturn',
-      GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one FoodServingUnit.
-   * @param {FoodServingUnitUpsertArgs} args - Arguments to update or create a FoodServingUnit.
-   * @example
-   * // Update or create a FoodServingUnit
-   * const foodServingUnit = await prisma.foodServingUnit.upsert({
-   *   create: {
-   *     // ... data to create a FoodServingUnit
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the FoodServingUnit we want to update
-   *   }
-   * })
-   */
-  upsert<T extends FoodServingUnitUpsertArgs>(
-    args: Prisma.SelectSubset<T, FoodServingUnitUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__FoodServingUnitClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$FoodServingUnitPayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Count the number of FoodServingUnits.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {FoodServingUnitCountArgs} args - Arguments to filter FoodServingUnits to count.
-   * @example
-   * // Count the number of FoodServingUnits
-   * const count = await prisma.foodServingUnit.count({
-   *   where: {
-   *     // ... the filter for the FoodServingUnits we want to count
-   *   }
-   * })
-   **/
-  count<T extends FoodServingUnitCountArgs>(
-    args?: Prisma.Subset<T, FoodServingUnitCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], FoodServingUnitCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a FoodServingUnit.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {FoodServingUnitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends FoodServingUnitAggregateArgs>(
-    args: Prisma.Subset<T, FoodServingUnitAggregateArgs>,
-  ): Prisma.PrismaPromise<GetFoodServingUnitAggregateType<T>>;
 
   /**
    * Group by FoodServingUnit.
@@ -1384,14 +1263,134 @@ export interface FoodServingUnitDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, FoodServingUnitGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, FoodServingUnitGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors
     ? GetFoodServingUnitGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the FoodServingUnit model
+   * Update one FoodServingUnit.
+   * @param {FoodServingUnitUpdateArgs} args - Arguments to update one FoodServingUnit.
+   * @example
+   * // Update one FoodServingUnit
+   * const foodServingUnit = await prisma.foodServingUnit.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: FoodServingUnitFieldRefs;
+  update<T extends FoodServingUnitUpdateArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodServingUnitPayload<ExtArgs>,
+      T,
+      'update',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more FoodServingUnits.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {FoodServingUnitUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many FoodServingUnits
+   * const foodServingUnit = await prisma.foodServingUnit.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends FoodServingUnitUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more FoodServingUnits and returns the data updated in the database.
+   * @param {FoodServingUnitUpdateManyAndReturnArgs} args - Arguments to update many FoodServingUnits.
+   * @example
+   * // Update many FoodServingUnits
+   * const foodServingUnit = await prisma.foodServingUnit.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more FoodServingUnits and only return the `id`
+   * const foodServingUnitWithIdOnly = await prisma.foodServingUnit.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends FoodServingUnitUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodServingUnitPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one FoodServingUnit.
+   * @param {FoodServingUnitUpsertArgs} args - Arguments to update or create a FoodServingUnit.
+   * @example
+   * // Update or create a FoodServingUnit
+   * const foodServingUnit = await prisma.foodServingUnit.upsert({
+   *   create: {
+   *     // ... data to create a FoodServingUnit
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the FoodServingUnit we want to update
+   *   }
+   * })
+   */
+  upsert<T extends FoodServingUnitUpsertArgs>(
+    args: Prisma.SelectSubset<T, FoodServingUnitUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__FoodServingUnitClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$FoodServingUnitPayload<ExtArgs>,
+      T,
+      'upsert',
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>['model']['FoodServingUnit'];
+    meta: { name: 'FoodServingUnit' };
+  };
 }
 
 /**
@@ -1406,9 +1405,23 @@ export interface Prisma__FoodServingUnitClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
   food<T extends Prisma.FoodDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.FoodDefaultArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.FoodDefaultArgs<ExtArgs>>
   ): Prisma.Prisma__FoodClient<
     | runtime.Types.Result.GetResult<
         Prisma.$FoodPayload<ExtArgs>,
@@ -1422,7 +1435,7 @@ export interface Prisma__FoodServingUnitClient<
     GlobalOmitOptions
   >;
   servingUnit<T extends Prisma.ServingUnitDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.ServingUnitDefaultArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.ServingUnitDefaultArgs<ExtArgs>>
   ): Prisma.Prisma__ServingUnitClient<
     | runtime.Types.Result.GetResult<
         Prisma.$ServingUnitPayload<ExtArgs>,
@@ -1443,35 +1456,21 @@ export interface Prisma__FoodServingUnitClient<
    */
   then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the FoodServingUnit model
  */
 export interface FoodServingUnitFieldRefs {
-  readonly id: Prisma.FieldRef<'FoodServingUnit', 'Int'>;
-  readonly foodId: Prisma.FieldRef<'FoodServingUnit', 'Int'>;
-  readonly servingUnitId: Prisma.FieldRef<'FoodServingUnit', 'Int'>;
   readonly createdAt: Prisma.FieldRef<'FoodServingUnit', 'DateTime'>;
-  readonly updateAt: Prisma.FieldRef<'FoodServingUnit', 'DateTime'>;
+  readonly foodId: Prisma.FieldRef<'FoodServingUnit', 'Int'>;
   readonly grams: Prisma.FieldRef<'FoodServingUnit', 'Float'>;
+  readonly id: Prisma.FieldRef<'FoodServingUnit', 'Int'>;
+  readonly servingUnitId: Prisma.FieldRef<'FoodServingUnit', 'Int'>;
+  readonly updateAt: Prisma.FieldRef<'FoodServingUnit', 'DateTime'>;
 }
 
 // Custom InputTypes

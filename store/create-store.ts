@@ -20,7 +20,7 @@ type StoreConfig<T> = {
 
 export const createStore = <T extends object>(
   storeCreator: StateCreator<T, [['zustand/immer', never]], []>,
-  config?: StoreConfig<T>,
+  config?: StoreConfig<T>
 ) => {
   const {
     name,
@@ -34,10 +34,10 @@ export const createStore = <T extends object>(
     migrate,
   } = config || {};
 
-  if (!skipPersist && !name) {
+  if (!(skipPersist || name)) {
     throw new Error(
       'createStore: `config.name` is required when persistence is enabled. ' +
-        'Set `skipPersist: true` for memory-only stores or provide a unique name.',
+        'Set `skipPersist: true` for memory-only stores or provide a unique name.'
     );
   }
 
@@ -61,7 +61,9 @@ export const createStore = <T extends object>(
     persist(enhancedStoreCreator, {
       name: name!,
       storage: createJSONStorage(() => {
-        if (storage) return storage;
+        if (storage) {
+          return storage;
+        }
 
         if (typeof window !== 'undefined' && window.localStorage) {
           return localStorage;
@@ -77,12 +79,12 @@ export const createStore = <T extends object>(
         customPartialize ||
         ((state) =>
           Object.fromEntries(
-            Object.entries(state).filter(([key]) => !excludeFromPersist.includes(key as keyof T)),
+            Object.entries(state).filter(([key]) => !excludeFromPersist.includes(key as keyof T))
           ) as Partial<T>),
       ...(merge && { merge }),
       ...(version !== undefined && { version }),
       ...(migrate && { migrate }),
-    }),
+    })
   );
 };
 

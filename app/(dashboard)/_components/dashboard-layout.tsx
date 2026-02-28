@@ -29,7 +29,7 @@ export function DashboardLayout({ children }: Props) {
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+            <Separator className="mr-2 data-[orientation=vertical]:h-4" orientation="vertical" />
             <Breadcrumb>
               <BreadcrumbList>
                 {segments.map((segment, index) => {
@@ -38,7 +38,7 @@ export function DashboardLayout({ children }: Props) {
                   const label = segment.charAt(0).toUpperCase() + segment.slice(1);
 
                   return (
-                    <div key={href} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" key={href}>
                       <BreadcrumbSeparator />
                       <BreadcrumbItem>
                         {isLast ? (

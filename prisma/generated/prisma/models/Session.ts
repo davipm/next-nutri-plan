@@ -749,57 +749,167 @@ export interface SessionDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Session']; meta: { name: 'Session' } };
   /**
-   * Find zero or one Session that matches the filter.
-   * @param {SessionFindUniqueArgs} args - Arguments to find a Session
+   * Allows you to perform aggregations operations on a Session.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {SessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one Session
-   * const session = await prisma.session.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends SessionAggregateArgs>(
+    args: Prisma.Subset<T, SessionAggregateArgs>
+  ): Prisma.PrismaPromise<GetSessionAggregateType<T>>;
+
+  /**
+   * Count the number of Sessions.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {SessionCountArgs} args - Arguments to filter Sessions to count.
+   * @example
+   * // Count the number of Sessions
+   * const count = await prisma.session.count({
+   *   where: {
+   *     // ... the filter for the Sessions we want to count
    *   }
    * })
+   **/
+  count<T extends SessionCountArgs>(
+    args?: Prisma.Subset<T, SessionCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], SessionCountAggregateOutputType>
+      : number
+  >;
+
+  /**
+   * Create a Session.
+   * @param {SessionCreateArgs} args - Arguments to create a Session.
+   * @example
+   * // Create one Session
+   * const Session = await prisma.session.create({
+   *   data: {
+   *     // ... data to create a Session
+   *   }
+   * })
+   *
    */
-  findUnique<T extends SessionFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, SessionFindUniqueArgs<ExtArgs>>,
+  create<T extends SessionCreateArgs>(
+    args: Prisma.SelectSubset<T, SessionCreateArgs<ExtArgs>>
   ): Prisma.Prisma__SessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SessionPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
+    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
+    never,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Find one Session that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {SessionFindUniqueOrThrowArgs} args - Arguments to find a Session
+   * Create many Sessions.
+   * @param {SessionCreateManyArgs} args - Arguments to create many Sessions.
    * @example
-   * // Get one Session
-   * const session = await prisma.session.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
-   *   }
+   * // Create many Sessions
+   * const session = await prisma.session.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
    * })
+   *
    */
-  findUniqueOrThrow<T extends SessionFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, SessionFindUniqueOrThrowArgs<ExtArgs>>,
-  ): Prisma.Prisma__SessionClient<
+  createMany<T extends SessionCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, SessionCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many Sessions and returns the data saved in the database.
+   * @param {SessionCreateManyAndReturnArgs} args - Arguments to create many Sessions.
+   * @example
+   * // Create many Sessions
+   * const session = await prisma.session.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many Sessions and only return the `id`
+   * const sessionWithIdOnly = await prisma.session.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends SessionCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, SessionCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SessionPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'createManyAndReturn',
       GlobalOmitOptions
-    >,
+    >
+  >;
+
+  /**
+   * Delete a Session.
+   * @param {SessionDeleteArgs} args - Arguments to delete one Session.
+   * @example
+   * // Delete one Session
+   * const Session = await prisma.session.delete({
+   *   where: {
+   *     // ... filter to delete one Session
+   *   }
+   * })
+   *
+   */
+  delete<T extends SessionDeleteArgs>(
+    args: Prisma.SelectSubset<T, SessionDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__SessionClient<
+    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Delete zero or more Sessions.
+   * @param {SessionDeleteManyArgs} args - Arguments to filter Sessions to delete.
+   * @example
+   * // Delete a few Sessions
+   * const { count } = await prisma.session.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends SessionDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, SessionDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the Session model
+   */
+  readonly fields: SessionFieldRefs;
 
   /**
    * Find the first Session that matches the filter.
@@ -815,7 +925,7 @@ export interface SessionDelegate<
    * })
    */
   findFirst<T extends SessionFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, SessionFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, SessionFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__SessionClient<
     runtime.Types.Result.GetResult<
       Prisma.$SessionPayload<ExtArgs>,
@@ -843,7 +953,7 @@ export interface SessionDelegate<
    * })
    */
   findFirstOrThrow<T extends SessionFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, SessionFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, SessionFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__SessionClient<
     runtime.Types.Result.GetResult<
       Prisma.$SessionPayload<ExtArgs>,
@@ -873,7 +983,7 @@ export interface SessionDelegate<
    *
    */
   findMany<T extends SessionFindManyArgs>(
-    args?: Prisma.SelectSubset<T, SessionFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, SessionFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SessionPayload<ExtArgs>,
@@ -882,274 +992,56 @@ export interface SessionDelegate<
       GlobalOmitOptions
     >
   >;
-
   /**
-   * Create a Session.
-   * @param {SessionCreateArgs} args - Arguments to create a Session.
+   * Find zero or one Session that matches the filter.
+   * @param {SessionFindUniqueArgs} args - Arguments to find a Session
    * @example
-   * // Create one Session
-   * const Session = await prisma.session.create({
-   *   data: {
-   *     // ... data to create a Session
+   * // Get one Session
+   * const session = await prisma.session.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends SessionCreateArgs>(
-    args: Prisma.SelectSubset<T, SessionCreateArgs<ExtArgs>>,
+  findUnique<T extends SessionFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, SessionFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__SessionClient<
-    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Create many Sessions.
-   * @param {SessionCreateManyArgs} args - Arguments to create many Sessions.
-   * @example
-   * // Create many Sessions
-   * const session = await prisma.session.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends SessionCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, SessionCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many Sessions and returns the data saved in the database.
-   * @param {SessionCreateManyAndReturnArgs} args - Arguments to create many Sessions.
-   * @example
-   * // Create many Sessions
-   * const session = await prisma.session.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many Sessions and only return the `id`
-   * const sessionWithIdOnly = await prisma.session.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends SessionCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, SessionCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SessionPayload<ExtArgs>,
       T,
-      'createManyAndReturn',
+      'findUnique',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a Session.
-   * @param {SessionDeleteArgs} args - Arguments to delete one Session.
-   * @example
-   * // Delete one Session
-   * const Session = await prisma.session.delete({
-   *   where: {
-   *     // ... filter to delete one Session
-   *   }
-   * })
-   *
-   */
-  delete<T extends SessionDeleteArgs>(
-    args: Prisma.SelectSubset<T, SessionDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__SessionClient<
-    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
-    never,
+    > | null,
+    null,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Update one Session.
-   * @param {SessionUpdateArgs} args - Arguments to update one Session.
+   * Find one Session that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {SessionFindUniqueOrThrowArgs} args - Arguments to find a Session
    * @example
-   * // Update one Session
-   * const session = await prisma.session.update({
+   * // Get one Session
+   * const session = await prisma.session.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
    *   }
    * })
-   *
    */
-  update<T extends SessionUpdateArgs>(
-    args: Prisma.SelectSubset<T, SessionUpdateArgs<ExtArgs>>,
+  findUniqueOrThrow<T extends SessionFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, SessionFindUniqueOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__SessionClient<
-    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more Sessions.
-   * @param {SessionDeleteManyArgs} args - Arguments to filter Sessions to delete.
-   * @example
-   * // Delete a few Sessions
-   * const { count } = await prisma.session.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends SessionDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, SessionDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Sessions.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {SessionUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many Sessions
-   * const session = await prisma.session.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends SessionUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, SessionUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Sessions and returns the data updated in the database.
-   * @param {SessionUpdateManyAndReturnArgs} args - Arguments to update many Sessions.
-   * @example
-   * // Update many Sessions
-   * const session = await prisma.session.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more Sessions and only return the `id`
-   * const sessionWithIdOnly = await prisma.session.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends SessionUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, SessionUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SessionPayload<ExtArgs>,
       T,
-      'updateManyAndReturn',
+      'findUniqueOrThrow',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one Session.
-   * @param {SessionUpsertArgs} args - Arguments to update or create a Session.
-   * @example
-   * // Update or create a Session
-   * const session = await prisma.session.upsert({
-   *   create: {
-   *     // ... data to create a Session
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the Session we want to update
-   *   }
-   * })
-   */
-  upsert<T extends SessionUpsertArgs>(
-    args: Prisma.SelectSubset<T, SessionUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__SessionClient<
-    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Count the number of Sessions.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {SessionCountArgs} args - Arguments to filter Sessions to count.
-   * @example
-   * // Count the number of Sessions
-   * const count = await prisma.session.count({
-   *   where: {
-   *     // ... the filter for the Sessions we want to count
-   *   }
-   * })
-   **/
-  count<T extends SessionCountArgs>(
-    args?: Prisma.Subset<T, SessionCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], SessionCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a Session.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {SessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends SessionAggregateArgs>(
-    args: Prisma.Subset<T, SessionAggregateArgs>,
-  ): Prisma.PrismaPromise<GetSessionAggregateType<T>>;
 
   /**
    * Group by Session.
@@ -1224,12 +1116,119 @@ export interface SessionDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, SessionGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, SessionGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the Session model
+   * Update one Session.
+   * @param {SessionUpdateArgs} args - Arguments to update one Session.
+   * @example
+   * // Update one Session
+   * const session = await prisma.session.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: SessionFieldRefs;
+  update<T extends SessionUpdateArgs>(
+    args: Prisma.SelectSubset<T, SessionUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__SessionClient<
+    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more Sessions.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {SessionUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Sessions
+   * const session = await prisma.session.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends SessionUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, SessionUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more Sessions and returns the data updated in the database.
+   * @param {SessionUpdateManyAndReturnArgs} args - Arguments to update many Sessions.
+   * @example
+   * // Update many Sessions
+   * const session = await prisma.session.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more Sessions and only return the `id`
+   * const sessionWithIdOnly = await prisma.session.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends SessionUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, SessionUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$SessionPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one Session.
+   * @param {SessionUpsertArgs} args - Arguments to update or create a Session.
+   * @example
+   * // Update or create a Session
+   * const session = await prisma.session.upsert({
+   *   create: {
+   *     // ... data to create a Session
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Session we want to update
+   *   }
+   * })
+   */
+  upsert<T extends SessionUpsertArgs>(
+    args: Prisma.SelectSubset<T, SessionUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__SessionClient<
+    runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Session']; meta: { name: 'Session' } };
 }
 
 /**
@@ -1244,9 +1243,33 @@ export interface Prisma__SessionClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
     | runtime.Types.Result.GetResult<
         Prisma.$UserPayload<ExtArgs>,
@@ -1259,46 +1282,22 @@ export interface Prisma__SessionClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-  /**
-   * Attaches callbacks for the resolution and/or rejection of the Promise.
-   * @param onfulfilled The callback to execute when the Promise is resolved.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of which ever callback is executed.
-   */
-  then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the Session model
  */
 export interface SessionFieldRefs {
-  readonly id: Prisma.FieldRef<'Session', 'String'>;
-  readonly expiresAt: Prisma.FieldRef<'Session', 'DateTime'>;
-  readonly token: Prisma.FieldRef<'Session', 'String'>;
   readonly createdAt: Prisma.FieldRef<'Session', 'DateTime'>;
-  readonly updatedAt: Prisma.FieldRef<'Session', 'DateTime'>;
+  readonly expiresAt: Prisma.FieldRef<'Session', 'DateTime'>;
+  readonly id: Prisma.FieldRef<'Session', 'String'>;
+  readonly impersonatedBy: Prisma.FieldRef<'Session', 'String'>;
   readonly ipAddress: Prisma.FieldRef<'Session', 'String'>;
+  readonly token: Prisma.FieldRef<'Session', 'String'>;
+  readonly updatedAt: Prisma.FieldRef<'Session', 'DateTime'>;
   readonly userAgent: Prisma.FieldRef<'Session', 'String'>;
   readonly userId: Prisma.FieldRef<'Session', 'String'>;
-  readonly impersonatedBy: Prisma.FieldRef<'Session', 'String'>;
 }
 
 // Custom InputTypes

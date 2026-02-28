@@ -51,7 +51,7 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
     orpc.categories.find.queryOptions({
       input: { id: selectedId! },
       enabled: !!selectedId,
-    }),
+    })
   );
 
   const { mutate: createCategoryMutation, isPending: createIsPending } = useMutation(
@@ -60,7 +60,7 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
         closeCategoryDialog();
         await queryClient.invalidateQueries({ queryKey: orpc.categories.key({ type: 'query' }) });
       },
-    }),
+    })
   );
 
   const { mutate: updateCategoryMutation, isPending: updateIsPending } = useMutation(
@@ -69,7 +69,7 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
         closeCategoryDialog();
         await queryClient.invalidateQueries({ queryKey: orpc.categories.key({ type: 'query' }) });
       },
-    }),
+    })
   );
 
   const isPending = createIsPending || updateIsPending;
@@ -100,10 +100,10 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleDialogOpenChange}>
+    <Dialog onOpenChange={handleDialogOpenChange} open={open}>
       <DialogTrigger asChild>
         {smallTrigger ? (
-          <Button size="icon" variant="ghost" type="button">
+          <Button size="icon" type="button" variant="ghost">
             <Plus />
           </Button>
         ) : (
@@ -119,19 +119,19 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
             {isEditMode ? 'Edit Category' : 'New Category'}
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
-              name="name"
               control={form.control}
+              name="name"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <Input
                     {...field}
-                    id={field.name}
-                    type="text"
-                    placeholder="Name"
                     aria-invalid={fieldState.invalid}
+                    id={field.name}
+                    placeholder="Name"
+                    type="text"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -139,7 +139,7 @@ export function CategoryFormDialog({ smallTrigger = false }: Props) {
             />
           </FieldGroup>
           <DialogFooter>
-            <Button type="submit" disabled={isPending}>
+            <Button disabled={isPending} type="submit">
               {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
               {isEditMode ? 'Update Category' : 'Create Category'}
             </Button>

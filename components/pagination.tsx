@@ -84,7 +84,7 @@ export function Pagination({
       <div className="flex justify-center">
         <div className="flex items-center gap-1">
           {SKELETON_ITEMS.map(({ className, key }) => (
-            <Skeleton key={key} className={className} />
+            <Skeleton className={className} key={key} />
           ))}
         </div>
       </div>
@@ -94,15 +94,12 @@ export function Pagination({
   return (
     <nav
       aria-label="pagination"
-      data-slot="pagination"
       className={cn('mx-auto flex w-full justify-center', className)}
+      data-slot="pagination"
     >
       <ul className="flex flex-row items-center gap-1">
         <li>
           <button
-            type="button"
-            onClick={() => updatePage('prev')}
-            disabled={isPrevDisabled}
             aria-label="Go to previous page"
             className={cn(
               buttonVariants({
@@ -110,8 +107,11 @@ export function Pagination({
                 size: 'default',
               }),
               'gap-1 px-2.5 sm:pl-2.5',
-              isPrevDisabled && 'pointer-events-none opacity-50',
+              isPrevDisabled && 'pointer-events-none opacity-50'
             )}
+            disabled={isPrevDisabled}
+            onClick={() => updatePage('prev')}
+            type="button"
           >
             <ChevronLeftIcon />
             <span className="hidden sm:block">Previous</span>
@@ -120,33 +120,33 @@ export function Pagination({
 
         {pages.map((page, index) => (
           <li
+            data-slot="pagination-ellipses"
             key={`${page}-${
               // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               index
             }`}
-            data-slot="pagination-ellipses"
           >
             {page === 'ellipsis' ? (
               <span
                 aria-hidden
-                data-slot="pagination-ellipsis"
                 className="flex size-9 items-center justify-center"
+                data-slot="pagination-ellipsis"
               >
                 <MoreHorizontalIcon className="size-4" />
                 <span className="sr-only">More pages</span>
               </span>
             ) : (
               <button
-                type="button"
-                onClick={() => updatePage(page as number)}
                 aria-current={currentPage === page ? 'page' : undefined}
-                data-active={currentPage === page}
                 className={cn(
                   buttonVariants({
                     variant: currentPage === page ? 'outline' : 'ghost',
                     size: 'icon',
-                  }),
+                  })
                 )}
+                data-active={currentPage === page}
+                onClick={() => updatePage(page as number)}
+                type="button"
               >
                 {page}
               </button>
@@ -156,9 +156,6 @@ export function Pagination({
 
         <li>
           <button
-            type="button"
-            onClick={() => updatePage('next')}
-            disabled={isNextDisabled}
             aria-label="Go to next page"
             className={cn(
               buttonVariants({
@@ -166,8 +163,11 @@ export function Pagination({
                 size: 'default',
               }),
               'gap-1 px-2.5 sm:pr-2.5',
-              isNextDisabled && 'pointer-events-none opacity-50',
+              isNextDisabled && 'pointer-events-none opacity-50'
             )}
+            disabled={isNextDisabled}
+            onClick={() => updatePage('next')}
+            type="button"
           >
             <span className="hidden sm:block">Next</span>
             <ChevronRightIcon />

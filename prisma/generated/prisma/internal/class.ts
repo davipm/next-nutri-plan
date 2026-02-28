@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
 };
 
 config.runtimeDataModel = JSON.parse(
-  '{"models":{"User":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"email","kind":"scalar","type":"String"},{"name":"emailVerified","kind":"scalar","type":"Boolean"},{"name":"image","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"role","kind":"scalar","type":"String"},{"name":"banned","kind":"scalar","type":"Boolean"},{"name":"banReason","kind":"scalar","type":"String"},{"name":"banExpires","kind":"scalar","type":"DateTime"},{"name":"sessions","kind":"object","type":"Session","relationName":"SessionToUser"},{"name":"accounts","kind":"object","type":"Account","relationName":"AccountToUser"},{"name":"meals","kind":"object","type":"Meal","relationName":"MealToUser"}],"dbName":"user"},"Session":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"token","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"ipAddress","kind":"scalar","type":"String"},{"name":"userAgent","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"SessionToUser"},{"name":"impersonatedBy","kind":"scalar","type":"String"}],"dbName":"session"},"Account":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"accountId","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"AccountToUser"},{"name":"accessToken","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"idToken","kind":"scalar","type":"String"},{"name":"accessTokenExpiresAt","kind":"scalar","type":"DateTime"},{"name":"refreshTokenExpiresAt","kind":"scalar","type":"DateTime"},{"name":"scope","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"account"},"Verification":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"identifier","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"verification"},"Category":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"name","kind":"scalar","type":"String"},{"name":"createAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"foods","kind":"object","type":"Food","relationName":"CategoryToFood"}],"dbName":null},"Food":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"name","kind":"scalar","type":"String"},{"name":"calories","kind":"scalar","type":"Float"},{"name":"protein","kind":"scalar","type":"Float"},{"name":"fat","kind":"scalar","type":"Float"},{"name":"carbohydrates","kind":"scalar","type":"Float"},{"name":"fiber","kind":"scalar","type":"Float"},{"name":"sugar","kind":"scalar","type":"Float"},{"name":"categoryId","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"mealId","kind":"scalar","type":"Int"},{"name":"category","kind":"object","type":"Category","relationName":"CategoryToFood"},{"name":"meal","kind":"object","type":"Meal","relationName":"FoodToMeal"},{"name":"foodServingUnits","kind":"object","type":"FoodServingUnit","relationName":"FoodToFoodServingUnit"},{"name":"mealFood","kind":"object","type":"MealFood","relationName":"FoodToMealFood"},{"name":"servingUnit","kind":"object","type":"ServingUnit","relationName":"FoodToServingUnit"}],"dbName":null},"ServingUnit":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"name","kind":"scalar","type":"String"},{"name":"foodId","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"FoodServingUnit","kind":"object","type":"FoodServingUnit","relationName":"FoodServingUnitToServingUnit"},{"name":"mealFood","kind":"object","type":"MealFood","relationName":"MealFoodToServingUnit"},{"name":"food","kind":"object","type":"Food","relationName":"FoodToServingUnit"}],"dbName":null},"FoodServingUnit":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"foodId","kind":"scalar","type":"Int"},{"name":"servingUnitId","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"grams","kind":"scalar","type":"Float"},{"name":"food","kind":"object","type":"Food","relationName":"FoodToFoodServingUnit"},{"name":"servingUnit","kind":"object","type":"ServingUnit","relationName":"FoodServingUnitToServingUnit"}],"dbName":null},"Meal":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"dateTime","kind":"scalar","type":"DateTime"},{"name":"userId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"Food","kind":"object","type":"Food","relationName":"FoodToMeal"},{"name":"user","kind":"object","type":"User","relationName":"MealToUser"},{"name":"mealFoods","kind":"object","type":"MealFood","relationName":"MealToMealFood"}],"dbName":null},"MealFood":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"foodId","kind":"scalar","type":"Int"},{"name":"mealId","kind":"scalar","type":"Int"},{"name":"amount","kind":"scalar","type":"Float"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"servingUnitId","kind":"scalar","type":"Int"},{"name":"food","kind":"object","type":"Food","relationName":"FoodToMealFood"},{"name":"meal","kind":"object","type":"Meal","relationName":"MealToMealFood"},{"name":"servingUnit","kind":"object","type":"ServingUnit","relationName":"MealFoodToServingUnit"}],"dbName":null}},"enums":{},"types":{}}',
+  '{"models":{"User":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"email","kind":"scalar","type":"String"},{"name":"emailVerified","kind":"scalar","type":"Boolean"},{"name":"image","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"role","kind":"scalar","type":"String"},{"name":"banned","kind":"scalar","type":"Boolean"},{"name":"banReason","kind":"scalar","type":"String"},{"name":"banExpires","kind":"scalar","type":"DateTime"},{"name":"sessions","kind":"object","type":"Session","relationName":"SessionToUser"},{"name":"accounts","kind":"object","type":"Account","relationName":"AccountToUser"},{"name":"meals","kind":"object","type":"Meal","relationName":"MealToUser"}],"dbName":"user"},"Session":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"token","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"ipAddress","kind":"scalar","type":"String"},{"name":"userAgent","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"SessionToUser"},{"name":"impersonatedBy","kind":"scalar","type":"String"}],"dbName":"session"},"Account":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"accountId","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"AccountToUser"},{"name":"accessToken","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"idToken","kind":"scalar","type":"String"},{"name":"accessTokenExpiresAt","kind":"scalar","type":"DateTime"},{"name":"refreshTokenExpiresAt","kind":"scalar","type":"DateTime"},{"name":"scope","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"account"},"Verification":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"identifier","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"verification"},"Category":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"name","kind":"scalar","type":"String"},{"name":"createAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"foods","kind":"object","type":"Food","relationName":"CategoryToFood"}],"dbName":null},"Food":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"name","kind":"scalar","type":"String"},{"name":"calories","kind":"scalar","type":"Float"},{"name":"protein","kind":"scalar","type":"Float"},{"name":"fat","kind":"scalar","type":"Float"},{"name":"carbohydrates","kind":"scalar","type":"Float"},{"name":"fiber","kind":"scalar","type":"Float"},{"name":"sugar","kind":"scalar","type":"Float"},{"name":"categoryId","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"mealId","kind":"scalar","type":"Int"},{"name":"category","kind":"object","type":"Category","relationName":"CategoryToFood"},{"name":"meal","kind":"object","type":"Meal","relationName":"FoodToMeal"},{"name":"foodServingUnits","kind":"object","type":"FoodServingUnit","relationName":"FoodToFoodServingUnit"},{"name":"mealFood","kind":"object","type":"MealFood","relationName":"FoodToMealFood"},{"name":"servingUnit","kind":"object","type":"ServingUnit","relationName":"FoodToServingUnit"}],"dbName":null},"ServingUnit":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"name","kind":"scalar","type":"String"},{"name":"foodId","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"FoodServingUnit","kind":"object","type":"FoodServingUnit","relationName":"FoodServingUnitToServingUnit"},{"name":"mealFood","kind":"object","type":"MealFood","relationName":"MealFoodToServingUnit"},{"name":"food","kind":"object","type":"Food","relationName":"FoodToServingUnit"}],"dbName":null},"FoodServingUnit":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"foodId","kind":"scalar","type":"Int"},{"name":"servingUnitId","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"grams","kind":"scalar","type":"Float"},{"name":"food","kind":"object","type":"Food","relationName":"FoodToFoodServingUnit"},{"name":"servingUnit","kind":"object","type":"ServingUnit","relationName":"FoodServingUnitToServingUnit"}],"dbName":null},"Meal":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"dateTime","kind":"scalar","type":"DateTime"},{"name":"userId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updateAt","kind":"scalar","type":"DateTime"},{"name":"Food","kind":"object","type":"Food","relationName":"FoodToMeal"},{"name":"user","kind":"object","type":"User","relationName":"MealToUser"},{"name":"mealFoods","kind":"object","type":"MealFood","relationName":"MealToMealFood"}],"dbName":null},"MealFood":{"fields":[{"name":"id","kind":"scalar","type":"Int"},{"name":"foodId","kind":"scalar","type":"Int"},{"name":"mealId","kind":"scalar","type":"Int"},{"name":"amount","kind":"scalar","type":"Float"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"servingUnitId","kind":"scalar","type":"Int"},{"name":"food","kind":"object","type":"Food","relationName":"FoodToMealFood"},{"name":"meal","kind":"object","type":"Meal","relationName":"MealToMealFood"},{"name":"servingUnit","kind":"object","type":"ServingUnit","relationName":"MealFoodToServingUnit"}],"dbName":null}},"enums":{},"types":{}}'
 );
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
@@ -81,7 +81,7 @@ export interface PrismaClientConstructor {
       : Prisma.PrismaClientOptions['omit'],
     ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   >(
-    options: Prisma.Subset<Options, Prisma.PrismaClientOptions>,
+    options: Prisma.Subset<Options, Prisma.PrismaClientOptions>
   ): PrismaClient<LogOpts, OmitOpts, ExtArgs>;
 }
 
@@ -105,13 +105,6 @@ export interface PrismaClient<
   in out ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] };
-
-  $on<V extends LogOpts>(
-    eventType: V,
-    callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void,
-  ): PrismaClient;
-
   /**
    * Connect with the database
    */
@@ -147,6 +140,23 @@ export interface PrismaClient<
    * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  $extends: runtime.Types.Extensions.ExtendsHook<
+    'extends',
+    Prisma.TypeMapCb<OmitOpts>,
+    ExtArgs,
+    runtime.Types.Utils.Call<
+      Prisma.TypeMapCb<OmitOpts>,
+      {
+        extArgs: ExtArgs;
+      }
+    >
+  >;
+
+  $on<V extends LogOpts>(
+    eventType: V,
+    callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void
+  ): PrismaClient;
 
   /**
    * Performs a prepared raw query and returns the `SELECT` data.
@@ -189,7 +199,7 @@ export interface PrismaClient<
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(
     arg: [...P],
-    options?: { isolationLevel?: Prisma.TransactionIsolationLevel },
+    options?: { isolationLevel?: Prisma.TransactionIsolationLevel }
   ): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>;
 
   $transaction<R>(
@@ -198,40 +208,8 @@ export interface PrismaClient<
       maxWait?: number;
       timeout?: number;
       isolationLevel?: Prisma.TransactionIsolationLevel;
-    },
+    }
   ): runtime.Types.Utils.JsPromise<R>;
-
-  $extends: runtime.Types.Extensions.ExtendsHook<
-    'extends',
-    Prisma.TypeMapCb<OmitOpts>,
-    ExtArgs,
-    runtime.Types.Utils.Call<
-      Prisma.TypeMapCb<OmitOpts>,
-      {
-        extArgs: ExtArgs;
-      }
-    >
-  >;
-
-  /**
-   * `prisma.user`: Exposes CRUD operations for the **User** model.
-   * Example usage:
-   * ```ts
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
-   * ```
-   */
-  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.session`: Exposes CRUD operations for the **Session** model.
-   * Example usage:
-   * ```ts
-   * // Fetch zero or more Sessions
-   * const sessions = await prisma.session.findMany()
-   * ```
-   */
-  get session(): Prisma.SessionDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.account`: Exposes CRUD operations for the **Account** model.
@@ -242,16 +220,6 @@ export interface PrismaClient<
    * ```
    */
   get account(): Prisma.AccountDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.verification`: Exposes CRUD operations for the **Verification** model.
-   * Example usage:
-   * ```ts
-   * // Fetch zero or more Verifications
-   * const verifications = await prisma.verification.findMany()
-   * ```
-   */
-  get verification(): Prisma.VerificationDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.category`: Exposes CRUD operations for the **Category** model.
@@ -272,16 +240,6 @@ export interface PrismaClient<
    * ```
    */
   get food(): Prisma.FoodDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.servingUnit`: Exposes CRUD operations for the **ServingUnit** model.
-   * Example usage:
-   * ```ts
-   * // Fetch zero or more ServingUnits
-   * const servingUnits = await prisma.servingUnit.findMany()
-   * ```
-   */
-  get servingUnit(): Prisma.ServingUnitDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.foodServingUnit`: Exposes CRUD operations for the **FoodServingUnit** model.
@@ -312,6 +270,47 @@ export interface PrismaClient<
    * ```
    */
   get mealFood(): Prisma.MealFoodDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.servingUnit`: Exposes CRUD operations for the **ServingUnit** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more ServingUnits
+   * const servingUnits = await prisma.servingUnit.findMany()
+   * ```
+   */
+  get servingUnit(): Prisma.ServingUnitDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.session`: Exposes CRUD operations for the **Session** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Sessions
+   * const sessions = await prisma.session.findMany()
+   * ```
+   */
+  get session(): Prisma.SessionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   */
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.verification`: Exposes CRUD operations for the **Verification** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Verifications
+   * const verifications = await prisma.verification.findMany()
+   * ```
+   */
+  get verification(): Prisma.VerificationDelegate<ExtArgs, { omit: OmitOpts }>;
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] };
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

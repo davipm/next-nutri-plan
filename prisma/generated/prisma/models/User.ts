@@ -1048,57 +1048,167 @@ export interface UserDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User']; meta: { name: 'User' } };
   /**
-   * Find zero or one User that matches the filter.
-   * @param {UserFindUniqueArgs} args - Arguments to find a User
+   * Allows you to perform aggregations operations on a User.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
-   * // Get one User
-   * const user = await prisma.user.findUnique({
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
    *   where: {
-   *     // ... provide filter here
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends UserAggregateArgs>(
+    args: Prisma.Subset<T, UserAggregateArgs>
+  ): Prisma.PrismaPromise<GetUserAggregateType<T>>;
+
+  /**
+   * Count the number of Users.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {UserCountArgs} args - Arguments to filter Users to count.
+   * @example
+   * // Count the number of Users
+   * const count = await prisma.user.count({
+   *   where: {
+   *     // ... the filter for the Users we want to count
    *   }
    * })
+   **/
+  count<T extends UserCountArgs>(
+    args?: Prisma.Subset<T, UserCountArgs>
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<'select', any>
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], UserCountAggregateOutputType>
+      : number
+  >;
+
+  /**
+   * Create a User.
+   * @param {UserCreateArgs} args - Arguments to create a User.
+   * @example
+   * // Create one User
+   * const User = await prisma.user.create({
+   *   data: {
+   *     // ... data to create a User
+   *   }
+   * })
+   *
    */
-  findUnique<T extends UserFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, UserFindUniqueArgs<ExtArgs>>,
+  create<T extends UserCreateArgs>(
+    args: Prisma.SelectSubset<T, UserCreateArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$UserPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
-    null,
+    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
+    never,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Find one User that matches the filter or throw an error with `error.code='P2025'`
-   * if no matches were found.
-   * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+   * Create many Users.
+   * @param {UserCreateManyArgs} args - Arguments to create many Users.
    * @example
-   * // Get one User
-   * const user = await prisma.user.findUniqueOrThrow({
-   *   where: {
-   *     // ... provide filter here
-   *   }
+   * // Create many Users
+   * const user = await prisma.user.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
    * })
+   *
    */
-  findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>,
-  ): Prisma.Prisma__UserClient<
+  createMany<T extends UserCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, UserCreateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Create many Users and returns the data saved in the database.
+   * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+   * @example
+   * // Create many Users
+   * const user = await prisma.user.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many Users and only return the `id`
+   * const userWithIdOnly = await prisma.user.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends UserCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$UserPayload<ExtArgs>,
       T,
-      'findUniqueOrThrow',
+      'createManyAndReturn',
       GlobalOmitOptions
-    >,
+    >
+  >;
+
+  /**
+   * Delete a User.
+   * @param {UserDeleteArgs} args - Arguments to delete one User.
+   * @example
+   * // Delete one User
+   * const User = await prisma.user.delete({
+   *   where: {
+   *     // ... filter to delete one User
+   *   }
+   * })
+   *
+   */
+  delete<T extends UserDeleteArgs>(
+    args: Prisma.SelectSubset<T, UserDeleteArgs<ExtArgs>>
+  ): Prisma.Prisma__UserClient<
+    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
+
+  /**
+   * Delete zero or more Users.
+   * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+   * @example
+   * // Delete a few Users
+   * const { count } = await prisma.user.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends UserDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, UserDeleteManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
 
   /**
    * Find the first User that matches the filter.
@@ -1114,7 +1224,7 @@ export interface UserDelegate<
    * })
    */
   findFirst<T extends UserFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, UserFindFirstArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, UserFindFirstArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
     runtime.Types.Result.GetResult<
       Prisma.$UserPayload<ExtArgs>,
@@ -1142,7 +1252,7 @@ export interface UserDelegate<
    * })
    */
   findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
     runtime.Types.Result.GetResult<
       Prisma.$UserPayload<ExtArgs>,
@@ -1172,278 +1282,60 @@ export interface UserDelegate<
    *
    */
   findMany<T extends UserFindManyArgs>(
-    args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>,
+    args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
-
   /**
-   * Create a User.
-   * @param {UserCreateArgs} args - Arguments to create a User.
+   * Find zero or one User that matches the filter.
+   * @param {UserFindUniqueArgs} args - Arguments to find a User
    * @example
-   * // Create one User
-   * const User = await prisma.user.create({
-   *   data: {
-   *     // ... data to create a User
+   * // Get one User
+   * const user = await prisma.user.findUnique({
+   *   where: {
+   *     // ... provide filter here
    *   }
    * })
-   *
    */
-  create<T extends UserCreateArgs>(
-    args: Prisma.SelectSubset<T, UserCreateArgs<ExtArgs>>,
+  findUnique<T extends UserFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, UserFindUniqueArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Create many Users.
-   * @param {UserCreateManyArgs} args - Arguments to create many Users.
-   * @example
-   * // Create many Users
-   * const user = await prisma.user.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   */
-  createMany<T extends UserCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, UserCreateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Create many Users and returns the data saved in the database.
-   * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
-   * @example
-   * // Create many Users
-   * const user = await prisma.user.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Create many Users and only return the `id`
-   * const userWithIdOnly = await prisma.user.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  createManyAndReturn<T extends UserCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$UserPayload<ExtArgs>,
       T,
-      'createManyAndReturn',
+      'findUnique',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Delete a User.
-   * @param {UserDeleteArgs} args - Arguments to delete one User.
-   * @example
-   * // Delete one User
-   * const User = await prisma.user.delete({
-   *   where: {
-   *     // ... filter to delete one User
-   *   }
-   * })
-   *
-   */
-  delete<T extends UserDeleteArgs>(
-    args: Prisma.SelectSubset<T, UserDeleteArgs<ExtArgs>>,
-  ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
-    never,
+    > | null,
+    null,
     ExtArgs,
     GlobalOmitOptions
   >;
 
   /**
-   * Update one User.
-   * @param {UserUpdateArgs} args - Arguments to update one User.
+   * Find one User that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
    * @example
-   * // Update one User
-   * const user = await prisma.user.update({
+   * // Get one User
+   * const user = await prisma.user.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
    *   }
    * })
-   *
    */
-  update<T extends UserUpdateArgs>(
-    args: Prisma.SelectSubset<T, UserUpdateArgs<ExtArgs>>,
+  findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
-    never,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-
-  /**
-   * Delete zero or more Users.
-   * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
-   * @example
-   * // Delete a few Users
-   * const { count } = await prisma.user.deleteMany({
-   *   where: {
-   *     // ... provide filter here
-   *   }
-   * })
-   *
-   */
-  deleteMany<T extends UserDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, UserDeleteManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Users.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
-   * @example
-   * // Update many Users
-   * const user = await prisma.user.updateMany({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: {
-   *     // ... provide data here
-   *   }
-   * })
-   *
-   */
-  updateMany<T extends UserUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, UserUpdateManyArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
-
-  /**
-   * Update zero or more Users and returns the data updated in the database.
-   * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
-   * @example
-   * // Update many Users
-   * const user = await prisma.user.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *
-   * // Update zero or more Users and only return the `id`
-   * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   *
-   */
-  updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$UserPayload<ExtArgs>,
       T,
-      'updateManyAndReturn',
+      'findUniqueOrThrow',
       GlobalOmitOptions
-    >
-  >;
-
-  /**
-   * Create or update one User.
-   * @param {UserUpsertArgs} args - Arguments to update or create a User.
-   * @example
-   * // Update or create a User
-   * const user = await prisma.user.upsert({
-   *   create: {
-   *     // ... data to create a User
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the User we want to update
-   *   }
-   * })
-   */
-  upsert<T extends UserUpsertArgs>(
-    args: Prisma.SelectSubset<T, UserUpsertArgs<ExtArgs>>,
-  ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
   >;
-
-  /**
-   * Count the number of Users.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {UserCountArgs} args - Arguments to filter Users to count.
-   * @example
-   * // Count the number of Users
-   * const count = await prisma.user.count({
-   *   where: {
-   *     // ... the filter for the Users we want to count
-   *   }
-   * })
-   **/
-  count<T extends UserCountArgs>(
-    args?: Prisma.Subset<T, UserCountArgs>,
-  ): Prisma.PrismaPromise<
-    T extends runtime.Types.Utils.Record<'select', any>
-      ? T['select'] extends true
-        ? number
-        : Prisma.GetScalarType<T['select'], UserCountAggregateOutputType>
-      : number
-  >;
-
-  /**
-   * Allows you to perform aggregations operations on a User.
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-   * @example
-   * // Ordered by age ascending
-   * // Where email contains prisma.io
-   * // Limited to the 10 users
-   * const aggregations = await prisma.user.aggregate({
-   *   _avg: {
-   *     age: true,
-   *   },
-   *   where: {
-   *     email: {
-   *       contains: "prisma.io",
-   *     },
-   *   },
-   *   orderBy: {
-   *     age: "asc",
-   *   },
-   *   take: 10,
-   * })
-   **/
-  aggregate<T extends UserAggregateArgs>(
-    args: Prisma.Subset<T, UserAggregateArgs>,
-  ): Prisma.PrismaPromise<GetUserAggregateType<T>>;
 
   /**
    * Group by User.
@@ -1518,12 +1410,119 @@ export interface UserDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors,
+    args: Prisma.SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors
   ): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+
   /**
-   * Fields of the User model
+   * Update one User.
+   * @param {UserUpdateArgs} args - Arguments to update one User.
+   * @example
+   * // Update one User
+   * const user = await prisma.user.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
    */
-  readonly fields: UserFieldRefs;
+  update<T extends UserUpdateArgs>(
+    args: Prisma.SelectSubset<T, UserUpdateArgs<ExtArgs>>
+  ): Prisma.Prisma__UserClient<
+    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+
+  /**
+   * Update zero or more Users.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Users
+   * const user = await prisma.user.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends UserUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, UserUpdateManyArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
+
+  /**
+   * Update zero or more Users and returns the data updated in the database.
+   * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
+   * @example
+   * // Update many Users
+   * const user = await prisma.user.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more Users and only return the `id`
+   * const userWithIdOnly = await prisma.user.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      'updateManyAndReturn',
+      GlobalOmitOptions
+    >
+  >;
+
+  /**
+   * Create or update one User.
+   * @param {UserUpsertArgs} args - Arguments to update or create a User.
+   * @example
+   * // Update or create a User
+   * const user = await prisma.user.upsert({
+   *   create: {
+   *     // ... data to create a User
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the User we want to update
+   *   }
+   * })
+   */
+  upsert<T extends UserUpsertArgs>(
+    args: Prisma.SelectSubset<T, UserUpsertArgs<ExtArgs>>
+  ): Prisma.Prisma__UserClient<
+    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User']; meta: { name: 'User' } };
 }
 
 /**
@@ -1538,20 +1537,8 @@ export interface Prisma__UserClient<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: 'PrismaPromise';
-  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SessionPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
-  >;
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$AccountPayload<ExtArgs>,
@@ -1561,10 +1548,36 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
   meals<T extends Prisma.User$mealsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.User$mealsArgs<ExtArgs>>,
+    args?: Prisma.Subset<T, Prisma.User$mealsArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
+    | Null
+  >;
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$SessionPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
     | Null
   >;
   /**
@@ -1575,40 +1588,26 @@ export interface Prisma__UserClient<
    */
   then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
-   */
-  catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
-  ): runtime.Types.Utils.JsPromise<T | TResult>;
-  /**
-   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-   * resolved value cannot be modified from the callback.
-   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-   * @returns A Promise for the completion of the callback.
-   */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
 }
 
 /**
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly id: Prisma.FieldRef<'User', 'String'>;
-  readonly name: Prisma.FieldRef<'User', 'String'>;
-  readonly email: Prisma.FieldRef<'User', 'String'>;
-  readonly emailVerified: Prisma.FieldRef<'User', 'Boolean'>;
-  readonly image: Prisma.FieldRef<'User', 'String'>;
-  readonly createdAt: Prisma.FieldRef<'User', 'DateTime'>;
-  readonly updatedAt: Prisma.FieldRef<'User', 'DateTime'>;
-  readonly role: Prisma.FieldRef<'User', 'String'>;
+  readonly banExpires: Prisma.FieldRef<'User', 'DateTime'>;
   readonly banned: Prisma.FieldRef<'User', 'Boolean'>;
   readonly banReason: Prisma.FieldRef<'User', 'String'>;
-  readonly banExpires: Prisma.FieldRef<'User', 'DateTime'>;
+  readonly createdAt: Prisma.FieldRef<'User', 'DateTime'>;
+  readonly email: Prisma.FieldRef<'User', 'String'>;
+  readonly emailVerified: Prisma.FieldRef<'User', 'Boolean'>;
+  readonly id: Prisma.FieldRef<'User', 'String'>;
+  readonly image: Prisma.FieldRef<'User', 'String'>;
+  readonly name: Prisma.FieldRef<'User', 'String'>;
+  readonly role: Prisma.FieldRef<'User', 'String'>;
+  readonly updatedAt: Prisma.FieldRef<'User', 'DateTime'>;
 }
 
 // Custom InputTypes

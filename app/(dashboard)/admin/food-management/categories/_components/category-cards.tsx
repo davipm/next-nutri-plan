@@ -28,7 +28,7 @@ export function CategoryCards() {
         await queryClient.invalidateQueries({ queryKey: orpc.categories.key({ type: 'query' }) });
         toast.success('Category deleted successfully.');
       },
-    }),
+    })
   );
 
   const handleEdit = (id: number) => {
@@ -38,7 +38,7 @@ export function CategoryCards() {
   const handleDelete = ({ name, id }: { name: string; id: number }) => {
     alert({
       title: `Delete category ${name}?`,
-      description: `Are you sure you want to delete this category? This action cannot be undone.`,
+      description: 'Are you sure you want to delete this category? This action cannot be undone.',
       onConfirm: () => deleteCategory({ id }),
     });
   };
@@ -54,7 +54,7 @@ export function CategoryCards() {
   }
 
   if (isError) {
-    return <HasError refetchAction={refetch} isRefetching={isRefetching} />;
+    return <HasError isRefetching={isRefetching} refetchAction={refetch} />;
   }
 
   if (!data.length) {
@@ -65,32 +65,32 @@ export function CategoryCards() {
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
       {data.map((category) => (
         <div
-          key={category.id}
           className="flex flex-col justify-between gap-3 rounded-lg border p-6"
+          key={category.id}
         >
           <p className="truncate font-medium">{category.name}</p>
 
           <div className="flex items-center gap-1">
             <Button
-              className="size-6"
-              variant="ghost"
-              size="icon"
-              type="button"
-              onClick={() => handleEdit(category.id)}
               aria-label={`Edit ${category.name}`}
+              className="size-6"
+              onClick={() => handleEdit(category.id)}
+              size="icon"
               title={`Edit ${category.name}`}
+              type="button"
+              variant="ghost"
             >
               <Edit />
             </Button>
             <Button
+              aria-disabled={isPending}
+              aria-label={`Delete ${category.name}`}
               className="size-6"
-              variant="ghost"
+              disabled={isPending}
+              onClick={() => handleDelete(category)}
               size="icon"
               type="button"
-              onClick={() => handleDelete(category)}
-              aria-label={`Delete ${category.name}`}
-              disabled={isPending}
-              aria-disabled={isPending}
+              variant="ghost"
             >
               <Trash />
             </Button>

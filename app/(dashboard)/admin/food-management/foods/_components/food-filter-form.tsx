@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export function OodFilterForm() {
+export function FoodFilterForm() {
   const [item, setItem] = useState(null);
 
   return (

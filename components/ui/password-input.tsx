@@ -51,13 +51,13 @@ export function PasswordInput({
         <InputGroup>
           <InputGroupInput
             {...props}
-            value={value}
             defaultValue={defaultValue}
-            type={showPassword ? 'text' : 'password'}
             onChange={handleChange}
+            type={showPassword ? 'text' : 'password'}
+            value={value}
           />
           <InputGroupAddon align="inline-end">
-            <InputGroupButton size="icon-xs" onClick={() => setShowPassword((p) => !p)}>
+            <InputGroupButton onClick={() => setShowPassword((p) => !p)} size="icon-xs">
               <Icon className="size-4.5" />
               <span className="sr-only">{showPassword ? 'Hide password' : 'Show password'}</span>
             </InputGroupButton>
@@ -101,8 +101,12 @@ export function PasswordInputStrengthChecker() {
   }, []);
 
   function getLabel() {
-    if (deferredPassword.length === 0) return 'Password strength';
-    if (!optionsLoaded) return 'Loading strength checker';
+    if (deferredPassword.length === 0) {
+      return 'Password strength';
+    }
+    if (!optionsLoaded) {
+      return 'Loading strength checker';
+    }
 
     const score = strengthResult.score;
     switch (score) {
@@ -122,40 +126,42 @@ export function PasswordInputStrengthChecker() {
 
   const label = getLabel();
 
-  if (errorLoadingOptions) return null;
+  if (errorLoadingOptions) {
+    return null;
+  }
 
   return (
     <div className="space-y-0.5">
       <div
-        role="progressbar"
         aria-label="Password Strength"
-        aria-valuenow={strengthResult.score}
-        aria-valuemin={0}
         aria-valuemax={4}
+        aria-valuemin={0}
+        aria-valuenow={strengthResult.score}
         aria-valuetext={label}
         className="flex gap-1"
+        role="progressbar"
       >
         {Array.from({ length: 4 }).map((_, i) => {
           const color = strengthResult.score >= 3 ? 'bg-primary' : 'bg-destructive';
 
           return (
             <div
-              key={i}
               className={cn(
                 'h-1 flex-1 rounded-full',
-                strengthResult.score > i ? color : 'bg-secondary',
+                strengthResult.score > i ? color : 'bg-secondary'
               )}
+              key={i}
             />
           );
         })}
       </div>
-      <div className="flex justify-end text-sm text-muted-foreground">
+      <div className="flex justify-end text-muted-foreground text-sm">
         {strengthResult.feedback.warning == null ? (
           label
         ) : (
           <Tooltip>
             <TooltipTrigger className="underline underline-offset-1">{label}</TooltipTrigger>
-            <TooltipContent side="bottom" sideOffset={4} className="text-base">
+            <TooltipContent className="text-base" side="bottom" sideOffset={4}>
               {strengthResult.feedback.warning}
             </TooltipContent>
           </Tooltip>
