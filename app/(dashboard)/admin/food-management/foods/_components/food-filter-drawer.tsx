@@ -41,8 +41,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
+import { useDebounce } from '@/hooks/use-debounce';
 import { orpc } from '@/lib/orpc';
-import { useDebounce } from '@/lib/use-debounce';
 import { foodFiltersSchema } from '@/server/modules/food/food.schema';
 import {
   foodFiltersDefaultValues,

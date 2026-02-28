@@ -1,6 +1,5 @@
 ---
-name: zustand
-description: Zustand state management guide. Use when working with store code (src/store/**), implementing actions, managing state, or creating slices. Triggers on Zustand store development, state management questions, or action implementation.
+apply: always
 ---
 
 # LobeHub Zustand State Management

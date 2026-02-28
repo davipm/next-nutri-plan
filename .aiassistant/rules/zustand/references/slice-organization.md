@@ -1,3 +1,7 @@
+---
+apply: always
+---
+
 # Zustand Slice Organization
 
 ## Top-Level Store Structure

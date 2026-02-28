@@ -1,3 +1,7 @@
+---
+apply: always
+---
+
 # Zustand Action Patterns
 
 ## Optimistic Update Implementation
