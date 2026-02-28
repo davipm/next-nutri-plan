@@ -50,7 +50,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <TabsList>
             {tabsConfig.map((tab) => (
               <TabsTrigger asChild key={tab.value} value={tab.value}>
-                <Link className="flex items-center gap-2" href={tab.href as any}>
+                <Link className="flex items-center gap-2" href={tab.href}>
                   {tab.icon}
                   {tab.label}
                 </Link>

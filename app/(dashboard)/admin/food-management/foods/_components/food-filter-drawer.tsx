@@ -5,9 +5,19 @@ import { useQuery } from '@tanstack/react-query';
 import { FilterIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import type { z } from 'zod';
+import {
+  ALL_CATEGORIES_VALUE,
+  FILTER_RANGE_MAX,
+  FILTER_RANGE_MIN,
+  type FoodFiltersFormValues,
+  getActiveFiltersCount,
+  normalizeRangeValues,
+  sortByOptions,
+  sortOrderOptions,
+} from '@/app/(dashboard)/admin/food-management/foods/_utils/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Drawer,
   DrawerClose,
@@ -30,63 +40,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 import { orpc } from '@/lib/orpc';
 import { useDebounce } from '@/lib/use-debounce';
-import { type FoodFiltersInput, foodFiltersSchema } from '@/server/modules/food/food.schema';
+import { foodFiltersSchema } from '@/server/modules/food/food.schema';
 import {
   foodFiltersDefaultValues,
   useFoodFilterActions,
   useFoodFilters,
   useFoodFiltersDrawer,
 } from '@/store/use-food-store';
-
-const sortByOptions = [
-  { label: 'Name', value: 'name' },
-  { label: 'Calories', value: 'calories' },
-  { label: 'Protein', value: 'protein' },
-  { label: 'Most Recent', value: 'createdAt' },
-];
-
-const sortOrderOptions = [
-  { label: 'Ascending', value: 'asc' },
-  { label: 'Descending', value: 'desc' },
-];
-
-const ALL_CATEGORIES_VALUE = 'all';
-type FoodFiltersFormValues = z.input<typeof foodFiltersSchema>;
-
-function getActiveFiltersCount(filters: FoodFiltersInput): number {
-  let count = 0;
-
-  if (filters.searchTerm?.trim()) {
-    count += 1;
-  }
-  if (filters.categoryId?.trim()) {
-    count += 1;
-  }
-  if (filters.sortBy !== foodFiltersDefaultValues.sortBy) {
-    count += 1;
-  }
-  if (filters.sortOrder !== foodFiltersDefaultValues.sortOrder) {
-    count += 1;
-  }
-
-  if (
-    filters.caloriesRange[0] !== foodFiltersDefaultValues.caloriesRange[0] ||
-    filters.caloriesRange[1] !== foodFiltersDefaultValues.caloriesRange[1]
-  ) {
-    count += 1;
-  }
-
-  if (
-    filters.proteinRange[0] !== foodFiltersDefaultValues.proteinRange[0] ||
-    filters.proteinRange[1] !== foodFiltersDefaultValues.proteinRange[1]
-  ) {
-    count += 1;
-  }
-
-  return count;
-}
 
 export function FoodFilterDrawer() {
   const { data: categories = [] } = useQuery(orpc.categories.list.queryOptions());
@@ -116,6 +79,14 @@ export function FoodFilterDrawer() {
     closeDrawer();
   };
 
+  const onHandleOpenChange = (isOpen: boolean) => {
+    if (isOpen) {
+      openDrawer();
+      return;
+    }
+    closeDrawer();
+  };
+
   useEffect(() => {
     setSearchTerm(debouncedSearchTerm);
   }, [debouncedSearchTerm, setSearchTerm]);
@@ -130,14 +101,7 @@ export function FoodFilterDrawer() {
     <Drawer
       direction="right"
       handleOnly
-      onOpenChange={(isOpen) => {
-        if (isOpen) {
-          openDrawer();
-          return;
-        }
-
-        closeDrawer();
-      }}
+      onOpenChange={onHandleOpenChange}
       open={foodFiltersDrawerOpen}
     >
       <div className="flex gap-2">
@@ -272,87 +236,80 @@ export function FoodFilterDrawer() {
               />
             </FieldGroup>
 
-            <FieldGroup>
-              <Controller
-                control={form.control}
-                name="caloriesRange.0"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Calories Min</FieldLabel>
-                    <Input
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      id={field.name}
-                      min={0}
-                      placeholder="0"
-                      step="any"
-                      type="number"
-                    />
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                  </Field>
-                )}
-              />
+            <Card>
+              <CardHeader>
+                <CardTitle>Calories (kcal)</CardTitle>
+                <CardDescription>Enter your email below to login to your account</CardDescription>
+              </CardHeader>
 
-              <Controller
-                control={form.control}
-                name="caloriesRange.1"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Calories Max</FieldLabel>
-                    <Input
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      id={field.name}
-                      min={0}
-                      placeholder="9999"
-                      step="any"
-                      type="number"
-                    />
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                  </Field>
-                )}
-              />
+              <CardContent>
+                <FieldGroup>
+                  <Controller
+                    control={form.control}
+                    name="caloriesRange"
+                    render={({ field, fieldState }) => {
+                      const rangeValues = normalizeRangeValues(field.value);
 
-              <Controller
-                control={form.control}
-                name="proteinRange.0"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Protein Min (g)</FieldLabel>
-                    <Input
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      id={field.name}
-                      min={0}
-                      placeholder="0"
-                      step="any"
-                      type="number"
-                    />
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                  </Field>
-                )}
-              />
+                      return (
+                        <Field data-invalid={fieldState.invalid}>
+                          <div className="flex items-center justify-between gap-2">
+                            <FieldLabel id={`${field.name}-label`}>Calories (kcal)</FieldLabel>
+                            <span className="text-muted-foreground text-sm">
+                              {rangeValues[0]} - {rangeValues[1]}
+                            </span>
+                          </div>
+                          <Slider
+                            aria-invalid={fieldState.invalid}
+                            aria-labelledby={`${field.name}-label`}
+                            max={FILTER_RANGE_MAX}
+                            min={FILTER_RANGE_MIN}
+                            onValueChange={(value) => {
+                              const [min = FILTER_RANGE_MIN, max = FILTER_RANGE_MAX] = value;
+                              field.onChange([String(min), String(Math.max(min, max))]);
+                            }}
+                            step={1}
+                            value={rangeValues}
+                          />
+                          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                        </Field>
+                      );
+                    }}
+                  />
 
-              <Controller
-                control={form.control}
-                name="proteinRange.1"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Protein Max (g)</FieldLabel>
-                    <Input
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      id={field.name}
-                      min={0}
-                      placeholder="9999"
-                      step="any"
-                      type="number"
-                    />
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                  </Field>
-                )}
-              />
-            </FieldGroup>
+                  <Controller
+                    control={form.control}
+                    name="proteinRange"
+                    render={({ field, fieldState }) => {
+                      const rangeValues = normalizeRangeValues(field.value);
+
+                      return (
+                        <Field data-invalid={fieldState.invalid}>
+                          <div className="flex items-center justify-between gap-2">
+                            <FieldLabel id={`${field.name}-label`}>Protein (g)</FieldLabel>
+                            <span className="text-muted-foreground text-sm">
+                              {rangeValues[0]} - {rangeValues[1]}
+                            </span>
+                          </div>
+                          <Slider
+                            aria-invalid={fieldState.invalid}
+                            aria-labelledby={`${field.name}-label`}
+                            max={FILTER_RANGE_MAX}
+                            min={FILTER_RANGE_MIN}
+                            onValueChange={(value) => {
+                              const [min = FILTER_RANGE_MIN, max = FILTER_RANGE_MAX] = value;
+                              field.onChange([String(min), String(Math.max(min, max))]);
+                            }}
+                            step={1}
+                            value={rangeValues}
+                          />
+                          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                        </Field>
+                      );
+                    }}
+                  />
+                </FieldGroup>
+              </CardContent>
+            </Card>
           </div>
 
           <DrawerFooter>
