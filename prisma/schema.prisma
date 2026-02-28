@@ -88,6 +88,8 @@ model Category {
   createAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
   foods     Food[]
+
+  @@map("category")
 }
 
 model Food {
@@ -108,6 +110,8 @@ model Food {
   foodServingUnits FoodServingUnit[]
   mealFood         MealFood[]
   servingUnit      ServingUnit[]
+
+  @@map("food")
 }
 
 model ServingUnit {
@@ -119,6 +123,8 @@ model ServingUnit {
   FoodServingUnit FoodServingUnit[]
   mealFood        MealFood[]
   food            Food?             @relation(fields: [foodId], references: [id])
+
+  @@map("servingUnit")
 }
 
 model FoodServingUnit {
@@ -130,6 +136,8 @@ model FoodServingUnit {
   grams         Float?
   food          Food        @relation(fields: [foodId], references: [id])
   servingUnit   ServingUnit @relation(fields: [servingUnitId], references: [id])
+
+  @@map("foodServingUnit")
 }
 
 model Meal {
@@ -141,6 +149,8 @@ model Meal {
   Food      Food[]
   user      User?      @relation(fields: [userId], references: [id])
   mealFoods MealFood[]
+
+  @@map("meal")
 }
 
 model MealFood {
@@ -154,6 +164,8 @@ model MealFood {
   food          Food        @relation(fields: [foodId], references: [id])
   meal          Meal        @relation(fields: [mealId], references: [id])
   servingUnit   ServingUnit @relation(fields: [servingUnitId], references: [id])
+
+  @@map("mealFood")
 }
 
 enum Role {

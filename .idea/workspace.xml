@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: unify code style by standardizing to single quotes and updating component structure for consistency">
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/zustand/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/zustand/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/zustand/references/action-patterns.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/zustand/references/action-patterns.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/zustand/references/slice-organization.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/zustand/references/slice-organization.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prisma/seed.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-drawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/use-mobile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/use-mobile.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/use-debounce.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/use-debounce.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,10 +217,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.db:generate" />
+        <item itemvalue="npm.db:migrate" />
         <item itemvalue="npm.format" />
         <item itemvalue="npm.fix" />
-        <item itemvalue="npm.db:migrate" />
-        <item itemvalue="npm.db:generate" />
         <item itemvalue="Docker.infra.postgres: Compose Deployment" />
       </list>
     </recent_temporary>
