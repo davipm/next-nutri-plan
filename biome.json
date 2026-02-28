@@ -23,7 +23,8 @@
         "noUnknownAtRules": "off"
       },
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "useParameterProperties": "off"
       }
     },
     "domains": {

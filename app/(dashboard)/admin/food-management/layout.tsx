@@ -35,7 +35,7 @@ function getCurrentTab(pathname: string, tabs: FoodManagementTab[]): string {
   return tabs.find((tab) => pathname.startsWith(tab.href))?.value ?? 'foods';
 }
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function FoodManagementLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const tabsConfig = getTabsConfig();
   const currentTab = getCurrentTab(pathname, tabsConfig);

@@ -28,6 +28,9 @@ export function CategoryCards() {
         await queryClient.invalidateQueries({ queryKey: orpc.categories.key({ type: 'query' }) });
         toast.success('Category deleted successfully.');
       },
+      onError: (error) => {
+        toast.error(error.message || 'Failed to delete category.');
+      },
     })
   );
 
@@ -39,6 +42,8 @@ export function CategoryCards() {
     alert({
       title: `Delete category ${name}?`,
       description: 'Are you sure you want to delete this category? This action cannot be undone.',
+      confirmLabel: 'Delete',
+      variant: 'destructive',
       onConfirm: () => deleteCategory({ id }),
     });
   };

@@ -33,6 +33,9 @@ export function ServingUnitCards() {
         });
         toast.success('Serving Unit deleted successfully.');
       },
+      onError: (error) => {
+        toast.error(error.message || 'Failed to delete Serving Unit.');
+      },
     })
   );
 
@@ -45,6 +48,8 @@ export function ServingUnitCards() {
       title: `Delete Serving unit ${name}?`,
       description:
         'Are you sure you want to delete this Serving unit? This action cannot be undone.',
+      confirmLabel: 'Delete',
+      variant: 'destructive',
       onConfirm: () => deleteServingUnit({ id }),
     });
   };
