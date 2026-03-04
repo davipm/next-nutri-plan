@@ -7,7 +7,8 @@ interface Props {
 export function NutritionalInfo({ label, value, unit }: Props) {
   return (
     <div>
-      <p>NutritionalInfo</p>
+      <p className="font-normal text-foreground/60 text-sm">{label}</p>
+      <p className="font-medium text-sm">{value ? `${value} ${unit}` : 'N/A'}</p>
     </div>
   );
 }

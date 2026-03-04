@@ -5,18 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: unify code style by standardizing to single quotes and updating component structure for consistency">
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-expert/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-execute.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-pull.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-push.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-seed.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/debug.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/dev.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/format.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/generate.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/init.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-deploy.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-dev.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-diff.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-reset.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-resolve.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-status.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/studio.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/validate.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/client-methods.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/constructor.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/filters.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/model-queries.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/query-options.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/raw-queries.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/relations.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/transactions.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/cockroachdb.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/mongodb.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/mysql.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/postgresql.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/prisma-client-setup.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/prisma-postgres.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/sqlite.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/sqlserver.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/next-nutri-plan.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/better-auth-best-practices/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/better-auth-best-practices/SKILL.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biome.json" beforeDir="false" afterPath="$PROJECT_DIR$/biome.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/has-error.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/has-error.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/no-item-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/no-item-found.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/pagination.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-filter-form.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-serving-unit-input.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/nutritional-info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/nutritional-info.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/specify-food-serving-units.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/specify-food-serving-units.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skills-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/skills-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/create-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/create-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/use-categories-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-categories-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/use-food-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-food-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/use-global-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-global-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/use-serving-unit-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/use-serving-unit-store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +85,31 @@
     &quot;assignee&quot;: &quot;davipm&quot;
   }
 }</component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="dev" />
+                    <option name="lastUsedInstant" value="1772604253" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1772604252" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/davipm/next-nutri-plan.git&quot;,
@@ -98,11 +158,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "#13 on dev",
     "javascript.preferred.runtime.type.id": "bun",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/davi/WebstormProjects/next-nutri-plan/.aiassistant/rules",
+    "last_opened_file_path": "/Users/eli/WebstormProjects/next-nutri-plan/.aiassistant/rules",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -115,7 +175,7 @@
     "npm.format.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "/Users/davi/WebstormProjects/next-nutri-plan/node_modules/prettier",
     "settings.editor.selected.configurable": "database.other",
-    "ts.external.directory.path": "/Users/davi/WebstormProjects/next-nutri-plan/node_modules/typescript/lib"
+    "ts.external.directory.path": "/Users/eli/WebstormProjects/next-nutri-plan/node_modules/typescript/lib"
   }
 }]]></component>
   <component name="ReactDesignerToolWindowState">
@@ -137,8 +197,8 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.aiassistant/rules" />
-      <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management/serving-units/_components" />
       <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods" />
       <recent name="$PROJECT_DIR$/app/(dashboard)/admin/food-management" />
     </key>
@@ -227,9 +287,9 @@
       <list>
         <item itemvalue="npm.db:generate" />
         <item itemvalue="npm.db:migrate" />
+        <item itemvalue="Docker.infra.postgres: Compose Deployment" />
         <item itemvalue="npm.format" />
         <item itemvalue="npm.fix" />
-        <item itemvalue="Docker.infra.postgres: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
