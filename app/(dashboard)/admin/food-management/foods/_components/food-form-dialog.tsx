@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/dialog';
 import { Field, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -20,6 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  CategoryFormDialog
+} from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
 
 export function FoodFormDialog() {
   return (
@@ -31,21 +33,19 @@ export function FoodFormDialog() {
       </DialogTrigger>
 
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="flex flex-row items-center justify-between pr-3">
           <DialogTitle>Create a New Food</DialogTitle>
+          <CategoryFormDialog smallTrigger />
         </DialogHeader>
         <form className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <FieldGroup className="col-span-1 grid">
               <Field>
-                <Label htmlFor="name-1">Enter food name</Label>
                 <Input id="name-1" name="name" placeholder="Enter food name" />
               </Field>
             </FieldGroup>
-          </div>
 
-          <div className="col-span-1 flex items-center">
-            <FieldGroup>
+            <FieldGroup className="col-span-1 grid">
               <Select>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Theme" />
@@ -60,6 +60,8 @@ export function FoodFormDialog() {
               </Select>
             </FieldGroup>
           </div>
+
+
           <FieldGroup>
             <Field>
               <Input defaultValue="Pedro Duarte" id="name-1" name="name" />
