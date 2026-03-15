@@ -34,6 +34,23 @@ import { orpc } from '@/lib/orpc';
 import { type BaseFoodSchema, baseFoodSchema } from '@/server/modules/food/food.schema';
 import { closeFoodDialog, openFoodDialog, useFoodDialogState } from '@/store/use-food-store';
 
+const defaultValues: BaseFoodSchema = {
+  foodServingUnits: [],
+  name: '',
+  categoryId: null,
+  calories: 0,
+  carbohydrates: 0,
+  fat: 0,
+  fiber: 0,
+  protein: 0,
+  sugar: 0,
+};
+
+type NutritionalFieldName = Extract<
+  keyof BaseFoodSchema,
+  'calories' | 'carbohydrates' | 'fat' | 'fiber' | 'protein' | 'sugar'
+>;
+
 export function FoodFormDialog() {
   const queryClient = useQueryClient();
   const { open, selectedId } = useFoodDialogState();
@@ -42,17 +59,7 @@ export function FoodFormDialog() {
 
   const form = useForm({
     resolver: zodResolver(baseFoodSchema),
-    defaultValues: {
-      foodServingUnits: [],
-      name: '',
-      categoryId: 0,
-      calories: 0,
-      carbohydrates: 0,
-      fat: 0,
-      fiber: 0,
-      protein: 0,
-      sugar: 0,
-    },
+    defaultValues,
   });
 
   const { data: categories = [] } = useQuery(orpc.categories.list.queryOptions());
@@ -86,10 +93,22 @@ export function FoodFormDialog() {
 
   useEffect(() => {
     if (isEditMode && foodToEdit) {
-      form.setValue('name', foodToEdit.name);
-      form.setValue('categoryId', foodToEdit.categoryId);
+      form.reset({
+        name: foodToEdit.name,
+        categoryId: foodToEdit.categoryId,
+        calories: foodToEdit.calories ?? 0,
+        carbohydrates: foodToEdit.carbohydrates ?? 0,
+        fat: foodToEdit.fat ?? 0,
+        fiber: foodToEdit.fiber ?? 0,
+        protein: foodToEdit.protein ?? 0,
+        sugar: foodToEdit.sugar ?? 0,
+        foodServingUnits: foodToEdit.foodServingUnits.map((servingUnit) => ({
+          servingUnitId: servingUnit.servingUnitId,
+          grams: servingUnit.grams ?? 0,
+        })),
+      });
     } else if (!isEditMode) {
-      form.reset();
+      form.reset(defaultValues);
     }
   }, [isEditMode, foodToEdit, form]);
 
@@ -98,7 +117,7 @@ export function FoodFormDialog() {
 
     if (open) {
       closeFoodDialog();
-      form.reset();
+      form.reset(defaultValues);
     }
   };
 
@@ -120,10 +139,10 @@ export function FoodFormDialog() {
 
       <DialogContent>
         <DialogHeader className="flex flex-row items-center justify-between pr-3">
-          <DialogTitle>Create a New Food</DialogTitle>
+          <DialogTitle>{isEditMode ? 'Edit Food' : 'Create a New Food'}</DialogTitle>
           <CategoryFormDialog smallTrigger />
         </DialogHeader>
-        <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="space-y-6" id="food-form-dialog" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-4">
             <FieldGroup className="col-span-1 grid">
               <Controller
@@ -153,8 +172,9 @@ export function FoodFormDialog() {
                     <Select
                       name={field.name}
                       onValueChange={(value) =>
-                        field.onChange(value === ALL_CATEGORIES_VALUE ? '' : value)
+                        field.onChange(value === ALL_CATEGORIES_VALUE ? null : Number(value))
                       }
+                      value={field.value ? String(field.value) : ALL_CATEGORIES_VALUE}
                     >
                       <SelectTrigger aria-invalid={fieldState.invalid} id="food-category-filter">
                         <SelectValue placeholder="All categories" />
@@ -178,18 +198,28 @@ export function FoodFormDialog() {
               />
             </FieldGroup>
 
-            {nutritionalFields.map((field) => (
-              <FieldGroup key={field.name}>
-                <Field key={field.name}>
-                  <Input
-                    id={field.name}
-                    name={field.label}
-                    placeholder={field.placeholder}
-                    type={field.type}
-                  />
-                </Field>
-              </FieldGroup>
-            ))}
+            {nutritionalFields.map((field) => {
+              const fieldName = field.name as NutritionalFieldName;
+
+              return (
+                <FieldGroup key={field.name}>
+                  <Field data-invalid={!!form.formState.errors[fieldName]}>
+                    <Input
+                      aria-invalid={!!form.formState.errors[fieldName]}
+                      id={field.name}
+                      placeholder={field.placeholder}
+                      type={field.type}
+                      {...form.register(fieldName, {
+                        setValueAs: (value) => (value === '' ? 0 : Number(value)),
+                      })}
+                    />
+                    {form.formState.errors[fieldName] && (
+                      <FieldError errors={[form.formState.errors[fieldName]]} />
+                    )}
+                  </Field>
+                </FieldGroup>
+              );
+            })}
 
             <div className="col-span-2">
               <div className="flex flex-col gap-4 rounded-md p-4">
@@ -219,7 +249,9 @@ export function FoodFormDialog() {
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="submit">Save changes</Button>
+          <Button disabled={isPending} form="food-form-dialog" type="submit">
+            {isEditMode ? 'Save changes' : 'Create food'}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
