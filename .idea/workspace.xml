@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: add meal card skeletons, UI enhancements for nutrition summary, and popover component integration">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-cards.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-filters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-filters.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -40,10 +40,10 @@ export function MealFilters() {
 
   return (
     <form
-      className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end"
+      className="mb-4 flex w-full min-w-0 flex-col gap-3 sm:flex-1 sm:flex-row sm:items-end"
       onSubmit={form.handleSubmit(onSubmit)}
     >
-      <FieldGroup className="w-full sm:max-w-80">
+      <FieldGroup className="w-full sm:max-w-md">
         <Controller
           control={form.control}
           name="dateTime"
@@ -55,14 +55,14 @@ export function MealFilters() {
                   <Button
                     aria-invalid={fieldState.invalid}
                     className={cn(
-                      'w-full justify-between text-left font-normal',
+                      'w-full min-w-0 justify-between text-left font-normal',
                       !field.value && 'text-muted-foreground'
                     )}
                     id="meal-date-filter"
                     type="button"
                     variant="outline"
                   >
-                    <span className="truncate">
+                    <span className="flex-1 truncate pr-2">
                       {field.value ? formatDate(field.value) : 'Pick a date'}
                     </span>
                     <CalendarIcon className="text-muted-foreground" />

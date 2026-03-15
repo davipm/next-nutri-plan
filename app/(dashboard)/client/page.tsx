@@ -5,7 +5,7 @@ import { MealFormDialog } from '@/app/(dashboard)/client/_components/meal-form-d
 export default function Page() {
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <MealFilters />
         <MealFormDialog />
       </div>
