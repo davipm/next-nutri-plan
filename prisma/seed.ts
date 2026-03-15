@@ -51,6 +51,7 @@ interface FoodSeedItem {
 }
 
 const FOOD_SEED_COUNT = 50;
+const MEAL_SEED_COUNT = 50;
 
 const foodNamePrefixes = [
   'Bright',
@@ -317,20 +318,183 @@ function buildFoodSeedItems(count: number): FoodSeedItem[] {
 
 const foodSeedItems = buildFoodSeedItems(FOOD_SEED_COUNT);
 
-const mealSeedItems = [
-  new Date('2026-01-03T07:30:00.000Z'),
-  new Date('2026-01-03T12:15:00.000Z'),
-  new Date('2026-01-03T18:45:00.000Z'),
-  new Date('2026-01-04T08:00:00.000Z'),
-  new Date('2026-01-04T12:30:00.000Z'),
-  new Date('2026-01-04T19:00:00.000Z'),
-  new Date('2026-01-05T07:15:00.000Z'),
-  new Date('2026-01-05T13:00:00.000Z'),
-  new Date('2026-01-05T18:30:00.000Z'),
-  new Date('2026-01-06T07:45:00.000Z'),
-  new Date('2026-01-06T12:10:00.000Z'),
-  new Date('2026-01-06T19:20:00.000Z'),
+interface SeedMealFoodItem {
+  amount: number;
+  foodId: number;
+  servingUnitId: number;
+}
+
+interface SeedMealItem {
+  dateTime: Date;
+  mealFoods: SeedMealFoodItem[];
+}
+
+interface SeedableMealFood {
+  foodServingUnits: Array<{
+    servingUnit: {
+      name: string;
+    };
+    servingUnitId: number;
+  }>;
+  id: number;
+}
+
+const mealTimeSlots = [
+  { hour: 7, minute: 15 },
+  { hour: 10, minute: 30 },
+  { hour: 13, minute: 0 },
+  { hour: 16, minute: 15 },
+  { hour: 19, minute: 30 },
 ] as const;
+
+function buildMealAmount(servingUnitName: ServingUnitSeedItem, random: () => number) {
+  switch (servingUnitName) {
+    case 'g':
+      return randomBetween(random, 60, 260, 0);
+    case 'kg':
+      return randomBetween(random, 0.1, 1.2);
+    case 'ml':
+      return randomBetween(random, 180, 450, 0);
+    case 'l':
+      return randomBetween(random, 0.2, 1.5);
+    case 'cup':
+      return randomBetween(random, 0.5, 2.2);
+    case 'tbsp':
+      return randomBetween(random, 1, 4);
+    case 'tsp':
+      return randomBetween(random, 1, 3);
+    case 'piece':
+      return randomBetween(random, 1, 3, 0);
+    case 'slice':
+      return randomBetween(random, 1, 4, 0);
+    case 'oz':
+      return randomBetween(random, 1, 6);
+    case 'bowl':
+      return randomBetween(random, 0.5, 1.8);
+    case 'serving':
+      return randomBetween(random, 0.5, 2.5);
+    default:
+      return 1;
+  }
+}
+
+function buildMealSeedItems(count: number, foods: SeedableMealFood[]): SeedMealItem[] {
+  const random = createSeededRandom(20_260_316);
+  const baseDate = new Date('2026-01-01T00:00:00.000Z');
+  const meals: SeedMealItem[] = [];
+  const seedableFoods = foods.filter((food) => food.foodServingUnits.length > 0);
+
+  if (!seedableFoods.length) {
+    return meals;
+  }
+
+  for (let index = 0; index < count; index += 1) {
+    const slot = mealTimeSlots[index % mealTimeSlots.length]!;
+    const dayOffset = Math.floor(index / mealTimeSlots.length);
+    const dateTime = new Date(baseDate);
+    dateTime.setUTCDate(baseDate.getUTCDate() + dayOffset);
+    dateTime.setUTCHours(slot.hour, slot.minute, 0, 0);
+
+    const itemCount = Math.min(seedableFoods.length, randomBetween(random, 1, 4, 0));
+    const selectedFoodIds = new Set<number>();
+    const mealFoods: SeedMealFoodItem[] = [];
+
+    while (mealFoods.length < itemCount) {
+      const food = randomFrom(seedableFoods, random);
+
+      if (selectedFoodIds.has(food.id)) {
+        continue;
+      }
+
+      selectedFoodIds.add(food.id);
+
+      const servingUnit = randomFrom(food.foodServingUnits, random);
+
+      mealFoods.push({
+        foodId: food.id,
+        servingUnitId: servingUnit.servingUnitId,
+        amount: buildMealAmount(servingUnit.servingUnit.name as ServingUnitSeedItem, random),
+      });
+    }
+
+    meals.push({ dateTime, mealFoods });
+  }
+
+  return meals;
+}
+
+interface SeedMealOwner {
+  email: string;
+  id: string;
+}
+
+async function resolveMealOwner(adminEmail: string): Promise<SeedMealOwner | null> {
+  return (
+    (await prisma.user.findUnique({
+      where: { email: adminEmail },
+      select: { email: true, id: true },
+    })) ??
+    (await prisma.user.findFirst({
+      orderBy: { createdAt: 'asc' },
+      select: { email: true, id: true },
+    }))
+  );
+}
+
+async function seedMeals(mealOwner: SeedMealOwner | null) {
+  const foodsForMeals = await prisma.food.findMany({
+    orderBy: { id: 'asc' },
+    select: {
+      id: true,
+      foodServingUnits: {
+        orderBy: { servingUnitId: 'asc' },
+        select: {
+          servingUnitId: true,
+          servingUnit: {
+            select: { name: true },
+          },
+        },
+      },
+    },
+  });
+
+  const mealSeedItems = buildMealSeedItems(MEAL_SEED_COUNT, foodsForMeals);
+
+  for (const meal of mealSeedItems) {
+    const existingMeal = await prisma.meal.findFirst({
+      where: {
+        dateTime: meal.dateTime,
+        userId: mealOwner?.id ?? null,
+      },
+      select: { id: true },
+    });
+
+    const upsertedMeal = existingMeal
+      ? existingMeal
+      : await prisma.meal.create({
+          data: {
+            dateTime: meal.dateTime,
+            userId: mealOwner?.id ?? null,
+          },
+          select: { id: true },
+        });
+
+    await prisma.mealFood.deleteMany({
+      where: { mealId: upsertedMeal.id },
+    });
+
+    await prisma.mealFood.createMany({
+      data: meal.mealFoods.map((mealFood) => ({
+        mealId: upsertedMeal.id,
+        foodId: mealFood.foodId,
+        servingUnitId: mealFood.servingUnitId,
+        amount: mealFood.amount,
+      })),
+    });
+  }
+
+  return mealSeedItems.length;
+}
 
 export async function main() {
   const adminEmail = process.env.ADMIN_EMAIL || 'super@admin.com';
@@ -441,21 +605,16 @@ export async function main() {
     });
   }
 
-  for (const dateTime of mealSeedItems) {
-    const existingMeal = await prisma.meal.findFirst({
-      where: { dateTime },
-      select: { id: true },
-    });
+  const mealOwner = await resolveMealOwner(adminEmail);
 
-    if (!existingMeal) {
-      await prisma.meal.create({
-        data: { dateTime },
-      });
-    }
+  if (!mealOwner) {
+    console.warn('No users found. Meals will be seeded without a user owner.');
   }
 
+  const mealSeededCount = await seedMeals(mealOwner);
+
   console.log(
-    `Seeded ${categorySeedItems.length} categories, ${foodSeedItems.length} foods, ${mealSeedItems.length} meals, and ${servingUnitSeedItems.length} serving units`
+    `Seeded ${categorySeedItems.length} categories, ${foodSeedItems.length} foods, ${mealSeededCount} meals, and ${servingUnitSeedItems.length} serving units${mealOwner ? ` for ${mealOwner.email}` : ''}`
   );
 }
 
