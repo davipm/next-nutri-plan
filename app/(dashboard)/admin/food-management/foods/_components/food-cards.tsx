@@ -8,6 +8,7 @@ import { FoodCardsSkeleton } from '@/app/(dashboard)/admin/food-management/foods
 import { NutritionalInfo } from '@/app/(dashboard)/admin/food-management/foods/_components/nutritional-info';
 import { HasError } from '@/components/has-error';
 import { NoItemFound } from '@/components/no-item-found';
+import { FoodPagination } from '@/components/pagination';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,15 +21,6 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
 import { Separator } from '@/components/ui/separator';
 import { orpc } from '@/lib/orpc';
 import {
@@ -38,42 +30,6 @@ import {
   useFoodFilterActions,
   useFoodFilters,
 } from '@/store/use-food-store';
-
-type PaginationEntry = number | 'ellipsis-start' | 'ellipsis-end';
-
-const FOODS_PAGINATION_HREF = '/admin/food-management/foods' as const;
-
-const getPaginationEntries = (currentPage: number, totalPages: number): PaginationEntry[] => {
-  if (totalPages <= 7) {
-    return Array.from({ length: totalPages }, (_, index) => index + 1);
-  }
-
-  if (currentPage < 5) {
-    return [1, 2, 3, 4, 5, 'ellipsis-end', totalPages];
-  }
-
-  if (currentPage > totalPages - 4) {
-    return [
-      1,
-      'ellipsis-start',
-      totalPages - 4,
-      totalPages - 3,
-      totalPages - 2,
-      totalPages - 1,
-      totalPages,
-    ];
-  }
-
-  return [
-    1,
-    'ellipsis-start',
-    currentPage - 1,
-    currentPage,
-    currentPage + 1,
-    'ellipsis-end',
-    totalPages,
-  ];
-};
 
 const useScrollToTopOnPaginate = (page: number) => {
   const previousPage = useRef(page);
@@ -116,28 +72,6 @@ export function FoodCards() {
     openFoodEditDialog(id);
   };
 
-  const handlePageChange = (page: 'next' | 'prev' | number) => {
-    if (typeof page === 'number' && page === foodFilters.page) {
-      return;
-    }
-
-    setPage(page);
-  };
-
-  const handlePaginationClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    page: 'next' | 'prev' | number,
-    disabled = false
-  ) => {
-    event.preventDefault();
-
-    if (disabled) {
-      return;
-    }
-
-    handlePageChange(page);
-  };
-
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
@@ -155,9 +89,6 @@ export function FoodCards() {
   if (!data?.data.length) {
     return <NoItemFound onClick={openFoodDialog} />;
   }
-
-  const paginationEntries =
-    data.totalPages > 1 ? getPaginationEntries(foodFilters.page, data.totalPages) : [];
 
   return (
     <div className="space-y-6">
@@ -220,51 +151,11 @@ export function FoodCards() {
       </div>
 
       <Activity mode={data.totalPages > 1 ? 'visible' : 'hidden'}>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                aria-disabled={foodFilters.page === 1}
-                className={foodFilters.page === 1 ? 'pointer-events-none opacity-50' : undefined}
-                href={FOODS_PAGINATION_HREF}
-                onClick={(event) => handlePaginationClick(event, 'prev', foodFilters.page === 1)}
-                tabIndex={foodFilters.page === 1 ? -1 : undefined}
-              />
-            </PaginationItem>
-
-            {paginationEntries.map((entry) => (
-              <PaginationItem key={entry}>
-                {typeof entry === 'number' ? (
-                  <PaginationLink
-                    href={FOODS_PAGINATION_HREF}
-                    isActive={foodFilters.page === entry}
-                    onClick={(event) => handlePaginationClick(event, entry)}
-                  >
-                    {entry}
-                  </PaginationLink>
-                ) : (
-                  <PaginationEllipsis />
-                )}
-              </PaginationItem>
-            ))}
-
-            <PaginationItem>
-              <PaginationNext
-                aria-disabled={foodFilters.page === data.totalPages}
-                className={
-                  foodFilters.page === data.totalPages
-                    ? 'pointer-events-none opacity-50'
-                    : undefined
-                }
-                href={FOODS_PAGINATION_HREF}
-                onClick={(event) =>
-                  handlePaginationClick(event, 'next', foodFilters.page === data.totalPages)
-                }
-                tabIndex={foodFilters.page === data.totalPages ? -1 : undefined}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <FoodPagination
+          currentPage={foodFilters.page}
+          onPageChange={setPage}
+          totalPages={data.totalPages}
+        />
       </Activity>
     </div>
   );
