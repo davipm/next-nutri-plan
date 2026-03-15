@@ -92,6 +92,21 @@ export function FoodFormDialog() {
   const isPending = createIsPending || updateIsPending;
 
   useEffect(() => {
+    if (!open) {
+      form.reset(defaultValues);
+      return;
+    }
+
+    if (!isEditMode) {
+      form.reset(defaultValues);
+      return;
+    }
+
+    if (!foodToEdit || foodToEdit.id !== selectedId) {
+      form.reset(defaultValues);
+      return;
+    }
+
     if (isEditMode && foodToEdit) {
       form.reset({
         name: foodToEdit.name,
@@ -107,18 +122,17 @@ export function FoodFormDialog() {
           grams: servingUnit.grams ?? 0,
         })),
       });
-    } else if (!isEditMode) {
-      form.reset(defaultValues);
     }
-  }, [isEditMode, foodToEdit, form]);
+  }, [open, isEditMode, selectedId, foodToEdit, form]);
 
-  const onDialogOpenChange = () => {
-    openFoodDialog();
-
-    if (open) {
-      closeFoodDialog();
-      form.reset(defaultValues);
+  const onDialogOpenChange = (nextOpen: boolean) => {
+    if (nextOpen) {
+      openFoodDialog();
+      return;
     }
+
+    closeFoodDialog();
+    form.reset(defaultValues);
   };
 
   const onSubmit: SubmitHandler<BaseFoodSchema> = (data) => {
@@ -198,25 +212,35 @@ export function FoodFormDialog() {
               />
             </FieldGroup>
 
-            {nutritionalFields.map((field) => {
-              const fieldName = field.name as NutritionalFieldName;
+            {nutritionalFields.map((nutritionalField) => {
+              const fieldName = nutritionalField.name as NutritionalFieldName;
 
               return (
-                <FieldGroup key={field.name}>
-                  <Field data-invalid={!!form.formState.errors[fieldName]}>
-                    <Input
-                      aria-invalid={!!form.formState.errors[fieldName]}
-                      id={field.name}
-                      placeholder={field.placeholder}
-                      type={field.type}
-                      {...form.register(fieldName, {
-                        setValueAs: (value) => (value === '' ? 0 : Number(value)),
-                      })}
-                    />
-                    {form.formState.errors[fieldName] && (
-                      <FieldError errors={[form.formState.errors[fieldName]]} />
+                <FieldGroup key={`${selectedId ?? 'new'}-${nutritionalField.name}`}>
+                  <Controller
+                    control={form.control}
+                    name={fieldName}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <Input
+                          aria-invalid={fieldState.invalid}
+                          id={nutritionalField.name}
+                          name={field.name}
+                          onBlur={field.onBlur}
+                          onChange={(event) =>
+                            field.onChange(
+                              event.target.value === '' ? undefined : Number(event.target.value)
+                            )
+                          }
+                          placeholder={nutritionalField.placeholder}
+                          ref={field.ref}
+                          type={nutritionalField.type}
+                          value={field.value ?? ''}
+                        />
+                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                      </Field>
                     )}
-                  </Field>
+                  />
                 </FieldGroup>
               );
             })}
