@@ -2,6 +2,11 @@ import { z } from 'zod';
 
 // ===== BASE SCHEMAS =====
 
+export const servingUnitSchema = z.object({
+  servingUnitId: z.number().min(1, 'Serving unit ID is required'),
+  grams: z.number().min(0.1, 'Grams must be greater than 0'),
+});
+
 export const baseFoodSchema = z.object({
   name: z.string().min(1, 'Name is required').trim(),
   calories: z.number().min(0, 'Calories must be non-negative'),
@@ -11,12 +16,10 @@ export const baseFoodSchema = z.object({
   sugar: z.number().min(0, 'Sugar must be non-negative').optional().default(0),
   fiber: z.number().min(0, 'Fiber must be non-negative').optional().default(0),
   categoryId: z.number().min(1, 'Category ID must be positive').optional().nullable(),
+  foodServingUnits: z.array(servingUnitSchema).min(1, 'At least one serving unit is required'),
 });
 
-export const servingUnitSchema = z.object({
-  servingUnitId: z.number().min(1, 'Serving unit ID is required'),
-  grams: z.number().min(0.1, 'Grams must be greater than 0'),
-});
+export type BaseFoodSchema = z.infer<typeof baseFoodSchema>;
 
 // ===== INPUT SCHEMAS =====
 
