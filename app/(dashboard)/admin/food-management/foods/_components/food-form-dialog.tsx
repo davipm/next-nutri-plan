@@ -54,13 +54,14 @@ type NutritionalFieldName = Extract<
 export function FoodFormDialog() {
   const queryClient = useQueryClient();
   const { open, selectedId } = useFoodDialogState();
-
   const isEditMode = !!selectedId;
 
   const form = useForm({
     resolver: zodResolver(baseFoodSchema),
     defaultValues,
   });
+
+  const { reset } = form;
 
   const { data: categories = [] } = useQuery(orpc.categories.list.queryOptions());
 
@@ -71,11 +72,14 @@ export function FoodFormDialog() {
     })
   );
 
+  const invalidateFoods = () =>
+    queryClient.invalidateQueries({ queryKey: orpc.foods.key({ type: 'query' }) });
+
   const { mutate: createFoodMutation, isPending: createIsPending } = useMutation(
     orpc.foods.create.mutationOptions({
       onSuccess: async () => {
         closeFoodDialog();
-        await queryClient.invalidateQueries({ queryKey: orpc.foods.key({ type: 'query' }) });
+        await invalidateFoods();
       },
     })
   );
@@ -84,7 +88,7 @@ export function FoodFormDialog() {
     orpc.foods.update.mutationOptions({
       onSuccess: async () => {
         closeFoodDialog();
-        await queryClient.invalidateQueries({ queryKey: orpc.foods.key({ type: 'query' }) });
+        await invalidateFoods();
       },
     })
   );
@@ -92,23 +96,13 @@ export function FoodFormDialog() {
   const isPending = createIsPending || updateIsPending;
 
   useEffect(() => {
-    if (!open) {
-      form.reset(defaultValues);
+    if (!(open && isEditMode)) {
+      reset(defaultValues);
       return;
     }
 
-    if (!isEditMode) {
-      form.reset(defaultValues);
-      return;
-    }
-
-    if (!foodToEdit || foodToEdit.id !== selectedId) {
-      form.reset(defaultValues);
-      return;
-    }
-
-    if (isEditMode && foodToEdit) {
-      form.reset({
+    if (foodToEdit && foodToEdit.id === selectedId) {
+      reset({
         name: foodToEdit.name,
         categoryId: foodToEdit.categoryId,
         calories: foodToEdit.calories ?? 0,
@@ -117,22 +111,20 @@ export function FoodFormDialog() {
         fiber: foodToEdit.fiber ?? 0,
         protein: foodToEdit.protein ?? 0,
         sugar: foodToEdit.sugar ?? 0,
-        foodServingUnits: foodToEdit.foodServingUnits.map((servingUnit) => ({
-          servingUnitId: servingUnit.servingUnitId,
-          grams: servingUnit.grams ?? 0,
+        foodServingUnits: foodToEdit.foodServingUnits.map((su) => ({
+          servingUnitId: su.servingUnitId,
+          grams: su.grams ?? 0,
         })),
       });
     }
-  }, [open, isEditMode, selectedId, foodToEdit, form]);
+  }, [open, isEditMode, selectedId, foodToEdit, reset]);
 
   const onDialogOpenChange = (nextOpen: boolean) => {
     if (nextOpen) {
       openFoodDialog();
-      return;
+    } else {
+      closeFoodDialog();
     }
-
-    closeFoodDialog();
-    form.reset(defaultValues);
   };
 
   const onSubmit: SubmitHandler<BaseFoodSchema> = (data) => {
@@ -156,6 +148,7 @@ export function FoodFormDialog() {
           <DialogTitle>{isEditMode ? 'Edit Food' : 'Create a New Food'}</DialogTitle>
           <CategoryFormDialog smallTrigger />
         </DialogHeader>
+
         <form className="space-y-6" id="food-form-dialog" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-4">
             <FieldGroup className="col-span-1 grid">
@@ -190,7 +183,7 @@ export function FoodFormDialog() {
                       }
                       value={field.value ? String(field.value) : ALL_CATEGORIES_VALUE}
                     >
-                      <SelectTrigger aria-invalid={fieldState.invalid} id="food-category-filter">
+                      <SelectTrigger aria-invalid={fieldState.invalid} id="categoryId">
                         <SelectValue placeholder="All categories" />
                       </SelectTrigger>
                       <SelectContent>
@@ -214,9 +207,8 @@ export function FoodFormDialog() {
 
             {nutritionalFields.map((nutritionalField) => {
               const fieldName = nutritionalField.name as NutritionalFieldName;
-
               return (
-                <FieldGroup key={`${selectedId ?? 'new'}-${nutritionalField.name}`}>
+                <FieldGroup key={nutritionalField.name}>
                   <Controller
                     control={form.control}
                     name={fieldName}
@@ -227,9 +219,9 @@ export function FoodFormDialog() {
                           id={nutritionalField.name}
                           name={field.name}
                           onBlur={field.onBlur}
-                          onChange={(event) =>
+                          onChange={(e) =>
                             field.onChange(
-                              event.target.value === '' ? undefined : Number(event.target.value)
+                              e.target.value === '' ? undefined : Number(e.target.value)
                             )
                           }
                           placeholder={nutritionalField.placeholder}

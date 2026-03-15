@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: update placeholders in constants for consistency with field labels">
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" afterDir="false" />
     </list>
@@ -263,6 +263,7 @@
     <MESSAGE value="refactor: enhance food form dialog with CRUD actions, category field updates, and improved state handling" />
     <MESSAGE value="refactor: improve food form dialog with default values, category handling, and error validation updates" />
     <MESSAGE value="refactor: update placeholders in constants for consistency with field labels" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: update placeholders in constants for consistency with field labels" />
+    <MESSAGE value="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments" />
   </component>
 </project>
