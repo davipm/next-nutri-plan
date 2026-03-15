@@ -14,7 +14,7 @@ export function MealCards() {
   const mealFilters = useMealFilters();
 
   const { data: meals = [], isLoading } = useQuery(
-    orpc.meals.list.queryOptions({ input: { date: mealFilters.dateTime } })
+    orpc.meals.list.queryOptions({ input: { dateTime: mealFilters.dateTime } })
   );
 
   const displayDate = mealFilters.dateTime
