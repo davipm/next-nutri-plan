@@ -1,25 +1,17 @@
-import type { Prisma } from '@/prisma/generated/prisma/client';
-import type { MealWithRelations } from '@/server/modules/meal/meal.schema';
+import type { MealFoodWithRelations } from '@/server/modules/meal/meal.schema';
 
-type MealFoodFromPrisma = Prisma.MealFoodGetPayload<{
-  include: {
-    food: true;
-    servingUnit: true;
-  };
-}>;
+type NutritionFood = Pick<
+  MealFoodWithRelations['food'],
+  'calories' | 'protein' | 'carbohydrates' | 'fat' | 'sugar' | 'fiber'
+>;
 
-type TransformedMealFood = Omit<MealFoodFromPrisma, 'foodId' | 'servingUnitId'> & {
-  foodId: string;
-  servingUnitId: string;
+export type MealFoodWithFood = Pick<MealFoodWithRelations, 'amount'> & {
+  food: NutritionFood;
 };
 
-type TransformedMeal = Omit<MealWithRelations, 'userId' | 'mealFoods'> & {
-  userId: string | null;
-  mealFoods: TransformedMealFood[];
-};
-
-export type MealFoodWithFood = TransformedMealFood;
-export type MealWithFoods = TransformedMeal;
+export interface MealWithFoods {
+  mealFoods: MealFoodWithFood[];
+}
 
 export const calculateTotalCalories = (mealFoods: MealFoodWithFood[]) => {
   return mealFoods.reduce((total, mealFood) => {

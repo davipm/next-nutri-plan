@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: add meal components and store for dashboard integration with initial UI and state management">
-      <change afterPath="$PROJECT_DIR$/app/(dashboard)/client/_utils/calculations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-cards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/meal/meal.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/meal/meal.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/_utils/calculations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/_utils/calculations.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
