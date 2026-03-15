@@ -203,6 +203,7 @@ export type VerificationOrderByWithRelationInput = {
 
 export type VerificationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  identifier_value?: Prisma.VerificationIdentifierValueCompoundUniqueInput
   AND?: Prisma.VerificationWhereInput | Prisma.VerificationWhereInput[]
   OR?: Prisma.VerificationWhereInput[]
   NOT?: Prisma.VerificationWhereInput | Prisma.VerificationWhereInput[]
@@ -211,7 +212,7 @@ export type VerificationWhereUniqueInput = Prisma.AtLeast<{
   expiresAt?: Prisma.DateTimeFilter<"Verification"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Verification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Verification"> | Date | string
-}, "id">
+}, "id" | "identifier_value">
 
 export type VerificationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -298,6 +299,11 @@ export type VerificationUncheckedUpdateManyInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type VerificationIdentifierValueCompoundUniqueInput = {
+  identifier: string
+  value: string
 }
 
 export type VerificationCountOrderByAggregateInput = {

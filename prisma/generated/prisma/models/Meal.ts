@@ -39,7 +39,7 @@ export type MealMinAggregateOutputType = {
   dateTime: Date | null
   userId: string | null
   createdAt: Date | null
-  updateAt: Date | null
+  updatedAt: Date | null
 }
 
 export type MealMaxAggregateOutputType = {
@@ -47,7 +47,7 @@ export type MealMaxAggregateOutputType = {
   dateTime: Date | null
   userId: string | null
   createdAt: Date | null
-  updateAt: Date | null
+  updatedAt: Date | null
 }
 
 export type MealCountAggregateOutputType = {
@@ -55,7 +55,7 @@ export type MealCountAggregateOutputType = {
   dateTime: number
   userId: number
   createdAt: number
-  updateAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -73,7 +73,7 @@ export type MealMinAggregateInputType = {
   dateTime?: true
   userId?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
 }
 
 export type MealMaxAggregateInputType = {
@@ -81,7 +81,7 @@ export type MealMaxAggregateInputType = {
   dateTime?: true
   userId?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
 }
 
 export type MealCountAggregateInputType = {
@@ -89,7 +89,7 @@ export type MealCountAggregateInputType = {
   dateTime?: true
   userId?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -184,7 +184,7 @@ export type MealGroupByOutputType = {
   dateTime: Date
   userId: string | null
   createdAt: Date
-  updateAt: Date
+  updatedAt: Date
   _count: MealCountAggregateOutputType | null
   _avg: MealAvgAggregateOutputType | null
   _sum: MealSumAggregateOutputType | null
@@ -215,8 +215,7 @@ export type MealWhereInput = {
   dateTime?: Prisma.DateTimeFilter<"Meal"> | Date | string
   userId?: Prisma.StringNullableFilter<"Meal"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
-  Food?: Prisma.FoodListRelationFilter
+  updatedAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   mealFoods?: Prisma.MealFoodListRelationFilter
 }
@@ -226,8 +225,7 @@ export type MealOrderByWithRelationInput = {
   dateTime?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
-  Food?: Prisma.FoodOrderByRelationAggregateInput
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   mealFoods?: Prisma.MealFoodOrderByRelationAggregateInput
 }
@@ -240,8 +238,7 @@ export type MealWhereUniqueInput = Prisma.AtLeast<{
   dateTime?: Prisma.DateTimeFilter<"Meal"> | Date | string
   userId?: Prisma.StringNullableFilter<"Meal"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
-  Food?: Prisma.FoodListRelationFilter
+  updatedAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   mealFoods?: Prisma.MealFoodListRelationFilter
 }, "id">
@@ -251,7 +248,7 @@ export type MealOrderByWithAggregationInput = {
   dateTime?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.MealCountOrderByAggregateInput
   _avg?: Prisma.MealAvgOrderByAggregateInput
   _max?: Prisma.MealMaxOrderByAggregateInput
@@ -267,14 +264,13 @@ export type MealScalarWhereWithAggregatesInput = {
   dateTime?: Prisma.DateTimeWithAggregatesFilter<"Meal"> | Date | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"Meal"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Meal"> | Date | string
-  updateAt?: Prisma.DateTimeWithAggregatesFilter<"Meal"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Meal"> | Date | string
 }
 
 export type MealCreateInput = {
   dateTime: Date | string
   createdAt?: Date | string
-  updateAt?: Date | string
-  Food?: Prisma.FoodCreateNestedManyWithoutMealInput
+  updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutMealsInput
   mealFoods?: Prisma.MealFoodCreateNestedManyWithoutMealInput
 }
@@ -284,16 +280,14 @@ export type MealUncheckedCreateInput = {
   dateTime: Date | string
   userId?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
-  Food?: Prisma.FoodUncheckedCreateNestedManyWithoutMealInput
+  updatedAt?: Date | string
   mealFoods?: Prisma.MealFoodUncheckedCreateNestedManyWithoutMealInput
 }
 
 export type MealUpdateInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutMealsNestedInput
   mealFoods?: Prisma.MealFoodUpdateManyWithoutMealNestedInput
 }
@@ -303,8 +297,7 @@ export type MealUncheckedUpdateInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUncheckedUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mealFoods?: Prisma.MealFoodUncheckedUpdateManyWithoutMealNestedInput
 }
 
@@ -313,13 +306,13 @@ export type MealCreateManyInput = {
   dateTime: Date | string
   userId?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type MealUpdateManyMutationInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MealUncheckedUpdateManyInput = {
@@ -327,7 +320,7 @@ export type MealUncheckedUpdateManyInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MealListRelationFilter = {
@@ -340,17 +333,12 @@ export type MealOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type MealNullableScalarRelationFilter = {
-  is?: Prisma.MealWhereInput | null
-  isNot?: Prisma.MealWhereInput | null
-}
-
 export type MealCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   dateTime?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MealAvgOrderByAggregateInput = {
@@ -362,7 +350,7 @@ export type MealMaxOrderByAggregateInput = {
   dateTime?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MealMinOrderByAggregateInput = {
@@ -370,7 +358,7 @@ export type MealMinOrderByAggregateInput = {
   dateTime?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MealSumOrderByAggregateInput = {
@@ -424,22 +412,6 @@ export type MealUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.MealScalarWhereInput | Prisma.MealScalarWhereInput[]
 }
 
-export type MealCreateNestedOneWithoutFoodInput = {
-  create?: Prisma.XOR<Prisma.MealCreateWithoutFoodInput, Prisma.MealUncheckedCreateWithoutFoodInput>
-  connectOrCreate?: Prisma.MealCreateOrConnectWithoutFoodInput
-  connect?: Prisma.MealWhereUniqueInput
-}
-
-export type MealUpdateOneWithoutFoodNestedInput = {
-  create?: Prisma.XOR<Prisma.MealCreateWithoutFoodInput, Prisma.MealUncheckedCreateWithoutFoodInput>
-  connectOrCreate?: Prisma.MealCreateOrConnectWithoutFoodInput
-  upsert?: Prisma.MealUpsertWithoutFoodInput
-  disconnect?: Prisma.MealWhereInput | boolean
-  delete?: Prisma.MealWhereInput | boolean
-  connect?: Prisma.MealWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MealUpdateToOneWithWhereWithoutFoodInput, Prisma.MealUpdateWithoutFoodInput>, Prisma.MealUncheckedUpdateWithoutFoodInput>
-}
-
 export type MealCreateNestedOneWithoutMealFoodsInput = {
   create?: Prisma.XOR<Prisma.MealCreateWithoutMealFoodsInput, Prisma.MealUncheckedCreateWithoutMealFoodsInput>
   connectOrCreate?: Prisma.MealCreateOrConnectWithoutMealFoodsInput
@@ -457,8 +429,7 @@ export type MealUpdateOneRequiredWithoutMealFoodsNestedInput = {
 export type MealCreateWithoutUserInput = {
   dateTime: Date | string
   createdAt?: Date | string
-  updateAt?: Date | string
-  Food?: Prisma.FoodCreateNestedManyWithoutMealInput
+  updatedAt?: Date | string
   mealFoods?: Prisma.MealFoodCreateNestedManyWithoutMealInput
 }
 
@@ -466,8 +437,7 @@ export type MealUncheckedCreateWithoutUserInput = {
   id?: number
   dateTime: Date | string
   createdAt?: Date | string
-  updateAt?: Date | string
-  Food?: Prisma.FoodUncheckedCreateNestedManyWithoutMealInput
+  updatedAt?: Date | string
   mealFoods?: Prisma.MealFoodUncheckedCreateNestedManyWithoutMealInput
 }
 
@@ -505,64 +475,13 @@ export type MealScalarWhereInput = {
   dateTime?: Prisma.DateTimeFilter<"Meal"> | Date | string
   userId?: Prisma.StringNullableFilter<"Meal"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
-}
-
-export type MealCreateWithoutFoodInput = {
-  dateTime: Date | string
-  createdAt?: Date | string
-  updateAt?: Date | string
-  user?: Prisma.UserCreateNestedOneWithoutMealsInput
-  mealFoods?: Prisma.MealFoodCreateNestedManyWithoutMealInput
-}
-
-export type MealUncheckedCreateWithoutFoodInput = {
-  id?: number
-  dateTime: Date | string
-  userId?: string | null
-  createdAt?: Date | string
-  updateAt?: Date | string
-  mealFoods?: Prisma.MealFoodUncheckedCreateNestedManyWithoutMealInput
-}
-
-export type MealCreateOrConnectWithoutFoodInput = {
-  where: Prisma.MealWhereUniqueInput
-  create: Prisma.XOR<Prisma.MealCreateWithoutFoodInput, Prisma.MealUncheckedCreateWithoutFoodInput>
-}
-
-export type MealUpsertWithoutFoodInput = {
-  update: Prisma.XOR<Prisma.MealUpdateWithoutFoodInput, Prisma.MealUncheckedUpdateWithoutFoodInput>
-  create: Prisma.XOR<Prisma.MealCreateWithoutFoodInput, Prisma.MealUncheckedCreateWithoutFoodInput>
-  where?: Prisma.MealWhereInput
-}
-
-export type MealUpdateToOneWithWhereWithoutFoodInput = {
-  where?: Prisma.MealWhereInput
-  data: Prisma.XOR<Prisma.MealUpdateWithoutFoodInput, Prisma.MealUncheckedUpdateWithoutFoodInput>
-}
-
-export type MealUpdateWithoutFoodInput = {
-  dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneWithoutMealsNestedInput
-  mealFoods?: Prisma.MealFoodUpdateManyWithoutMealNestedInput
-}
-
-export type MealUncheckedUpdateWithoutFoodInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mealFoods?: Prisma.MealFoodUncheckedUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFilter<"Meal"> | Date | string
 }
 
 export type MealCreateWithoutMealFoodsInput = {
   dateTime: Date | string
   createdAt?: Date | string
-  updateAt?: Date | string
-  Food?: Prisma.FoodCreateNestedManyWithoutMealInput
+  updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutMealsInput
 }
 
@@ -571,8 +490,7 @@ export type MealUncheckedCreateWithoutMealFoodsInput = {
   dateTime: Date | string
   userId?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
-  Food?: Prisma.FoodUncheckedCreateNestedManyWithoutMealInput
+  updatedAt?: Date | string
 }
 
 export type MealCreateOrConnectWithoutMealFoodsInput = {
@@ -594,8 +512,7 @@ export type MealUpdateToOneWithWhereWithoutMealFoodsInput = {
 export type MealUpdateWithoutMealFoodsInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutMealsNestedInput
 }
 
@@ -604,22 +521,20 @@ export type MealUncheckedUpdateWithoutMealFoodsInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUncheckedUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MealCreateManyUserInput = {
   id?: number
   dateTime: Date | string
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type MealUpdateWithoutUserInput = {
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mealFoods?: Prisma.MealFoodUpdateManyWithoutMealNestedInput
 }
 
@@ -627,8 +542,7 @@ export type MealUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Food?: Prisma.FoodUncheckedUpdateManyWithoutMealNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mealFoods?: Prisma.MealFoodUncheckedUpdateManyWithoutMealNestedInput
 }
 
@@ -636,7 +550,7 @@ export type MealUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   dateTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -645,12 +559,10 @@ export type MealUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type MealCountOutputType = {
-  Food: number
   mealFoods: number
 }
 
 export type MealCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Food?: boolean | MealCountOutputTypeCountFoodArgs
   mealFoods?: boolean | MealCountOutputTypeCountMealFoodsArgs
 }
 
@@ -667,13 +579,6 @@ export type MealCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * MealCountOutputType without action
  */
-export type MealCountOutputTypeCountFoodArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FoodWhereInput
-}
-
-/**
- * MealCountOutputType without action
- */
 export type MealCountOutputTypeCountMealFoodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MealFoodWhereInput
 }
@@ -684,8 +589,7 @@ export type MealSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   dateTime?: boolean
   userId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
-  Food?: boolean | Prisma.Meal$FoodArgs<ExtArgs>
+  updatedAt?: boolean
   user?: boolean | Prisma.Meal$userArgs<ExtArgs>
   mealFoods?: boolean | Prisma.Meal$mealFoodsArgs<ExtArgs>
   _count?: boolean | Prisma.MealCountOutputTypeDefaultArgs<ExtArgs>
@@ -696,7 +600,7 @@ export type MealSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   dateTime?: boolean
   userId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.Meal$userArgs<ExtArgs>
 }, ExtArgs["result"]["meal"]>
 
@@ -705,7 +609,7 @@ export type MealSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   dateTime?: boolean
   userId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.Meal$userArgs<ExtArgs>
 }, ExtArgs["result"]["meal"]>
 
@@ -714,12 +618,11 @@ export type MealSelectScalar = {
   dateTime?: boolean
   userId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
 }
 
-export type MealOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dateTime" | "userId" | "createdAt" | "updateAt", ExtArgs["result"]["meal"]>
+export type MealOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dateTime" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["meal"]>
 export type MealInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Food?: boolean | Prisma.Meal$FoodArgs<ExtArgs>
   user?: boolean | Prisma.Meal$userArgs<ExtArgs>
   mealFoods?: boolean | Prisma.Meal$mealFoodsArgs<ExtArgs>
   _count?: boolean | Prisma.MealCountOutputTypeDefaultArgs<ExtArgs>
@@ -734,7 +637,6 @@ export type MealIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $MealPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Meal"
   objects: {
-    Food: Prisma.$FoodPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs> | null
     mealFoods: Prisma.$MealFoodPayload<ExtArgs>[]
   }
@@ -743,7 +645,7 @@ export type $MealPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     dateTime: Date
     userId: string | null
     createdAt: Date
-    updateAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["meal"]>
   composites: {}
 }
@@ -1138,7 +1040,6 @@ readonly fields: MealFieldRefs;
  */
 export interface Prisma__MealClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Food<T extends Prisma.Meal$FoodArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meal$FoodArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.Meal$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meal$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   mealFoods<T extends Prisma.Meal$mealFoodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meal$mealFoodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MealFoodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1174,7 +1075,7 @@ export interface MealFieldRefs {
   readonly dateTime: Prisma.FieldRef<"Meal", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Meal", 'String'>
   readonly createdAt: Prisma.FieldRef<"Meal", 'DateTime'>
-  readonly updateAt: Prisma.FieldRef<"Meal", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Meal", 'DateTime'>
 }
     
 
@@ -1568,30 +1469,6 @@ export type MealDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Meals to delete.
    */
   limit?: number
-}
-
-/**
- * Meal.Food
- */
-export type Meal$FoodArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Food
-   */
-  select?: Prisma.FoodSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Food
-   */
-  omit?: Prisma.FoodOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FoodInclude<ExtArgs> | null
-  where?: Prisma.FoodWhereInput
-  orderBy?: Prisma.FoodOrderByWithRelationInput | Prisma.FoodOrderByWithRelationInput[]
-  cursor?: Prisma.FoodWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FoodScalarFieldEnum | Prisma.FoodScalarFieldEnum[]
 }
 
 /**

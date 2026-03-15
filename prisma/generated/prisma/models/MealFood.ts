@@ -30,46 +30,46 @@ export type MealFoodAvgAggregateOutputType = {
   id: number | null
   foodId: number | null
   mealId: number | null
-  amount: number | null
   servingUnitId: number | null
+  amount: number | null
 }
 
 export type MealFoodSumAggregateOutputType = {
   id: number | null
   foodId: number | null
   mealId: number | null
-  amount: number | null
   servingUnitId: number | null
+  amount: number | null
 }
 
 export type MealFoodMinAggregateOutputType = {
   id: number | null
   foodId: number | null
   mealId: number | null
+  servingUnitId: number | null
   amount: number | null
   createdAt: Date | null
   updatedAt: Date | null
-  servingUnitId: number | null
 }
 
 export type MealFoodMaxAggregateOutputType = {
   id: number | null
   foodId: number | null
   mealId: number | null
+  servingUnitId: number | null
   amount: number | null
   createdAt: Date | null
   updatedAt: Date | null
-  servingUnitId: number | null
 }
 
 export type MealFoodCountAggregateOutputType = {
   id: number
   foodId: number
   mealId: number
+  servingUnitId: number
   amount: number
   createdAt: number
   updatedAt: number
-  servingUnitId: number
   _all: number
 }
 
@@ -78,46 +78,46 @@ export type MealFoodAvgAggregateInputType = {
   id?: true
   foodId?: true
   mealId?: true
-  amount?: true
   servingUnitId?: true
+  amount?: true
 }
 
 export type MealFoodSumAggregateInputType = {
   id?: true
   foodId?: true
   mealId?: true
-  amount?: true
   servingUnitId?: true
+  amount?: true
 }
 
 export type MealFoodMinAggregateInputType = {
   id?: true
   foodId?: true
   mealId?: true
+  servingUnitId?: true
   amount?: true
   createdAt?: true
   updatedAt?: true
-  servingUnitId?: true
 }
 
 export type MealFoodMaxAggregateInputType = {
   id?: true
   foodId?: true
   mealId?: true
+  servingUnitId?: true
   amount?: true
   createdAt?: true
   updatedAt?: true
-  servingUnitId?: true
 }
 
 export type MealFoodCountAggregateInputType = {
   id?: true
   foodId?: true
   mealId?: true
+  servingUnitId?: true
   amount?: true
   createdAt?: true
   updatedAt?: true
-  servingUnitId?: true
   _all?: true
 }
 
@@ -211,10 +211,10 @@ export type MealFoodGroupByOutputType = {
   id: number
   foodId: number
   mealId: number
+  servingUnitId: number
   amount: number
   createdAt: Date
   updatedAt: Date
-  servingUnitId: number
   _count: MealFoodCountAggregateOutputType | null
   _avg: MealFoodAvgAggregateOutputType | null
   _sum: MealFoodSumAggregateOutputType | null
@@ -244,10 +244,10 @@ export type MealFoodWhereInput = {
   id?: Prisma.IntFilter<"MealFood"> | number
   foodId?: Prisma.IntFilter<"MealFood"> | number
   mealId?: Prisma.IntFilter<"MealFood"> | number
+  servingUnitId?: Prisma.IntFilter<"MealFood"> | number
   amount?: Prisma.FloatFilter<"MealFood"> | number
   createdAt?: Prisma.DateTimeFilter<"MealFood"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MealFood"> | Date | string
-  servingUnitId?: Prisma.IntFilter<"MealFood"> | number
   food?: Prisma.XOR<Prisma.FoodScalarRelationFilter, Prisma.FoodWhereInput>
   meal?: Prisma.XOR<Prisma.MealScalarRelationFilter, Prisma.MealWhereInput>
   servingUnit?: Prisma.XOR<Prisma.ServingUnitScalarRelationFilter, Prisma.ServingUnitWhereInput>
@@ -257,10 +257,10 @@ export type MealFoodOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
+  servingUnitId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  servingUnitId?: Prisma.SortOrder
   food?: Prisma.FoodOrderByWithRelationInput
   meal?: Prisma.MealOrderByWithRelationInput
   servingUnit?: Prisma.ServingUnitOrderByWithRelationInput
@@ -273,10 +273,10 @@ export type MealFoodWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MealFoodWhereInput | Prisma.MealFoodWhereInput[]
   foodId?: Prisma.IntFilter<"MealFood"> | number
   mealId?: Prisma.IntFilter<"MealFood"> | number
+  servingUnitId?: Prisma.IntFilter<"MealFood"> | number
   amount?: Prisma.FloatFilter<"MealFood"> | number
   createdAt?: Prisma.DateTimeFilter<"MealFood"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MealFood"> | Date | string
-  servingUnitId?: Prisma.IntFilter<"MealFood"> | number
   food?: Prisma.XOR<Prisma.FoodScalarRelationFilter, Prisma.FoodWhereInput>
   meal?: Prisma.XOR<Prisma.MealScalarRelationFilter, Prisma.MealWhereInput>
   servingUnit?: Prisma.XOR<Prisma.ServingUnitScalarRelationFilter, Prisma.ServingUnitWhereInput>
@@ -286,10 +286,10 @@ export type MealFoodOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
+  servingUnitId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  servingUnitId?: Prisma.SortOrder
   _count?: Prisma.MealFoodCountOrderByAggregateInput
   _avg?: Prisma.MealFoodAvgOrderByAggregateInput
   _max?: Prisma.MealFoodMaxOrderByAggregateInput
@@ -304,58 +304,58 @@ export type MealFoodScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"MealFood"> | number
   foodId?: Prisma.IntWithAggregatesFilter<"MealFood"> | number
   mealId?: Prisma.IntWithAggregatesFilter<"MealFood"> | number
+  servingUnitId?: Prisma.IntWithAggregatesFilter<"MealFood"> | number
   amount?: Prisma.FloatWithAggregatesFilter<"MealFood"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MealFood"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MealFood"> | Date | string
-  servingUnitId?: Prisma.IntWithAggregatesFilter<"MealFood"> | number
 }
 
 export type MealFoodCreateInput = {
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  food: Prisma.FoodCreateNestedOneWithoutMealFoodInput
+  food: Prisma.FoodCreateNestedOneWithoutMealFoodsInput
   meal: Prisma.MealCreateNestedOneWithoutMealFoodsInput
-  servingUnit: Prisma.ServingUnitCreateNestedOneWithoutMealFoodInput
+  servingUnit: Prisma.ServingUnitCreateNestedOneWithoutMealFoodsInput
 }
 
 export type MealFoodUncheckedCreateInput = {
   id?: number
   foodId: number
   mealId: number
+  servingUnitId: number
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  servingUnitId: number
 }
 
 export type MealFoodUpdateInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  food?: Prisma.FoodUpdateOneRequiredWithoutMealFoodNestedInput
+  food?: Prisma.FoodUpdateOneRequiredWithoutMealFoodsNestedInput
   meal?: Prisma.MealUpdateOneRequiredWithoutMealFoodsNestedInput
-  servingUnit?: Prisma.ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput
+  servingUnit?: Prisma.ServingUnitUpdateOneRequiredWithoutMealFoodsNestedInput
 }
 
 export type MealFoodUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   foodId?: Prisma.IntFieldUpdateOperationsInput | number
   mealId?: Prisma.IntFieldUpdateOperationsInput | number
+  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MealFoodCreateManyInput = {
   id?: number
   foodId: number
   mealId: number
+  servingUnitId: number
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  servingUnitId: number
 }
 
 export type MealFoodUpdateManyMutationInput = {
@@ -368,10 +368,10 @@ export type MealFoodUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   foodId?: Prisma.IntFieldUpdateOperationsInput | number
   mealId?: Prisma.IntFieldUpdateOperationsInput | number
+  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MealFoodListRelationFilter = {
@@ -388,46 +388,46 @@ export type MealFoodCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
+  servingUnitId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  servingUnitId?: Prisma.SortOrder
 }
 
 export type MealFoodAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
   servingUnitId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
 export type MealFoodMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
+  servingUnitId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  servingUnitId?: Prisma.SortOrder
 }
 
 export type MealFoodMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
+  servingUnitId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  servingUnitId?: Prisma.SortOrder
 }
 
 export type MealFoodSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   foodId?: Prisma.SortOrder
   mealId?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
   servingUnitId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
 export type MealFoodCreateNestedManyWithoutFoodInput = {
@@ -556,29 +556,21 @@ export type MealFoodUncheckedUpdateManyWithoutMealNestedInput = {
   deleteMany?: Prisma.MealFoodScalarWhereInput | Prisma.MealFoodScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type MealFoodCreateWithoutFoodInput = {
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
   meal: Prisma.MealCreateNestedOneWithoutMealFoodsInput
-  servingUnit: Prisma.ServingUnitCreateNestedOneWithoutMealFoodInput
+  servingUnit: Prisma.ServingUnitCreateNestedOneWithoutMealFoodsInput
 }
 
 export type MealFoodUncheckedCreateWithoutFoodInput = {
   id?: number
   mealId: number
+  servingUnitId: number
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  servingUnitId: number
 }
 
 export type MealFoodCreateOrConnectWithoutFoodInput = {
@@ -614,17 +606,17 @@ export type MealFoodScalarWhereInput = {
   id?: Prisma.IntFilter<"MealFood"> | number
   foodId?: Prisma.IntFilter<"MealFood"> | number
   mealId?: Prisma.IntFilter<"MealFood"> | number
+  servingUnitId?: Prisma.IntFilter<"MealFood"> | number
   amount?: Prisma.FloatFilter<"MealFood"> | number
   createdAt?: Prisma.DateTimeFilter<"MealFood"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MealFood"> | Date | string
-  servingUnitId?: Prisma.IntFilter<"MealFood"> | number
 }
 
 export type MealFoodCreateWithoutServingUnitInput = {
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  food: Prisma.FoodCreateNestedOneWithoutMealFoodInput
+  food: Prisma.FoodCreateNestedOneWithoutMealFoodsInput
   meal: Prisma.MealCreateNestedOneWithoutMealFoodsInput
 }
 
@@ -667,17 +659,17 @@ export type MealFoodCreateWithoutMealInput = {
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  food: Prisma.FoodCreateNestedOneWithoutMealFoodInput
-  servingUnit: Prisma.ServingUnitCreateNestedOneWithoutMealFoodInput
+  food: Prisma.FoodCreateNestedOneWithoutMealFoodsInput
+  servingUnit: Prisma.ServingUnitCreateNestedOneWithoutMealFoodsInput
 }
 
 export type MealFoodUncheckedCreateWithoutMealInput = {
   id?: number
   foodId: number
+  servingUnitId: number
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  servingUnitId: number
 }
 
 export type MealFoodCreateOrConnectWithoutMealInput = {
@@ -709,10 +701,10 @@ export type MealFoodUpdateManyWithWhereWithoutMealInput = {
 export type MealFoodCreateManyFoodInput = {
   id?: number
   mealId: number
+  servingUnitId: number
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  servingUnitId: number
 }
 
 export type MealFoodUpdateWithoutFoodInput = {
@@ -720,25 +712,25 @@ export type MealFoodUpdateWithoutFoodInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meal?: Prisma.MealUpdateOneRequiredWithoutMealFoodsNestedInput
-  servingUnit?: Prisma.ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput
+  servingUnit?: Prisma.ServingUnitUpdateOneRequiredWithoutMealFoodsNestedInput
 }
 
 export type MealFoodUncheckedUpdateWithoutFoodInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   mealId?: Prisma.IntFieldUpdateOperationsInput | number
+  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MealFoodUncheckedUpdateManyWithoutFoodInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   mealId?: Prisma.IntFieldUpdateOperationsInput | number
+  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MealFoodCreateManyServingUnitInput = {
@@ -754,7 +746,7 @@ export type MealFoodUpdateWithoutServingUnitInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  food?: Prisma.FoodUpdateOneRequiredWithoutMealFoodNestedInput
+  food?: Prisma.FoodUpdateOneRequiredWithoutMealFoodsNestedInput
   meal?: Prisma.MealUpdateOneRequiredWithoutMealFoodsNestedInput
 }
 
@@ -779,36 +771,36 @@ export type MealFoodUncheckedUpdateManyWithoutServingUnitInput = {
 export type MealFoodCreateManyMealInput = {
   id?: number
   foodId: number
+  servingUnitId: number
   amount: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  servingUnitId: number
 }
 
 export type MealFoodUpdateWithoutMealInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  food?: Prisma.FoodUpdateOneRequiredWithoutMealFoodNestedInput
-  servingUnit?: Prisma.ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput
+  food?: Prisma.FoodUpdateOneRequiredWithoutMealFoodsNestedInput
+  servingUnit?: Prisma.ServingUnitUpdateOneRequiredWithoutMealFoodsNestedInput
 }
 
 export type MealFoodUncheckedUpdateWithoutMealInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   foodId?: Prisma.IntFieldUpdateOperationsInput | number
+  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MealFoodUncheckedUpdateManyWithoutMealInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   foodId?: Prisma.IntFieldUpdateOperationsInput | number
+  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  servingUnitId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -817,10 +809,10 @@ export type MealFoodSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   foodId?: boolean
   mealId?: boolean
+  servingUnitId?: boolean
   amount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  servingUnitId?: boolean
   food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
   meal?: boolean | Prisma.MealDefaultArgs<ExtArgs>
   servingUnit?: boolean | Prisma.ServingUnitDefaultArgs<ExtArgs>
@@ -830,10 +822,10 @@ export type MealFoodSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   foodId?: boolean
   mealId?: boolean
+  servingUnitId?: boolean
   amount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  servingUnitId?: boolean
   food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
   meal?: boolean | Prisma.MealDefaultArgs<ExtArgs>
   servingUnit?: boolean | Prisma.ServingUnitDefaultArgs<ExtArgs>
@@ -843,10 +835,10 @@ export type MealFoodSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   foodId?: boolean
   mealId?: boolean
+  servingUnitId?: boolean
   amount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  servingUnitId?: boolean
   food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
   meal?: boolean | Prisma.MealDefaultArgs<ExtArgs>
   servingUnit?: boolean | Prisma.ServingUnitDefaultArgs<ExtArgs>
@@ -856,13 +848,13 @@ export type MealFoodSelectScalar = {
   id?: boolean
   foodId?: boolean
   mealId?: boolean
+  servingUnitId?: boolean
   amount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  servingUnitId?: boolean
 }
 
-export type MealFoodOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "foodId" | "mealId" | "amount" | "createdAt" | "updatedAt" | "servingUnitId", ExtArgs["result"]["mealFood"]>
+export type MealFoodOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "foodId" | "mealId" | "servingUnitId" | "amount" | "createdAt" | "updatedAt", ExtArgs["result"]["mealFood"]>
 export type MealFoodInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   food?: boolean | Prisma.FoodDefaultArgs<ExtArgs>
   meal?: boolean | Prisma.MealDefaultArgs<ExtArgs>
@@ -890,10 +882,10 @@ export type $MealFoodPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: number
     foodId: number
     mealId: number
+    servingUnitId: number
     amount: number
     createdAt: Date
     updatedAt: Date
-    servingUnitId: number
   }, ExtArgs["result"]["mealFood"]>
   composites: {}
 }
@@ -1323,10 +1315,10 @@ export interface MealFoodFieldRefs {
   readonly id: Prisma.FieldRef<"MealFood", 'Int'>
   readonly foodId: Prisma.FieldRef<"MealFood", 'Int'>
   readonly mealId: Prisma.FieldRef<"MealFood", 'Int'>
+  readonly servingUnitId: Prisma.FieldRef<"MealFood", 'Int'>
   readonly amount: Prisma.FieldRef<"MealFood", 'Float'>
   readonly createdAt: Prisma.FieldRef<"MealFood", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MealFood", 'DateTime'>
-  readonly servingUnitId: Prisma.FieldRef<"MealFood", 'Int'>
 }
     
 

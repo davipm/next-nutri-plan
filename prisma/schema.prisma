@@ -16,27 +16,26 @@ datasource db {
 model User {
   id            String    @id
   name          String
-  email         String
+  email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  role          String?
-  banned        Boolean?  @default(false)
+  role          String    @default("user")
+  banned        Boolean   @default(false)
   banReason     String?
   banExpires    DateTime?
   sessions      Session[]
   accounts      Account[]
   meals         Meal[]
 
-  @@unique([email])
   @@map("user")
 }
 
 model Session {
   id             String   @id
   expiresAt      DateTime
-  token          String
+  token          String   @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   ipAddress      String?
@@ -45,7 +44,7 @@ model Session {
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   impersonatedBy String?
 
-  @@unique([token])
+  @@index([expiresAt])
   @@index([userId])
   @@map("session")
 }
@@ -66,6 +65,7 @@ model Account {
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
+  @@unique([providerId, accountId])
   @@index([userId])
   @@map("account")
 }
@@ -78,6 +78,8 @@ model Verification {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  @@unique([identifier, value])
+  @@index([expiresAt])
   @@index([identifier])
   @@map("verification")
 }
@@ -85,7 +87,7 @@ model Verification {
 model Category {
   id        Int      @id @default(autoincrement())
   name      String   @unique
-  createAt  DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   foods     Food[]
 
@@ -103,26 +105,22 @@ model Food {
   sugar            Float?
   categoryId       Int?
   createdAt        DateTime          @default(now())
-  updateAt         DateTime          @updatedAt
-  mealId           Int?
-  category         Category?         @relation(fields: [categoryId], references: [id])
-  meal             Meal?             @relation(fields: [mealId], references: [id])
+  updatedAt        DateTime          @updatedAt
+  category         Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   foodServingUnits FoodServingUnit[]
-  mealFood         MealFood[]
-  servingUnit      ServingUnit[]
+  mealFoods        MealFood[]
 
+  @@index([categoryId])
   @@map("food")
 }
 
 model ServingUnit {
-  id              Int               @id @default(autoincrement())
-  name            String            @unique
-  foodId          Int?
-  createdAt       DateTime          @default(now())
-  updateAt        DateTime          @updatedAt
-  FoodServingUnit FoodServingUnit[]
-  mealFood        MealFood[]
-  food            Food?             @relation(fields: [foodId], references: [id])
+  id               Int               @id @default(autoincrement())
+  name             String            @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  foodServingUnits FoodServingUnit[]
+  mealFoods        MealFood[]
 
   @@map("servingUnit")
 }
@@ -131,12 +129,14 @@ model FoodServingUnit {
   id            Int         @id @default(autoincrement())
   foodId        Int
   servingUnitId Int
+  grams         Float
   createdAt     DateTime    @default(now())
-  updateAt      DateTime    @updatedAt
-  grams         Float?
-  food          Food        @relation(fields: [foodId], references: [id])
-  servingUnit   ServingUnit @relation(fields: [servingUnitId], references: [id])
+  updatedAt     DateTime    @updatedAt
+  food          Food        @relation(fields: [foodId], references: [id], onDelete: Cascade)
+  servingUnit   ServingUnit @relation(fields: [servingUnitId], references: [id], onDelete: Restrict)
 
+  @@unique([foodId, servingUnitId])
+  @@index([servingUnitId])
   @@map("foodServingUnit")
 }
 
@@ -145,11 +145,12 @@ model Meal {
   dateTime  DateTime
   userId    String?
   createdAt DateTime   @default(now())
-  updateAt  DateTime   @updatedAt
-  Food      Food[]
-  user      User?      @relation(fields: [userId], references: [id])
+  updatedAt DateTime   @updatedAt
+  user      User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
   mealFoods MealFood[]
 
+  @@index([dateTime])
+  @@index([userId, dateTime])
   @@map("meal")
 }
 
@@ -157,18 +158,16 @@ model MealFood {
   id            Int         @id @default(autoincrement())
   foodId        Int
   mealId        Int
+  servingUnitId Int
   amount        Float
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  servingUnitId Int
-  food          Food        @relation(fields: [foodId], references: [id])
-  meal          Meal        @relation(fields: [mealId], references: [id])
-  servingUnit   ServingUnit @relation(fields: [servingUnitId], references: [id])
+  food          Food        @relation(fields: [foodId], references: [id], onDelete: Restrict)
+  meal          Meal        @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  servingUnit   ServingUnit @relation(fields: [servingUnitId], references: [id], onDelete: Restrict)
 
+  @@index([foodId])
+  @@index([mealId])
+  @@index([servingUnitId])
   @@map("mealFood")
-}
-
-enum Role {
-  USER
-  ADMIN
 }

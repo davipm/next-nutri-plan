@@ -28,72 +28,62 @@ export type AggregateServingUnit = {
 
 export type ServingUnitAvgAggregateOutputType = {
   id: number | null
-  foodId: number | null
 }
 
 export type ServingUnitSumAggregateOutputType = {
   id: number | null
-  foodId: number | null
 }
 
 export type ServingUnitMinAggregateOutputType = {
   id: number | null
   name: string | null
-  foodId: number | null
   createdAt: Date | null
-  updateAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ServingUnitMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  foodId: number | null
   createdAt: Date | null
-  updateAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ServingUnitCountAggregateOutputType = {
   id: number
   name: number
-  foodId: number
   createdAt: number
-  updateAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type ServingUnitAvgAggregateInputType = {
   id?: true
-  foodId?: true
 }
 
 export type ServingUnitSumAggregateInputType = {
   id?: true
-  foodId?: true
 }
 
 export type ServingUnitMinAggregateInputType = {
   id?: true
   name?: true
-  foodId?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
 }
 
 export type ServingUnitMaxAggregateInputType = {
   id?: true
   name?: true
-  foodId?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
 }
 
 export type ServingUnitCountAggregateInputType = {
   id?: true
   name?: true
-  foodId?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -186,9 +176,8 @@ export type ServingUnitGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type ServingUnitGroupByOutputType = {
   id: number
   name: string
-  foodId: number | null
   createdAt: Date
-  updateAt: Date
+  updatedAt: Date
   _count: ServingUnitCountAggregateOutputType | null
   _avg: ServingUnitAvgAggregateOutputType | null
   _sum: ServingUnitSumAggregateOutputType | null
@@ -217,23 +206,19 @@ export type ServingUnitWhereInput = {
   NOT?: Prisma.ServingUnitWhereInput | Prisma.ServingUnitWhereInput[]
   id?: Prisma.IntFilter<"ServingUnit"> | number
   name?: Prisma.StringFilter<"ServingUnit"> | string
-  foodId?: Prisma.IntNullableFilter<"ServingUnit"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitListRelationFilter
-  mealFood?: Prisma.MealFoodListRelationFilter
-  food?: Prisma.XOR<Prisma.FoodNullableScalarRelationFilter, Prisma.FoodWhereInput> | null
+  updatedAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
+  foodServingUnits?: Prisma.FoodServingUnitListRelationFilter
+  mealFoods?: Prisma.MealFoodListRelationFilter
 }
 
 export type ServingUnitOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  foodId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
-  FoodServingUnit?: Prisma.FoodServingUnitOrderByRelationAggregateInput
-  mealFood?: Prisma.MealFoodOrderByRelationAggregateInput
-  food?: Prisma.FoodOrderByWithRelationInput
+  updatedAt?: Prisma.SortOrder
+  foodServingUnits?: Prisma.FoodServingUnitOrderByRelationAggregateInput
+  mealFoods?: Prisma.MealFoodOrderByRelationAggregateInput
 }
 
 export type ServingUnitWhereUniqueInput = Prisma.AtLeast<{
@@ -242,20 +227,17 @@ export type ServingUnitWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ServingUnitWhereInput | Prisma.ServingUnitWhereInput[]
   OR?: Prisma.ServingUnitWhereInput[]
   NOT?: Prisma.ServingUnitWhereInput | Prisma.ServingUnitWhereInput[]
-  foodId?: Prisma.IntNullableFilter<"ServingUnit"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitListRelationFilter
-  mealFood?: Prisma.MealFoodListRelationFilter
-  food?: Prisma.XOR<Prisma.FoodNullableScalarRelationFilter, Prisma.FoodWhereInput> | null
+  updatedAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
+  foodServingUnits?: Prisma.FoodServingUnitListRelationFilter
+  mealFoods?: Prisma.MealFoodListRelationFilter
 }, "id" | "name">
 
 export type ServingUnitOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  foodId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ServingUnitCountOrderByAggregateInput
   _avg?: Prisma.ServingUnitAvgOrderByAggregateInput
   _max?: Prisma.ServingUnitMaxOrderByAggregateInput
@@ -269,113 +251,91 @@ export type ServingUnitScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ServingUnitScalarWhereWithAggregatesInput | Prisma.ServingUnitScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ServingUnit"> | number
   name?: Prisma.StringWithAggregatesFilter<"ServingUnit"> | string
-  foodId?: Prisma.IntNullableWithAggregatesFilter<"ServingUnit"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ServingUnit"> | Date | string
-  updateAt?: Prisma.DateTimeWithAggregatesFilter<"ServingUnit"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ServingUnit"> | Date | string
 }
 
 export type ServingUnitCreateInput = {
   name: string
   createdAt?: Date | string
-  updateAt?: Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitCreateNestedManyWithoutServingUnitInput
-  mealFood?: Prisma.MealFoodCreateNestedManyWithoutServingUnitInput
-  food?: Prisma.FoodCreateNestedOneWithoutServingUnitInput
+  updatedAt?: Date | string
+  foodServingUnits?: Prisma.FoodServingUnitCreateNestedManyWithoutServingUnitInput
+  mealFoods?: Prisma.MealFoodCreateNestedManyWithoutServingUnitInput
 }
 
 export type ServingUnitUncheckedCreateInput = {
   id?: number
   name: string
-  foodId?: number | null
   createdAt?: Date | string
-  updateAt?: Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
-  mealFood?: Prisma.MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
+  updatedAt?: Date | string
+  foodServingUnits?: Prisma.FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
+  mealFoods?: Prisma.MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
 }
 
 export type ServingUnitUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUpdateManyWithoutServingUnitNestedInput
-  mealFood?: Prisma.MealFoodUpdateManyWithoutServingUnitNestedInput
-  food?: Prisma.FoodUpdateOneWithoutServingUnitNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  foodServingUnits?: Prisma.FoodServingUnitUpdateManyWithoutServingUnitNestedInput
+  mealFoods?: Prisma.MealFoodUpdateManyWithoutServingUnitNestedInput
 }
 
 export type ServingUnitUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  foodId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
-  mealFood?: Prisma.MealFoodUncheckedUpdateManyWithoutServingUnitNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  foodServingUnits?: Prisma.FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
+  mealFoods?: Prisma.MealFoodUncheckedUpdateManyWithoutServingUnitNestedInput
 }
 
 export type ServingUnitCreateManyInput = {
   id?: number
   name: string
-  foodId?: number | null
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ServingUnitUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ServingUnitUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  foodId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ServingUnitListRelationFilter = {
-  every?: Prisma.ServingUnitWhereInput
-  some?: Prisma.ServingUnitWhereInput
-  none?: Prisma.ServingUnitWhereInput
-}
-
-export type ServingUnitOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ServingUnitCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  foodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ServingUnitAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  foodId?: Prisma.SortOrder
 }
 
 export type ServingUnitMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  foodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ServingUnitMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  foodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ServingUnitSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  foodId?: Prisma.SortOrder
 }
 
 export type ServingUnitScalarRelationFilter = {
@@ -383,259 +343,124 @@ export type ServingUnitScalarRelationFilter = {
   isNot?: Prisma.ServingUnitWhereInput
 }
 
-export type ServingUnitCreateNestedManyWithoutFoodInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodInput, Prisma.ServingUnitUncheckedCreateWithoutFoodInput> | Prisma.ServingUnitCreateWithoutFoodInput[] | Prisma.ServingUnitUncheckedCreateWithoutFoodInput[]
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodInput | Prisma.ServingUnitCreateOrConnectWithoutFoodInput[]
-  createMany?: Prisma.ServingUnitCreateManyFoodInputEnvelope
-  connect?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-}
-
-export type ServingUnitUncheckedCreateNestedManyWithoutFoodInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodInput, Prisma.ServingUnitUncheckedCreateWithoutFoodInput> | Prisma.ServingUnitCreateWithoutFoodInput[] | Prisma.ServingUnitUncheckedCreateWithoutFoodInput[]
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodInput | Prisma.ServingUnitCreateOrConnectWithoutFoodInput[]
-  createMany?: Prisma.ServingUnitCreateManyFoodInputEnvelope
-  connect?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-}
-
-export type ServingUnitUpdateManyWithoutFoodNestedInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodInput, Prisma.ServingUnitUncheckedCreateWithoutFoodInput> | Prisma.ServingUnitCreateWithoutFoodInput[] | Prisma.ServingUnitUncheckedCreateWithoutFoodInput[]
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodInput | Prisma.ServingUnitCreateOrConnectWithoutFoodInput[]
-  upsert?: Prisma.ServingUnitUpsertWithWhereUniqueWithoutFoodInput | Prisma.ServingUnitUpsertWithWhereUniqueWithoutFoodInput[]
-  createMany?: Prisma.ServingUnitCreateManyFoodInputEnvelope
-  set?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  disconnect?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  delete?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  connect?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  update?: Prisma.ServingUnitUpdateWithWhereUniqueWithoutFoodInput | Prisma.ServingUnitUpdateWithWhereUniqueWithoutFoodInput[]
-  updateMany?: Prisma.ServingUnitUpdateManyWithWhereWithoutFoodInput | Prisma.ServingUnitUpdateManyWithWhereWithoutFoodInput[]
-  deleteMany?: Prisma.ServingUnitScalarWhereInput | Prisma.ServingUnitScalarWhereInput[]
-}
-
-export type ServingUnitUncheckedUpdateManyWithoutFoodNestedInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodInput, Prisma.ServingUnitUncheckedCreateWithoutFoodInput> | Prisma.ServingUnitCreateWithoutFoodInput[] | Prisma.ServingUnitUncheckedCreateWithoutFoodInput[]
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodInput | Prisma.ServingUnitCreateOrConnectWithoutFoodInput[]
-  upsert?: Prisma.ServingUnitUpsertWithWhereUniqueWithoutFoodInput | Prisma.ServingUnitUpsertWithWhereUniqueWithoutFoodInput[]
-  createMany?: Prisma.ServingUnitCreateManyFoodInputEnvelope
-  set?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  disconnect?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  delete?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  connect?: Prisma.ServingUnitWhereUniqueInput | Prisma.ServingUnitWhereUniqueInput[]
-  update?: Prisma.ServingUnitUpdateWithWhereUniqueWithoutFoodInput | Prisma.ServingUnitUpdateWithWhereUniqueWithoutFoodInput[]
-  updateMany?: Prisma.ServingUnitUpdateManyWithWhereWithoutFoodInput | Prisma.ServingUnitUpdateManyWithWhereWithoutFoodInput[]
-  deleteMany?: Prisma.ServingUnitScalarWhereInput | Prisma.ServingUnitScalarWhereInput[]
-}
-
-export type ServingUnitCreateNestedOneWithoutFoodServingUnitInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodServingUnitInput
+export type ServingUnitCreateNestedOneWithoutFoodServingUnitsInput = {
+  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitsInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitsInput>
+  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodServingUnitsInput
   connect?: Prisma.ServingUnitWhereUniqueInput
 }
 
-export type ServingUnitUpdateOneRequiredWithoutFoodServingUnitNestedInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodServingUnitInput
-  upsert?: Prisma.ServingUnitUpsertWithoutFoodServingUnitInput
+export type ServingUnitUpdateOneRequiredWithoutFoodServingUnitsNestedInput = {
+  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitsInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitsInput>
+  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutFoodServingUnitsInput
+  upsert?: Prisma.ServingUnitUpsertWithoutFoodServingUnitsInput
   connect?: Prisma.ServingUnitWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ServingUnitUpdateToOneWithWhereWithoutFoodServingUnitInput, Prisma.ServingUnitUpdateWithoutFoodServingUnitInput>, Prisma.ServingUnitUncheckedUpdateWithoutFoodServingUnitInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ServingUnitUpdateToOneWithWhereWithoutFoodServingUnitsInput, Prisma.ServingUnitUpdateWithoutFoodServingUnitsInput>, Prisma.ServingUnitUncheckedUpdateWithoutFoodServingUnitsInput>
 }
 
-export type ServingUnitCreateNestedOneWithoutMealFoodInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodInput>
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutMealFoodInput
+export type ServingUnitCreateNestedOneWithoutMealFoodsInput = {
+  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodsInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodsInput>
+  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutMealFoodsInput
   connect?: Prisma.ServingUnitWhereUniqueInput
 }
 
-export type ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput = {
-  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodInput>
-  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutMealFoodInput
-  upsert?: Prisma.ServingUnitUpsertWithoutMealFoodInput
+export type ServingUnitUpdateOneRequiredWithoutMealFoodsNestedInput = {
+  create?: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodsInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodsInput>
+  connectOrCreate?: Prisma.ServingUnitCreateOrConnectWithoutMealFoodsInput
+  upsert?: Prisma.ServingUnitUpsertWithoutMealFoodsInput
   connect?: Prisma.ServingUnitWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ServingUnitUpdateToOneWithWhereWithoutMealFoodInput, Prisma.ServingUnitUpdateWithoutMealFoodInput>, Prisma.ServingUnitUncheckedUpdateWithoutMealFoodInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ServingUnitUpdateToOneWithWhereWithoutMealFoodsInput, Prisma.ServingUnitUpdateWithoutMealFoodsInput>, Prisma.ServingUnitUncheckedUpdateWithoutMealFoodsInput>
 }
 
-export type ServingUnitCreateWithoutFoodInput = {
+export type ServingUnitCreateWithoutFoodServingUnitsInput = {
   name: string
   createdAt?: Date | string
-  updateAt?: Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitCreateNestedManyWithoutServingUnitInput
-  mealFood?: Prisma.MealFoodCreateNestedManyWithoutServingUnitInput
+  updatedAt?: Date | string
+  mealFoods?: Prisma.MealFoodCreateNestedManyWithoutServingUnitInput
 }
 
-export type ServingUnitUncheckedCreateWithoutFoodInput = {
+export type ServingUnitUncheckedCreateWithoutFoodServingUnitsInput = {
   id?: number
   name: string
   createdAt?: Date | string
-  updateAt?: Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
-  mealFood?: Prisma.MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
+  updatedAt?: Date | string
+  mealFoods?: Prisma.MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
 }
 
-export type ServingUnitCreateOrConnectWithoutFoodInput = {
+export type ServingUnitCreateOrConnectWithoutFoodServingUnitsInput = {
   where: Prisma.ServingUnitWhereUniqueInput
-  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodInput, Prisma.ServingUnitUncheckedCreateWithoutFoodInput>
+  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitsInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitsInput>
 }
 
-export type ServingUnitCreateManyFoodInputEnvelope = {
-  data: Prisma.ServingUnitCreateManyFoodInput | Prisma.ServingUnitCreateManyFoodInput[]
-  skipDuplicates?: boolean
-}
-
-export type ServingUnitUpsertWithWhereUniqueWithoutFoodInput = {
-  where: Prisma.ServingUnitWhereUniqueInput
-  update: Prisma.XOR<Prisma.ServingUnitUpdateWithoutFoodInput, Prisma.ServingUnitUncheckedUpdateWithoutFoodInput>
-  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodInput, Prisma.ServingUnitUncheckedCreateWithoutFoodInput>
-}
-
-export type ServingUnitUpdateWithWhereUniqueWithoutFoodInput = {
-  where: Prisma.ServingUnitWhereUniqueInput
-  data: Prisma.XOR<Prisma.ServingUnitUpdateWithoutFoodInput, Prisma.ServingUnitUncheckedUpdateWithoutFoodInput>
-}
-
-export type ServingUnitUpdateManyWithWhereWithoutFoodInput = {
-  where: Prisma.ServingUnitScalarWhereInput
-  data: Prisma.XOR<Prisma.ServingUnitUpdateManyMutationInput, Prisma.ServingUnitUncheckedUpdateManyWithoutFoodInput>
-}
-
-export type ServingUnitScalarWhereInput = {
-  AND?: Prisma.ServingUnitScalarWhereInput | Prisma.ServingUnitScalarWhereInput[]
-  OR?: Prisma.ServingUnitScalarWhereInput[]
-  NOT?: Prisma.ServingUnitScalarWhereInput | Prisma.ServingUnitScalarWhereInput[]
-  id?: Prisma.IntFilter<"ServingUnit"> | number
-  name?: Prisma.StringFilter<"ServingUnit"> | string
-  foodId?: Prisma.IntNullableFilter<"ServingUnit"> | number | null
-  createdAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"ServingUnit"> | Date | string
-}
-
-export type ServingUnitCreateWithoutFoodServingUnitInput = {
-  name: string
-  createdAt?: Date | string
-  updateAt?: Date | string
-  mealFood?: Prisma.MealFoodCreateNestedManyWithoutServingUnitInput
-  food?: Prisma.FoodCreateNestedOneWithoutServingUnitInput
-}
-
-export type ServingUnitUncheckedCreateWithoutFoodServingUnitInput = {
-  id?: number
-  name: string
-  foodId?: number | null
-  createdAt?: Date | string
-  updateAt?: Date | string
-  mealFood?: Prisma.MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
-}
-
-export type ServingUnitCreateOrConnectWithoutFoodServingUnitInput = {
-  where: Prisma.ServingUnitWhereUniqueInput
-  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
-}
-
-export type ServingUnitUpsertWithoutFoodServingUnitInput = {
-  update: Prisma.XOR<Prisma.ServingUnitUpdateWithoutFoodServingUnitInput, Prisma.ServingUnitUncheckedUpdateWithoutFoodServingUnitInput>
-  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
+export type ServingUnitUpsertWithoutFoodServingUnitsInput = {
+  update: Prisma.XOR<Prisma.ServingUnitUpdateWithoutFoodServingUnitsInput, Prisma.ServingUnitUncheckedUpdateWithoutFoodServingUnitsInput>
+  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutFoodServingUnitsInput, Prisma.ServingUnitUncheckedCreateWithoutFoodServingUnitsInput>
   where?: Prisma.ServingUnitWhereInput
 }
 
-export type ServingUnitUpdateToOneWithWhereWithoutFoodServingUnitInput = {
+export type ServingUnitUpdateToOneWithWhereWithoutFoodServingUnitsInput = {
   where?: Prisma.ServingUnitWhereInput
-  data: Prisma.XOR<Prisma.ServingUnitUpdateWithoutFoodServingUnitInput, Prisma.ServingUnitUncheckedUpdateWithoutFoodServingUnitInput>
+  data: Prisma.XOR<Prisma.ServingUnitUpdateWithoutFoodServingUnitsInput, Prisma.ServingUnitUncheckedUpdateWithoutFoodServingUnitsInput>
 }
 
-export type ServingUnitUpdateWithoutFoodServingUnitInput = {
+export type ServingUnitUpdateWithoutFoodServingUnitsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mealFood?: Prisma.MealFoodUpdateManyWithoutServingUnitNestedInput
-  food?: Prisma.FoodUpdateOneWithoutServingUnitNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mealFoods?: Prisma.MealFoodUpdateManyWithoutServingUnitNestedInput
 }
 
-export type ServingUnitUncheckedUpdateWithoutFoodServingUnitInput = {
+export type ServingUnitUncheckedUpdateWithoutFoodServingUnitsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  foodId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mealFood?: Prisma.MealFoodUncheckedUpdateManyWithoutServingUnitNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mealFoods?: Prisma.MealFoodUncheckedUpdateManyWithoutServingUnitNestedInput
 }
 
-export type ServingUnitCreateWithoutMealFoodInput = {
+export type ServingUnitCreateWithoutMealFoodsInput = {
   name: string
   createdAt?: Date | string
-  updateAt?: Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitCreateNestedManyWithoutServingUnitInput
-  food?: Prisma.FoodCreateNestedOneWithoutServingUnitInput
+  updatedAt?: Date | string
+  foodServingUnits?: Prisma.FoodServingUnitCreateNestedManyWithoutServingUnitInput
 }
 
-export type ServingUnitUncheckedCreateWithoutMealFoodInput = {
-  id?: number
-  name: string
-  foodId?: number | null
-  createdAt?: Date | string
-  updateAt?: Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
-}
-
-export type ServingUnitCreateOrConnectWithoutMealFoodInput = {
-  where: Prisma.ServingUnitWhereUniqueInput
-  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodInput>
-}
-
-export type ServingUnitUpsertWithoutMealFoodInput = {
-  update: Prisma.XOR<Prisma.ServingUnitUpdateWithoutMealFoodInput, Prisma.ServingUnitUncheckedUpdateWithoutMealFoodInput>
-  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodInput>
-  where?: Prisma.ServingUnitWhereInput
-}
-
-export type ServingUnitUpdateToOneWithWhereWithoutMealFoodInput = {
-  where?: Prisma.ServingUnitWhereInput
-  data: Prisma.XOR<Prisma.ServingUnitUpdateWithoutMealFoodInput, Prisma.ServingUnitUncheckedUpdateWithoutMealFoodInput>
-}
-
-export type ServingUnitUpdateWithoutMealFoodInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUpdateManyWithoutServingUnitNestedInput
-  food?: Prisma.FoodUpdateOneWithoutServingUnitNestedInput
-}
-
-export type ServingUnitUncheckedUpdateWithoutMealFoodInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  foodId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
-}
-
-export type ServingUnitCreateManyFoodInput = {
+export type ServingUnitUncheckedCreateWithoutMealFoodsInput = {
   id?: number
   name: string
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
+  foodServingUnits?: Prisma.FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
 }
 
-export type ServingUnitUpdateWithoutFoodInput = {
+export type ServingUnitCreateOrConnectWithoutMealFoodsInput = {
+  where: Prisma.ServingUnitWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodsInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodsInput>
+}
+
+export type ServingUnitUpsertWithoutMealFoodsInput = {
+  update: Prisma.XOR<Prisma.ServingUnitUpdateWithoutMealFoodsInput, Prisma.ServingUnitUncheckedUpdateWithoutMealFoodsInput>
+  create: Prisma.XOR<Prisma.ServingUnitCreateWithoutMealFoodsInput, Prisma.ServingUnitUncheckedCreateWithoutMealFoodsInput>
+  where?: Prisma.ServingUnitWhereInput
+}
+
+export type ServingUnitUpdateToOneWithWhereWithoutMealFoodsInput = {
+  where?: Prisma.ServingUnitWhereInput
+  data: Prisma.XOR<Prisma.ServingUnitUpdateWithoutMealFoodsInput, Prisma.ServingUnitUncheckedUpdateWithoutMealFoodsInput>
+}
+
+export type ServingUnitUpdateWithoutMealFoodsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUpdateManyWithoutServingUnitNestedInput
-  mealFood?: Prisma.MealFoodUpdateManyWithoutServingUnitNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  foodServingUnits?: Prisma.FoodServingUnitUpdateManyWithoutServingUnitNestedInput
 }
 
-export type ServingUnitUncheckedUpdateWithoutFoodInput = {
+export type ServingUnitUncheckedUpdateWithoutMealFoodsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  FoodServingUnit?: Prisma.FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
-  mealFood?: Prisma.MealFoodUncheckedUpdateManyWithoutServingUnitNestedInput
-}
-
-export type ServingUnitUncheckedUpdateManyWithoutFoodInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  foodServingUnits?: Prisma.FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
 }
 
 
@@ -644,13 +469,13 @@ export type ServingUnitUncheckedUpdateManyWithoutFoodInput = {
  */
 
 export type ServingUnitCountOutputType = {
-  FoodServingUnit: number
-  mealFood: number
+  foodServingUnits: number
+  mealFoods: number
 }
 
 export type ServingUnitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  FoodServingUnit?: boolean | ServingUnitCountOutputTypeCountFoodServingUnitArgs
-  mealFood?: boolean | ServingUnitCountOutputTypeCountMealFoodArgs
+  foodServingUnits?: boolean | ServingUnitCountOutputTypeCountFoodServingUnitsArgs
+  mealFoods?: boolean | ServingUnitCountOutputTypeCountMealFoodsArgs
 }
 
 /**
@@ -666,14 +491,14 @@ export type ServingUnitCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
 /**
  * ServingUnitCountOutputType without action
  */
-export type ServingUnitCountOutputTypeCountFoodServingUnitArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServingUnitCountOutputTypeCountFoodServingUnitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FoodServingUnitWhereInput
 }
 
 /**
  * ServingUnitCountOutputType without action
  */
-export type ServingUnitCountOutputTypeCountMealFoodArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServingUnitCountOutputTypeCountMealFoodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MealFoodWhereInput
 }
 
@@ -681,68 +506,54 @@ export type ServingUnitCountOutputTypeCountMealFoodArgs<ExtArgs extends runtime.
 export type ServingUnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  foodId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
-  FoodServingUnit?: boolean | Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs>
-  mealFood?: boolean | Prisma.ServingUnit$mealFoodArgs<ExtArgs>
-  food?: boolean | Prisma.ServingUnit$foodArgs<ExtArgs>
+  updatedAt?: boolean
+  foodServingUnits?: boolean | Prisma.ServingUnit$foodServingUnitsArgs<ExtArgs>
+  mealFoods?: boolean | Prisma.ServingUnit$mealFoodsArgs<ExtArgs>
   _count?: boolean | Prisma.ServingUnitCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["servingUnit"]>
 
 export type ServingUnitSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  foodId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
-  food?: boolean | Prisma.ServingUnit$foodArgs<ExtArgs>
+  updatedAt?: boolean
 }, ExtArgs["result"]["servingUnit"]>
 
 export type ServingUnitSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  foodId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
-  food?: boolean | Prisma.ServingUnit$foodArgs<ExtArgs>
+  updatedAt?: boolean
 }, ExtArgs["result"]["servingUnit"]>
 
 export type ServingUnitSelectScalar = {
   id?: boolean
   name?: boolean
-  foodId?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ServingUnitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "foodId" | "createdAt" | "updateAt", ExtArgs["result"]["servingUnit"]>
+export type ServingUnitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["servingUnit"]>
 export type ServingUnitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  FoodServingUnit?: boolean | Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs>
-  mealFood?: boolean | Prisma.ServingUnit$mealFoodArgs<ExtArgs>
-  food?: boolean | Prisma.ServingUnit$foodArgs<ExtArgs>
+  foodServingUnits?: boolean | Prisma.ServingUnit$foodServingUnitsArgs<ExtArgs>
+  mealFoods?: boolean | Prisma.ServingUnit$mealFoodsArgs<ExtArgs>
   _count?: boolean | Prisma.ServingUnitCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ServingUnitIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  food?: boolean | Prisma.ServingUnit$foodArgs<ExtArgs>
-}
-export type ServingUnitIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  food?: boolean | Prisma.ServingUnit$foodArgs<ExtArgs>
-}
+export type ServingUnitIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ServingUnitIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $ServingUnitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ServingUnit"
   objects: {
-    FoodServingUnit: Prisma.$FoodServingUnitPayload<ExtArgs>[]
-    mealFood: Prisma.$MealFoodPayload<ExtArgs>[]
-    food: Prisma.$FoodPayload<ExtArgs> | null
+    foodServingUnits: Prisma.$FoodServingUnitPayload<ExtArgs>[]
+    mealFoods: Prisma.$MealFoodPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    foodId: number | null
     createdAt: Date
-    updateAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["servingUnit"]>
   composites: {}
 }
@@ -1137,9 +948,8 @@ readonly fields: ServingUnitFieldRefs;
  */
 export interface Prisma__ServingUnitClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  FoodServingUnit<T extends Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServingUnit$FoodServingUnitArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoodServingUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  mealFood<T extends Prisma.ServingUnit$mealFoodArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServingUnit$mealFoodArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MealFoodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  food<T extends Prisma.ServingUnit$foodArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServingUnit$foodArgs<ExtArgs>>): Prisma.Prisma__FoodClient<runtime.Types.Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  foodServingUnits<T extends Prisma.ServingUnit$foodServingUnitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServingUnit$foodServingUnitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoodServingUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mealFoods<T extends Prisma.ServingUnit$mealFoodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServingUnit$mealFoodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MealFoodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1171,9 +981,8 @@ export interface Prisma__ServingUnitClient<T, Null = never, ExtArgs extends runt
 export interface ServingUnitFieldRefs {
   readonly id: Prisma.FieldRef<"ServingUnit", 'Int'>
   readonly name: Prisma.FieldRef<"ServingUnit", 'String'>
-  readonly foodId: Prisma.FieldRef<"ServingUnit", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ServingUnit", 'DateTime'>
-  readonly updateAt: Prisma.FieldRef<"ServingUnit", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ServingUnit", 'DateTime'>
 }
     
 
@@ -1423,10 +1232,6 @@ export type ServingUnitCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    */
   data: Prisma.ServingUnitCreateManyInput | Prisma.ServingUnitCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ServingUnitIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1497,10 +1302,6 @@ export type ServingUnitUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * Limit how many ServingUnits to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ServingUnitIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1570,9 +1371,9 @@ export type ServingUnitDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * ServingUnit.FoodServingUnit
+ * ServingUnit.foodServingUnits
  */
-export type ServingUnit$FoodServingUnitArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServingUnit$foodServingUnitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the FoodServingUnit
    */
@@ -1594,9 +1395,9 @@ export type ServingUnit$FoodServingUnitArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
- * ServingUnit.mealFood
+ * ServingUnit.mealFoods
  */
-export type ServingUnit$mealFoodArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServingUnit$mealFoodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the MealFood
    */
@@ -1615,25 +1416,6 @@ export type ServingUnit$mealFoodArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.MealFoodScalarFieldEnum | Prisma.MealFoodScalarFieldEnum[]
-}
-
-/**
- * ServingUnit.food
- */
-export type ServingUnit$foodArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Food
-   */
-  select?: Prisma.FoodSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Food
-   */
-  omit?: Prisma.FoodOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FoodInclude<ExtArgs> | null
-  where?: Prisma.FoodWhereInput
 }
 
 /**

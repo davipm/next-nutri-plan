@@ -11,16 +11,14 @@ export const foodModelSchema = z.object({
   sugar: z.number().nullable(),
   categoryId: z.number().nullable(),
   createdAt: z.date(),
-  updateAt: z.date(),
-  mealId: z.number().nullable(),
+  updatedAt: z.date(),
 });
 
 export const servingUnitModelSchema = z.object({
   id: z.number().min(1),
   name: z.string().min(1),
-  foodId: z.number().nullable(),
   createdAt: z.date(),
-  updateAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const mealFoodSchema = z.object({
@@ -38,7 +36,7 @@ export const mealSchema = z.object({
   dateTime: z.date(),
   userId: z.string().nullable(),
   createdAt: z.date(),
-  updateAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const mealFoodWithRelationsSchema = mealFoodSchema.extend({

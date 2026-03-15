@@ -1258,7 +1258,7 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createAt: 'createAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -1276,8 +1276,7 @@ export const FoodScalarFieldEnum = {
   sugar: 'sugar',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
-  updateAt: 'updateAt',
-  mealId: 'mealId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FoodScalarFieldEnum = (typeof FoodScalarFieldEnum)[keyof typeof FoodScalarFieldEnum]
@@ -1286,9 +1285,8 @@ export type FoodScalarFieldEnum = (typeof FoodScalarFieldEnum)[keyof typeof Food
 export const ServingUnitScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  foodId: 'foodId',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ServingUnitScalarFieldEnum = (typeof ServingUnitScalarFieldEnum)[keyof typeof ServingUnitScalarFieldEnum]
@@ -1298,9 +1296,9 @@ export const FoodServingUnitScalarFieldEnum = {
   id: 'id',
   foodId: 'foodId',
   servingUnitId: 'servingUnitId',
+  grams: 'grams',
   createdAt: 'createdAt',
-  updateAt: 'updateAt',
-  grams: 'grams'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FoodServingUnitScalarFieldEnum = (typeof FoodServingUnitScalarFieldEnum)[keyof typeof FoodServingUnitScalarFieldEnum]
@@ -1311,7 +1309,7 @@ export const MealScalarFieldEnum = {
   dateTime: 'dateTime',
   userId: 'userId',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type MealScalarFieldEnum = (typeof MealScalarFieldEnum)[keyof typeof MealScalarFieldEnum]
@@ -1321,10 +1319,10 @@ export const MealFoodScalarFieldEnum = {
   id: 'id',
   foodId: 'foodId',
   mealId: 'mealId',
+  servingUnitId: 'servingUnitId',
   amount: 'amount',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  servingUnitId: 'servingUnitId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type MealFoodScalarFieldEnum = (typeof MealFoodScalarFieldEnum)[keyof typeof MealFoodScalarFieldEnum]

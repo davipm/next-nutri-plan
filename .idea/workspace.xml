@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: add meal components and store for dashboard integration with initial UI and state management">
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/_utils/calculations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/_utils/calculations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/modules/food/food.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/modules/meal/meal.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/meal/meal.schema.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +30,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="298" />
+    <option name="cachedIndexableFilesCount" value="303" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -154,6 +171,19 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="infra.postgres: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="postgres" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="infra/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="Next.js: server-side" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -204,23 +234,13 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="format" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.db:seed" />
-        <item itemvalue="npm.db:studio" />
         <item itemvalue="npm.db:generate" />
         <item itemvalue="npm.db:migrate" />
-        <item itemvalue="npm.format" />
+        <item itemvalue="Docker.infra.postgres: Compose Deployment" />
+        <item itemvalue="npm.db:studio" />
       </list>
     </recent_temporary>
   </component>

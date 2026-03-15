@@ -7,6 +7,18 @@ export const servingUnitSchema = z.object({
   grams: z.number().min(0.1, 'Grams must be greater than 0'),
 });
 
+const foodServingUnitsSchema = z
+  .array(servingUnitSchema)
+  .min(1, 'At least one serving unit is required')
+  .refine(
+    (servingUnits) =>
+      new Set(servingUnits.map((servingUnit) => servingUnit.servingUnitId)).size ===
+      servingUnits.length,
+    {
+      message: 'Serving units must be unique per food',
+    }
+  );
+
 export const baseFoodSchema = z.object({
   name: z.string().min(1, 'Name is required').trim(),
   calories: z.number().min(0, 'Calories must be non-negative'),
@@ -16,7 +28,7 @@ export const baseFoodSchema = z.object({
   sugar: z.number().min(0, 'Sugar must be non-negative').optional().default(0),
   fiber: z.number().min(0, 'Fiber must be non-negative').optional().default(0),
   categoryId: z.number().min(1, 'Category ID must be positive').optional().nullable(),
-  foodServingUnits: z.array(servingUnitSchema).min(1, 'At least one serving unit is required'),
+  foodServingUnits: foodServingUnitsSchema,
 });
 
 export type BaseFoodSchema = z.infer<typeof baseFoodSchema>;
@@ -46,7 +58,7 @@ export type FindFoodInput = z.infer<typeof findFoodSchema>;
 
 // Create schema
 export const createFoodSchema = baseFoodSchema.extend({
-  foodServingUnits: z.array(servingUnitSchema).min(1, 'At least one serving unit is required'),
+  foodServingUnits: foodServingUnitsSchema,
 });
 
 export type CreateFoodInput = z.infer<typeof createFoodSchema>;
@@ -54,7 +66,7 @@ export type CreateFoodInput = z.infer<typeof createFoodSchema>;
 // Update schema
 export const updateFoodSchema = baseFoodSchema.extend({
   id: z.number().min(1, 'Food ID must be positive'),
-  foodServingUnits: z.array(servingUnitSchema).min(1, 'At least one serving unit is required'),
+  foodServingUnits: foodServingUnitsSchema,
 });
 
 export type UpdateFoodInput = z.infer<typeof updateFoodSchema>;
