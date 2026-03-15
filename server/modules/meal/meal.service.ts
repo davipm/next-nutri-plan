@@ -21,7 +21,7 @@ export type MealWithRelations = Prisma.MealGetPayload<{
   };
 }>;
 
-const MEAL_INCLUDE = {
+export const MEAL_INCLUDE = {
   mealFoods: {
     include: {
       food: true,
