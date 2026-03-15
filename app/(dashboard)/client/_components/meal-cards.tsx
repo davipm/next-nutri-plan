@@ -7,6 +7,7 @@ import MealCardsSkeleton from '@/app/(dashboard)/client/_components/meal-card-sk
 import {
   calculateNutritionTotal,
   calculateTotalCalories,
+  formatNutritionStat,
 } from '@/app/(dashboard)/client/_utils/calculations';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -41,7 +42,9 @@ export function MealCards() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="font-bold text-2xl">{nutritionTotal.calories} kcal</div>
+              <div className="font-bold text-2xl">
+                {formatNutritionStat(nutritionTotal.calories, 'kcal')}
+              </div>
             </CardContent>
           </Card>
 
@@ -56,15 +59,15 @@ export function MealCards() {
               <div className="grid grid-cols-3 gap-2">
                 <div>
                   <p className="text-muted-foreground text-sm">Protein</p>
-                  <p className="font-medium">{nutritionTotal.protein}g</p>
+                  <p className="font-medium">{formatNutritionStat(nutritionTotal.protein, 'g')}</p>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-sm">Carbs</p>
-                  <p className="font-medium">{nutritionTotal.carbs}g</p>
+                  <p className="font-medium">{formatNutritionStat(nutritionTotal.carbs, 'g')}</p>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-sm">Fat</p>
-                  <p className="font-medium">{nutritionTotal.fat}g</p>
+                  <p className="font-medium">{formatNutritionStat(nutritionTotal.fat, 'g')}</p>
                 </div>
               </div>
             </CardContent>
@@ -110,11 +113,11 @@ export function MealCards() {
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 <div>
                   <p className="text-muted-foreground text-xs">Fiber</p>
-                  <p className="font-medium">{nutritionTotal.fiber}g</p>
+                  <p className="font-medium">{formatNutritionStat(nutritionTotal.fiber, 'g')}</p>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-xs">Sugar</p>
-                  <p className="font-medium">{nutritionTotal.sugar}g</p>
+                  <p className="font-medium">{formatNutritionStat(nutritionTotal.sugar, 'g')}</p>
                 </div>
               </div>
             </CardContent>
@@ -153,7 +156,7 @@ export function MealCards() {
                 <div>
                   <p>{format(new Date(meal.dateTime), 'PPp')}</p>
                   <Badge className="mt-1" variant="outline">
-                    {calculateTotalCalories(meal.mealFoods)} kcal
+                    {formatNutritionStat(calculateTotalCalories(meal.mealFoods), 'kcal')}
                   </Badge>
                 </div>
                 <div className="flex gap-1">
