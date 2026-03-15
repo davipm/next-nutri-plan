@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: add meal components and store for dashboard integration with initial UI and state management">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/commonInputTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/enums.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/class.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespace.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/internal/prismaNamespaceBrowser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Account.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Category.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Food.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/FoodServingUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Meal.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/MealFood.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/ServingUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/User.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/generated/prisma/models/Verification.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/food/food.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/meal/meal.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/meal/meal.schema.ts" afterDir="false" />
-    </list>
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: enhance food schema with unique serving units validation and update Prisma models for consistency" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -287,6 +268,7 @@
     <MESSAGE value="refactor: enhance seed script with dynamic data generation, serving unit associations, and pagination updates" />
     <MESSAGE value="refactor: add meal module with router, service, schema, and seed script enhancements" />
     <MESSAGE value="refactor: add meal components and store for dashboard integration with initial UI and state management" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: add meal components and store for dashboard integration with initial UI and state management" />
+    <MESSAGE value="refactor: enhance food schema with unique serving units validation and update Prisma models for consistency" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: enhance food schema with unique serving units validation and update Prisma models for consistency" />
   </component>
 </project>
