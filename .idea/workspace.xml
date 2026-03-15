@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: enhance food form dialog with CRUD actions, category field updates, and improved state handling">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" afterDir="false" />
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve food form dialog with default values, category handling, and error validation updates">
+      <change beforePath="$PROJECT_DIR$/lib/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,6 +260,7 @@
     <MESSAGE value="refactor: remove unused component and standardize table formatting for improved readability" />
     <MESSAGE value="refactor: implement CRUD operations for foods, seed data enhancements, and improve UI with edit/delete actions" />
     <MESSAGE value="refactor: enhance food form dialog with CRUD actions, category field updates, and improved state handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: enhance food form dialog with CRUD actions, category field updates, and improved state handling" />
+    <MESSAGE value="refactor: improve food form dialog with default values, category handling, and error validation updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: improve food form dialog with default values, category handling, and error validation updates" />
   </component>
 </project>

@@ -22,9 +22,9 @@ export const nutritionalFields = [
     placeholder: 'grams',
     type: 'number',
   },
-  { name: 'fat', label: 'Fat', placeholder: 'grams', type: 'number' },
-  { name: 'fiber', label: 'Fiber', placeholder: 'grams', type: 'number' },
-  { name: 'sugar', label: 'Sugar', placeholder: 'grams', type: 'number' },
+  { name: 'fat', label: 'Fat', placeholder: 'Fat', type: 'number' },
+  { name: 'fiber', label: 'Fiber', placeholder: 'Fiber', type: 'number' },
+  { name: 'sugar', label: 'Sugar', placeholder: 'Sugar', type: 'number' },
 ];
 
 /**
