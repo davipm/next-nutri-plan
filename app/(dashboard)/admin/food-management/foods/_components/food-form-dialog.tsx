@@ -1,10 +1,12 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CirclePlus, Plus, UtensilsCrossed } from 'lucide-react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { CategoryFormDialog } from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
+import { ALL_CATEGORIES_VALUE } from '@/app/(dashboard)/admin/food-management/foods/_utils/utils';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,13 +17,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Field, FieldGroup } from '@/components/ui/field';
+import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
@@ -35,13 +39,6 @@ export function FoodFormDialog() {
   const { open, selectedId } = useFoodDialogState();
 
   const isEditMode = !!selectedId;
-
-  const { data: foodToEdit } = useQuery(
-    orpc.foods.find.queryOptions({
-      input: { id: selectedId! },
-      enabled: !!selectedId,
-    })
-  );
 
   const form = useForm({
     resolver: zodResolver(baseFoodSchema),
@@ -58,6 +55,44 @@ export function FoodFormDialog() {
     },
   });
 
+  const { data: categories = [] } = useQuery(orpc.categories.list.queryOptions());
+
+  const { data: foodToEdit } = useQuery(
+    orpc.foods.find.queryOptions({
+      input: { id: selectedId! },
+      enabled: !!selectedId,
+    })
+  );
+
+  const { mutate: createFoodMutation, isPending: createIsPending } = useMutation(
+    orpc.foods.create.mutationOptions({
+      onSuccess: async () => {
+        closeFoodDialog();
+        await queryClient.invalidateQueries({ queryKey: orpc.foods.key({ type: 'query' }) });
+      },
+    })
+  );
+
+  const { mutate: updateFoodMutation, isPending: updateIsPending } = useMutation(
+    orpc.foods.update.mutationOptions({
+      onSuccess: async () => {
+        closeFoodDialog();
+        await queryClient.invalidateQueries({ queryKey: orpc.foods.key({ type: 'query' }) });
+      },
+    })
+  );
+
+  const isPending = createIsPending || updateIsPending;
+
+  useEffect(() => {
+    if (isEditMode && foodToEdit) {
+      form.setValue('name', foodToEdit.name);
+      form.setValue('categoryId', foodToEdit.categoryId);
+    } else if (!isEditMode) {
+      form.reset();
+    }
+  }, [isEditMode, foodToEdit, form]);
+
   const onDialogOpenChange = () => {
     openFoodDialog();
 
@@ -68,7 +103,11 @@ export function FoodFormDialog() {
   };
 
   const onSubmit: SubmitHandler<BaseFoodSchema> = (data) => {
-    console.log({ data });
+    if (isEditMode) {
+      updateFoodMutation({ id: selectedId, ...data });
+    } else {
+      createFoodMutation(data);
+    }
   };
 
   return (
@@ -87,24 +126,56 @@ export function FoodFormDialog() {
         <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-4">
             <FieldGroup className="col-span-1 grid">
-              <Field>
-                <Input id="name-1" name="name" placeholder="Enter food name" />
-              </Field>
+              <Controller
+                control={form.control}
+                name="name"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      placeholder="Enter food name"
+                      type="text"
+                    />
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
             </FieldGroup>
 
             <FieldGroup className="col-span-1 grid">
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <Controller
+                control={form.control}
+                name="categoryId"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <Select
+                      name={field.name}
+                      onValueChange={(value) =>
+                        field.onChange(value === ALL_CATEGORIES_VALUE ? '' : value)
+                      }
+                    >
+                      <SelectTrigger aria-invalid={fieldState.invalid} id="food-category-filter">
+                        <SelectValue placeholder="All categories" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Categories</SelectLabel>
+                          <SelectItem value={ALL_CATEGORIES_VALUE}>All categories</SelectItem>
+                          {!!categories.length && <SelectSeparator />}
+                          {categories.map((category) => (
+                            <SelectItem key={category.id} value={String(category.id)}>
+                              {category.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
             </FieldGroup>
 
             {nutritionalFields.map((field) => (
