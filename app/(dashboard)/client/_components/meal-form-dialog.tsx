@@ -7,7 +7,7 @@ interface Props {
 export function MealFormDialog({ smallTrigger }: Props) {
   return (
     <div>
-      <p>{smallTrigger}</p>
+      <p>smallTrigger {smallTrigger}</p>
     </div>
   );
 }
