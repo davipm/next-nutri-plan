@@ -438,20 +438,30 @@ interface SeedMealOwner {
   id: string;
 }
 
-async function resolveMealOwner(adminEmail: string): Promise<SeedMealOwner | null> {
-  return (
-    (await prisma.user.findUnique({
-      where: { email: adminEmail },
-      select: { email: true, id: true },
-    })) ??
-    (await prisma.user.findFirst({
-      orderBy: { createdAt: 'asc' },
-      select: { email: true, id: true },
-    }))
-  );
+async function resolveMealOwners(): Promise<SeedMealOwner[]> {
+  const clientUsers = await prisma.user.findMany({
+    where: {
+      role: {
+        in: [Role.USER, Role.CLIENT],
+      },
+    },
+    orderBy: { createdAt: 'asc' },
+    select: { email: true, id: true },
+  });
+
+  if (clientUsers.length > 0) {
+    return clientUsers;
+  }
+
+  const fallbackUser = await prisma.user.findFirst({
+    orderBy: { createdAt: 'asc' },
+    select: { email: true, id: true },
+  });
+
+  return fallbackUser ? [fallbackUser] : [];
 }
 
-async function seedMeals(mealOwner: SeedMealOwner | null) {
+async function seedMeals(mealOwners: SeedMealOwner[]) {
   const foodsForMeals = await prisma.food.findMany({
     orderBy: { id: 'asc' },
     select: {
@@ -470,40 +480,42 @@ async function seedMeals(mealOwner: SeedMealOwner | null) {
 
   const mealSeedItems = buildMealSeedItems(MEAL_SEED_COUNT, foodsForMeals);
 
-  for (const meal of mealSeedItems) {
-    const existingMeal = await prisma.meal.findFirst({
-      where: {
-        dateTime: meal.dateTime,
-        userId: mealOwner?.id ?? null,
-      },
-      select: { id: true },
-    });
+  for (const mealOwner of mealOwners) {
+    for (const meal of mealSeedItems) {
+      const existingMeal = await prisma.meal.findFirst({
+        where: {
+          dateTime: meal.dateTime,
+          userId: mealOwner.id,
+        },
+        select: { id: true },
+      });
 
-    const upsertedMeal = existingMeal
-      ? existingMeal
-      : await prisma.meal.create({
-          data: {
-            dateTime: meal.dateTime,
-            userId: mealOwner?.id ?? null,
-          },
-          select: { id: true },
-        });
+      const upsertedMeal = existingMeal
+        ? existingMeal
+        : await prisma.meal.create({
+            data: {
+              dateTime: meal.dateTime,
+              userId: mealOwner.id,
+            },
+            select: { id: true },
+          });
 
-    await prisma.mealFood.deleteMany({
-      where: { mealId: upsertedMeal.id },
-    });
+      await prisma.mealFood.deleteMany({
+        where: { mealId: upsertedMeal.id },
+      });
 
-    await prisma.mealFood.createMany({
-      data: meal.mealFoods.map((mealFood) => ({
-        mealId: upsertedMeal.id,
-        foodId: mealFood.foodId,
-        servingUnitId: mealFood.servingUnitId,
-        amount: mealFood.amount,
-      })),
-    });
+      await prisma.mealFood.createMany({
+        data: meal.mealFoods.map((mealFood) => ({
+          mealId: upsertedMeal.id,
+          foodId: mealFood.foodId,
+          servingUnitId: mealFood.servingUnitId,
+          amount: mealFood.amount,
+        })),
+      });
+    }
   }
 
-  return mealSeedItems.length;
+  return mealSeedItems.length * mealOwners.length;
 }
 
 export async function main() {
@@ -615,16 +627,16 @@ export async function main() {
     });
   }
 
-  const mealOwner = await resolveMealOwner(adminEmail);
+  const mealOwners = await resolveMealOwners();
 
-  if (!mealOwner) {
-    console.warn('No users found. Meals will be seeded without a user owner.');
+  if (!mealOwners.length) {
+    console.warn('No users found. Skipping meal seed because client meals require a user owner.');
   }
 
-  const mealSeededCount = await seedMeals(mealOwner);
+  const mealSeededCount = await seedMeals(mealOwners);
 
   console.log(
-    `Seeded ${categorySeedItems.length} categories, ${foodSeedItems.length} foods, ${mealSeededCount} meals, and ${servingUnitSeedItems.length} serving units${mealOwner ? ` for ${mealOwner.email}` : ''}`
+    `Seeded ${categorySeedItems.length} categories, ${foodSeedItems.length} foods, ${mealSeededCount} meals, and ${servingUnitSeedItems.length} serving units${mealOwners.length ? ` across ${mealOwners.length} user account${mealOwners.length === 1 ? '' : 's'}` : ''}`
   );
 }
 
