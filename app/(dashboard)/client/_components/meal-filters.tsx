@@ -5,17 +5,24 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { type MealFiltersInput, mealFiltersSchema } from '@/server/modules/meal/meal.schema';
+import { mealFiltersSchema } from '@/server/modules/meal/meal.schema';
 import { useMealFilterActions, useMealFilters } from '@/store/use-meal-store';
 
 function formatDate(date: Date) {
   return format(date, 'EEEE, MMMM dd, yyyy');
 }
+
+const mealFiltersFormSchema = z.object({
+  dateTime: z.date().optional(),
+});
+
+type MealFiltersFormValues = z.infer<typeof mealFiltersFormSchema>;
 
 export function MealFilters() {
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -23,16 +30,16 @@ export function MealFilters() {
   const mealFilters = useMealFilters();
   const { setFilters } = useMealFilterActions();
 
-  const form = useForm<MealFiltersInput>({
+  const form = useForm<MealFiltersFormValues>({
     defaultValues: mealFilters,
-    resolver: zodResolver(mealFiltersSchema),
+    resolver: zodResolver(mealFiltersFormSchema),
   });
 
   useEffect(() => {
     form.reset(mealFilters);
   }, [form, mealFilters]);
 
-  const onSubmit: SubmitHandler<MealFiltersInput> = (data) => {
+  const onSubmit: SubmitHandler<MealFiltersFormValues> = (data) => {
     const { dateTime } = mealFiltersSchema.parse(data);
 
     setFilters({ dateTime });
@@ -43,13 +50,12 @@ export function MealFilters() {
       className="mb-4 flex w-full min-w-0 flex-col gap-3 sm:flex-1 sm:flex-row sm:items-end"
       onSubmit={form.handleSubmit(onSubmit)}
     >
-      <FieldGroup className="w-full sm:max-w-md">
+      <FieldGroup className="w-70 sm:max-w-md">
         <Controller
           control={form.control}
           name="dateTime"
           render={({ field, fieldState }) => (
             <Field className="w-full" data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="meal-date-filter">Meal date</FieldLabel>
               <Popover onOpenChange={setCalendarOpen} open={calendarOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -63,7 +69,7 @@ export function MealFilters() {
                     variant="outline"
                   >
                     <span className="flex-1 truncate pr-2">
-                      {field.value ? formatDate(field.value) : 'Pick a date'}
+                      {field.value ? formatDate(field.value) : 'Filter by date'}
                     </span>
                     <CalendarIcon className="text-muted-foreground" />
                   </Button>
@@ -110,9 +116,7 @@ export function MealFilters() {
         />
       </FieldGroup>
 
-      <Button className="w-full sm:w-auto" size="sm" type="submit">
-        Apply
-      </Button>
+      <Button type="submit">Apply</Button>
     </form>
   );
 }
