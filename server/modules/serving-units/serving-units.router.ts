@@ -5,35 +5,35 @@ import {
   updateServingUnitSchema,
 } from '@/server/modules/serving-units/serving-units.schema';
 import { servingUnitService } from '@/server/modules/serving-units/serving-units.service';
-import { publicProcedure } from '@/server/orpc';
+import { protectedProcedure } from '@/server/orpc';
 
 export const servingUnitRouter = {
-  list: publicProcedure.route({ method: 'GET' }).handler(() => {
+  list: protectedProcedure.route({ method: 'GET' }).handler(() => {
     return servingUnitService.list();
   }),
 
-  find: publicProcedure
+  find: protectedProcedure
     .route({ method: 'POST' })
     .input(listServingUnitSchema)
     .handler(({ input }) => {
       return servingUnitService.find(input);
     }),
 
-  create: publicProcedure
+  create: protectedProcedure
     .route({ method: 'POST' })
     .input(createServingUnitSchema)
     .handler(({ input }) => {
       return servingUnitService.create(input);
     }),
 
-  update: publicProcedure
+  update: protectedProcedure
     .route({ method: 'PUT' })
     .input(updateServingUnitSchema)
     .handler(({ input }) => {
       return servingUnitService.update(input);
     }),
 
-  delete: publicProcedure
+  delete: protectedProcedure
     .route({ method: 'DELETE' })
     .input(deleteServingUnitSchema)
     .handler(({ input }) => {

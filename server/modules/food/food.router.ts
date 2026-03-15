@@ -6,38 +6,38 @@ import {
   updateFoodSchema,
 } from '@/server/modules/food/food.schema';
 import { foodService } from '@/server/modules/food/food.service';
-import { publicProcedure } from '@/server/orpc';
+import { protectedProcedure } from '@/server/orpc';
 
 export const foodRouter = {
-  list: publicProcedure
+  list: protectedProcedure
     .route({ method: 'GET' })
     .input(foodFiltersSchema)
     .handler(({ input }) => {
       return foodService.list(input);
     }),
 
-  find: publicProcedure
+  find: protectedProcedure
     .route({ method: 'POST' })
     .input(findFoodSchema)
     .handler(({ input }) => {
       return foodService.find(input);
     }),
 
-  create: publicProcedure
+  create: protectedProcedure
     .route({ method: 'POST' })
     .input(createFoodSchema)
     .handler(({ input }) => {
       return foodService.create(input);
     }),
 
-  update: publicProcedure
+  update: protectedProcedure
     .route({ method: 'PUT' })
     .input(updateFoodSchema)
     .handler(({ input }) => {
       return foodService.update(input);
     }),
 
-  delete: publicProcedure
+  delete: protectedProcedure
     .route({ method: 'DELETE' })
     .input(deleteFoodSchema)
     .handler(({ input }) => {

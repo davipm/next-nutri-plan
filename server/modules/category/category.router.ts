@@ -5,22 +5,22 @@ import {
   listCategorySchema,
   updateCategorySchema,
 } from '@/server/modules/category/category.schema';
-import { publicProcedure } from '@/server/orpc';
+import { protectedProcedure } from '@/server/orpc';
 import { categoryService } from './category.service';
 
 export const categoryRouter = {
-  list: publicProcedure.route({ method: 'GET' }).handler(() => {
+  list: protectedProcedure.route({ method: 'GET' }).handler(() => {
     return categoryService.list();
   }),
 
-  find: publicProcedure
+  find: protectedProcedure
     .route({ method: 'POST' })
     .input(listCategorySchema)
     .handler(({ input }) => {
       return categoryService.find(input);
     }),
 
-  create: publicProcedure
+  create: protectedProcedure
     .route({ method: 'POST' })
     .input(createCategorySchema)
     .output(categorySchema)
@@ -28,7 +28,7 @@ export const categoryRouter = {
       return categoryService.create(input);
     }),
 
-  update: publicProcedure
+  update: protectedProcedure
     .route({ method: 'PUT' })
     .input(updateCategorySchema)
     .output(categorySchema)
@@ -36,7 +36,7 @@ export const categoryRouter = {
       return categoryService.update(input);
     }),
 
-  delete: publicProcedure
+  delete: protectedProcedure
     .route({ method: 'DELETE' })
     .input(deleteCategorySchema)
     .output(categorySchema)
