@@ -2,9 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { CalendarX, Flame, LineChart, PieChart, Utensils } from 'lucide-react';
+import { CalendarX, Edit, Flame, LineChart, PieChart, Utensils } from 'lucide-react';
 import MealCardsSkeleton from '@/app/(dashboard)/client/_components/meal-card-skeleton';
-import { calculateNutritionTotal } from '@/app/(dashboard)/client/_utils/calculations';
+import {
+  calculateNutritionTotal,
+  calculateTotalCalories,
+} from '@/app/(dashboard)/client/_utils/calculations';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { orpc } from '@/lib/orpc';
@@ -139,9 +143,26 @@ export function MealCards() {
               <MealCardsSkeleton key={key} />
             ))}
 
-          {/*{meals.map((meal) => (*/}
-          {/*  <MealCard key={meal.id} {...meal} />*/}
-          {/*))}*/}
+          {meals.map((meal) => (
+            <div
+              className="flex flex-col gap-3 rounded-lg border border-border/40 p-6 transition-colors hover:border-border/80"
+              key={meal.id}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p>{format(new Date(meal.dateTime), 'PPp')}</p>
+                  <Badge className="mt-1" variant="outline">
+                    {calculateTotalCalories(meal.mealFoods)} kcal
+                  </Badge>
+                </div>
+                <div className="flex gap-1">
+                  <Button className="size-8" size="icon" variant="ghost">
+                    <Edit className="size-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
