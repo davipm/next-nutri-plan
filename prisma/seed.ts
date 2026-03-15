@@ -347,6 +347,16 @@ const mealTimeSlots = [
   { hour: 19, minute: 30 },
 ] as const;
 
+function buildMealSeedBaseDate(count: number) {
+  const baseDate = new Date();
+  baseDate.setHours(0, 0, 0, 0);
+
+  const totalDays = Math.max(1, Math.ceil(count / mealTimeSlots.length));
+  baseDate.setDate(baseDate.getDate() - (totalDays - 1));
+
+  return baseDate;
+}
+
 function buildMealAmount(servingUnitName: ServingUnitSeedItem, random: () => number) {
   switch (servingUnitName) {
     case 'g':
@@ -380,7 +390,7 @@ function buildMealAmount(servingUnitName: ServingUnitSeedItem, random: () => num
 
 function buildMealSeedItems(count: number, foods: SeedableMealFood[]): SeedMealItem[] {
   const random = createSeededRandom(20_260_316);
-  const baseDate = new Date('2026-01-01T00:00:00.000Z');
+  const baseDate = buildMealSeedBaseDate(count);
   const meals: SeedMealItem[] = [];
   const seedableFoods = foods.filter((food) => food.foodServingUnits.length > 0);
 
@@ -392,8 +402,8 @@ function buildMealSeedItems(count: number, foods: SeedableMealFood[]): SeedMealI
     const slot = mealTimeSlots[index % mealTimeSlots.length]!;
     const dayOffset = Math.floor(index / mealTimeSlots.length);
     const dateTime = new Date(baseDate);
-    dateTime.setUTCDate(baseDate.getUTCDate() + dayOffset);
-    dateTime.setUTCHours(slot.hour, slot.minute, 0, 0);
+    dateTime.setDate(baseDate.getDate() + dayOffset);
+    dateTime.setHours(slot.hour, slot.minute, 0, 0);
 
     const itemCount = Math.min(seedableFoods.length, randomBetween(random, 1, 4, 0));
     const selectedFoodIds = new Set<number>();

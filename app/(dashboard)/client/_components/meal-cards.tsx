@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { CalendarX, Edit, Flame, LineChart, PieChart, Utensils } from 'lucide-react';
+import { CalendarX, Edit, Flame, LineChart, PieChart, Trash, Utensils } from 'lucide-react';
 import MealCardsSkeleton from '@/app/(dashboard)/client/_components/meal-card-skeleton';
 import {
   calculateNutritionTotal,
@@ -11,6 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { orpc } from '@/lib/orpc';
 import { useMealFilters } from '@/store/use-meal-store';
 
@@ -159,6 +160,17 @@ export function MealCards() {
                   <Button className="size-8" size="icon" variant="ghost">
                     <Edit className="size-4" />
                   </Button>
+                  <Button className="size-8" size="icon" variant="ghost">
+                    <Trash className="size-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Utensils className="size-4 text-primary" />
                 </div>
               </div>
             </div>
