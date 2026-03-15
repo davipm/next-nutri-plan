@@ -32,128 +32,290 @@ const servingUnitSeedItems = [
   'serving',
 ] as const;
 
-const foodSeedItems = [
-  {
-    name: 'Blueberries',
-    categoryName: 'Fruits',
-    calories: 57,
-    protein: 0.7,
-    fat: 0.3,
-    carbohydrates: 14.5,
-    fiber: 2.4,
-    sugar: 10,
-  },
-  {
-    name: 'Spinach',
-    categoryName: 'Vegetables',
-    calories: 23,
-    protein: 2.9,
-    fat: 0.4,
-    carbohydrates: 3.6,
-    fiber: 2.2,
-    sugar: 0.4,
-  },
-  {
-    name: 'Quinoa',
-    categoryName: 'Whole Grains',
-    calories: 120,
-    protein: 4.4,
-    fat: 1.9,
-    carbohydrates: 21.3,
-    fiber: 2.8,
-    sugar: 0.9,
-  },
-  {
-    name: 'Chicken Breast',
-    categoryName: 'Lean Proteins',
-    calories: 165,
-    protein: 31,
-    fat: 3.6,
-    carbohydrates: 0,
-    fiber: 0,
-    sugar: 0,
-  },
-  {
-    name: 'Greek Yogurt',
-    categoryName: 'Dairy',
-    calories: 97,
-    protein: 9,
-    fat: 5,
-    carbohydrates: 3.9,
-    fiber: 0,
-    sugar: 3.6,
-  },
-  {
-    name: 'Black Beans',
-    categoryName: 'Legumes',
-    calories: 132,
-    protein: 8.9,
-    fat: 0.5,
-    carbohydrates: 23.7,
-    fiber: 8.7,
-    sugar: 0.3,
-  },
-  {
-    name: 'Almonds',
-    categoryName: 'Nuts and Seeds',
-    calories: 579,
-    protein: 21.2,
-    fat: 49.9,
-    carbohydrates: 21.6,
-    fiber: 12.5,
-    sugar: 4.4,
-  },
-  {
-    name: 'Green Tea',
-    categoryName: 'Beverages',
-    calories: 2,
-    protein: 0,
-    fat: 0,
-    carbohydrates: 0,
-    fiber: 0,
-    sugar: 0,
-  },
-  {
-    name: 'Rice Cakes',
-    categoryName: 'Snacks',
-    calories: 387,
-    protein: 8.1,
-    fat: 3.3,
-    carbohydrates: 81.5,
-    fiber: 4.2,
-    sugar: 0.3,
-  },
-  {
-    name: 'Salmon Fillet',
-    categoryName: 'Seafood',
-    calories: 208,
-    protein: 20,
-    fat: 13,
-    carbohydrates: 0,
-    fiber: 0,
-    sugar: 0,
-  },
-  {
-    name: 'Cinnamon',
-    categoryName: 'Herbs and Spices',
-    calories: 247,
-    protein: 4,
-    fat: 1.2,
-    carbohydrates: 80.6,
-    fiber: 53.1,
-    sugar: 2.2,
-  },
-  {
-    name: 'Avocado Oil',
-    categoryName: 'Healthy Fats',
-    calories: 884,
-    protein: 0,
-    fat: 100,
-    carbohydrates: 0,
-    fiber: 0,
-    sugar: 0,
-  },
+type CategorySeedItem = (typeof categorySeedItems)[number];
+type ServingUnitSeedItem = (typeof servingUnitSeedItems)[number];
+
+interface FoodSeedItem {
+  calories: number;
+  carbohydrates: number;
+  categoryName: CategorySeedItem;
+  fat: number;
+  fiber: number;
+  name: string;
+  protein: number;
+  servingUnits: Array<{
+    grams: number;
+    name: ServingUnitSeedItem;
+  }>;
+  sugar: number;
+}
+
+const FOOD_SEED_COUNT = 50;
+
+const foodNamePrefixes = [
+  'Bright',
+  'Savory',
+  'Golden',
+  'Fresh',
+  'Hearty',
+  'Roasted',
+  'Crisp',
+  'Zesty',
+  'Smoky',
+  'Velvet',
+  'Wild',
+  'Sunny',
 ] as const;
+
+const foodNameSuffixes = [
+  'Mix',
+  'Bowl',
+  'Blend',
+  'Medley',
+  'Crunch',
+  'Plate',
+  'Skillet',
+  'Prep',
+  'Salad',
+  'Fusion',
+] as const;
+
+const foodNameIngredients: Record<CategorySeedItem, readonly string[]> = {
+  Fruits: ['Berry', 'Mango', 'Apple', 'Citrus', 'Melon'],
+  Vegetables: ['Spinach', 'Pepper', 'Broccoli', 'Carrot', 'Zucchini'],
+  'Whole Grains': ['Oat', 'Quinoa', 'Brown Rice', 'Barley', 'Farro'],
+  'Lean Proteins': ['Chicken', 'Turkey', 'Tofu', 'Tempeh', 'Egg White'],
+  Dairy: ['Yogurt', 'Kefir', 'Cottage Cheese', 'Milk', 'Skyr'],
+  Legumes: ['Lentil', 'Chickpea', 'Black Bean', 'Pea', 'Edamame'],
+  'Nuts and Seeds': ['Almond', 'Walnut', 'Chia', 'Pumpkin Seed', 'Cashew'],
+  Beverages: ['Tea', 'Smoothie', 'Infusion', 'Shake', 'Juice'],
+  Snacks: ['Cracker', 'Bar', 'Bite', 'Popcorn', 'Trail Mix'],
+  Seafood: ['Salmon', 'Tuna', 'Shrimp', 'Cod', 'Sardine'],
+  'Herbs and Spices': ['Cinnamon', 'Turmeric', 'Basil', 'Paprika', 'Ginger'],
+  'Healthy Fats': ['Avocado', 'Olive', 'Tahini', 'Coconut', 'Flax'],
+};
+
+const foodNutritionProfiles: Record<
+  CategorySeedItem,
+  {
+    alternateServingUnits: ReadonlyArray<{
+      gramsRange: readonly [number, number];
+      name: ServingUnitSeedItem;
+    }>;
+    calories: readonly [number, number];
+    carbohydrates: readonly [number, number];
+    fat: readonly [number, number];
+    fiber: readonly [number, number];
+    protein: readonly [number, number];
+    sugar: readonly [number, number];
+  }
+> = {
+  Fruits: {
+    calories: [45, 90],
+    protein: [0.3, 1.8],
+    fat: [0.1, 0.8],
+    carbohydrates: [10, 24],
+    fiber: [1.5, 6],
+    sugar: [6, 18],
+    alternateServingUnits: [
+      { name: 'piece', gramsRange: [80, 180] },
+      { name: 'cup', gramsRange: [110, 180] },
+    ],
+  },
+  Vegetables: {
+    calories: [18, 55],
+    protein: [1, 4.5],
+    fat: [0.1, 0.9],
+    carbohydrates: [3, 12],
+    fiber: [1.5, 7],
+    sugar: [1, 6],
+    alternateServingUnits: [
+      { name: 'cup', gramsRange: [80, 160] },
+      { name: 'piece', gramsRange: [60, 140] },
+    ],
+  },
+  'Whole Grains': {
+    calories: [110, 190],
+    protein: [3, 8],
+    fat: [1, 4],
+    carbohydrates: [18, 36],
+    fiber: [2, 8],
+    sugar: [0.2, 3],
+    alternateServingUnits: [
+      { name: 'cup', gramsRange: [140, 220] },
+      { name: 'bowl', gramsRange: [220, 320] },
+    ],
+  },
+  'Lean Proteins': {
+    calories: [95, 220],
+    protein: [16, 34],
+    fat: [1, 12],
+    carbohydrates: [0, 8],
+    fiber: [0, 2],
+    sugar: [0, 3],
+    alternateServingUnits: [
+      { name: 'piece', gramsRange: [90, 190] },
+      { name: 'serving', gramsRange: [100, 180] },
+    ],
+  },
+  Dairy: {
+    calories: [60, 180],
+    protein: [4, 18],
+    fat: [1, 10],
+    carbohydrates: [3, 16],
+    fiber: [0, 1],
+    sugar: [3, 14],
+    alternateServingUnits: [
+      { name: 'cup', gramsRange: [180, 260] },
+      { name: 'serving', gramsRange: [120, 200] },
+    ],
+  },
+  Legumes: {
+    calories: [95, 180],
+    protein: [6, 14],
+    fat: [0.3, 3.5],
+    carbohydrates: [16, 30],
+    fiber: [5, 12],
+    sugar: [0.2, 4],
+    alternateServingUnits: [
+      { name: 'cup', gramsRange: [140, 220] },
+      { name: 'bowl', gramsRange: [200, 300] },
+    ],
+  },
+  'Nuts and Seeds': {
+    calories: [450, 680],
+    protein: [12, 28],
+    fat: [28, 60],
+    carbohydrates: [8, 24],
+    fiber: [5, 15],
+    sugar: [1, 8],
+    alternateServingUnits: [
+      { name: 'tbsp', gramsRange: [8, 18] },
+      { name: 'oz', gramsRange: [20, 32] },
+    ],
+  },
+  Beverages: {
+    calories: [0, 120],
+    protein: [0, 6],
+    fat: [0, 3],
+    carbohydrates: [0, 22],
+    fiber: [0, 3],
+    sugar: [0, 18],
+    alternateServingUnits: [
+      { name: 'ml', gramsRange: [180, 350] },
+      { name: 'cup', gramsRange: [200, 320] },
+    ],
+  },
+  Snacks: {
+    calories: [120, 420],
+    protein: [2, 15],
+    fat: [2, 24],
+    carbohydrates: [12, 58],
+    fiber: [1, 10],
+    sugar: [0.5, 18],
+    alternateServingUnits: [
+      { name: 'piece', gramsRange: [20, 70] },
+      { name: 'serving', gramsRange: [30, 90] },
+    ],
+  },
+  Seafood: {
+    calories: [85, 240],
+    protein: [16, 30],
+    fat: [1, 16],
+    carbohydrates: [0, 5],
+    fiber: [0, 1],
+    sugar: [0, 2],
+    alternateServingUnits: [
+      { name: 'piece', gramsRange: [70, 180] },
+      { name: 'oz', gramsRange: [28, 56] },
+    ],
+  },
+  'Herbs and Spices': {
+    calories: [180, 360],
+    protein: [3, 12],
+    fat: [1, 9],
+    carbohydrates: [25, 70],
+    fiber: [10, 40],
+    sugar: [1, 12],
+    alternateServingUnits: [
+      { name: 'tsp', gramsRange: [2, 6] },
+      { name: 'tbsp', gramsRange: [6, 16] },
+    ],
+  },
+  'Healthy Fats': {
+    calories: [320, 900],
+    protein: [0, 7],
+    fat: [30, 100],
+    carbohydrates: [0, 18],
+    fiber: [0, 12],
+    sugar: [0, 4],
+    alternateServingUnits: [
+      { name: 'tbsp', gramsRange: [12, 18] },
+      { name: 'tsp', gramsRange: [4, 6] },
+    ],
+  },
+};
+
+function createSeededRandom(seed: number) {
+  let state = seed;
+
+  return () => {
+    const value = Math.sin(state) * 10_000;
+    state += 1;
+    return value - Math.floor(value);
+  };
+}
+
+function randomBetween(random: () => number, min: number, max: number, precision = 1) {
+  const value = min + random() * (max - min);
+  return Number(value.toFixed(precision));
+}
+
+function randomFrom<T>(items: readonly T[], random: () => number): T {
+  return items[Math.floor(random() * items.length)]!;
+}
+
+function buildFoodSeedItems(count: number): FoodSeedItem[] {
+  const random = createSeededRandom(20_260_315);
+  const usedNames = new Set<string>();
+  const foods: FoodSeedItem[] = [];
+
+  while (foods.length < count) {
+    const categoryName = randomFrom(categorySeedItems, random);
+    const nutritionProfile = foodNutritionProfiles[categoryName];
+    const candidateName = `${randomFrom(foodNamePrefixes, random)} ${randomFrom(foodNameIngredients[categoryName], random)} ${randomFrom(foodNameSuffixes, random)}`;
+
+    if (usedNames.has(candidateName)) {
+      continue;
+    }
+
+    usedNames.add(candidateName);
+
+    const alternateServingUnit = randomFrom(nutritionProfile.alternateServingUnits, random);
+
+    foods.push({
+      name: candidateName,
+      categoryName,
+      calories: randomBetween(random, ...nutritionProfile.calories),
+      protein: randomBetween(random, ...nutritionProfile.protein),
+      fat: randomBetween(random, ...nutritionProfile.fat),
+      carbohydrates: randomBetween(random, ...nutritionProfile.carbohydrates),
+      fiber: randomBetween(random, ...nutritionProfile.fiber),
+      sugar: randomBetween(random, ...nutritionProfile.sugar),
+      servingUnits: [
+        { name: 'g', grams: 100 },
+        {
+          name: alternateServingUnit.name,
+          grams: randomBetween(random, ...alternateServingUnit.gramsRange, 0),
+        },
+      ],
+    });
+  }
+
+  return foods;
+}
+
+const foodSeedItems = buildFoodSeedItems(FOOD_SEED_COUNT);
 
 const mealSeedItems = [
   new Date('2026-01-03T07:30:00.000Z'),
@@ -213,13 +375,26 @@ export async function main() {
     });
   }
 
-  for (const food of foodSeedItems) {
-    const category = await prisma.category.findUnique({
-      where: { name: food.categoryName },
-      select: { id: true },
-    });
+  const categories = await prisma.category.findMany({
+    select: { id: true, name: true },
+  });
+  const categoryIdByName = new Map(categories.map((category) => [category.name, category.id]));
 
-    await prisma.food.upsert({
+  const servingUnits = await prisma.servingUnit.findMany({
+    select: { id: true, name: true },
+  });
+  const servingUnitIdByName = new Map(
+    servingUnits.map((servingUnit) => [servingUnit.name, servingUnit.id])
+  );
+
+  for (const food of foodSeedItems) {
+    const categoryId = categoryIdByName.get(food.categoryName);
+
+    if (!categoryId) {
+      throw new Error(`Missing category for seed item: ${food.categoryName}`);
+    }
+
+    const upsertedFood = await prisma.food.upsert({
       where: { name: food.name },
       update: {
         calories: food.calories,
@@ -228,7 +403,7 @@ export async function main() {
         carbohydrates: food.carbohydrates,
         fiber: food.fiber,
         sugar: food.sugar,
-        categoryId: category?.id,
+        categoryId,
       },
       create: {
         name: food.name,
@@ -238,8 +413,31 @@ export async function main() {
         carbohydrates: food.carbohydrates,
         fiber: food.fiber,
         sugar: food.sugar,
-        categoryId: category?.id,
+        categoryId,
       },
+      select: { id: true },
+    });
+
+    const foodServingUnits = food.servingUnits.map((servingUnit) => {
+      const servingUnitId = servingUnitIdByName.get(servingUnit.name);
+
+      if (!servingUnitId) {
+        throw new Error(`Missing serving unit for seed item: ${servingUnit.name}`);
+      }
+
+      return {
+        foodId: upsertedFood.id,
+        servingUnitId,
+        grams: servingUnit.grams,
+      };
+    });
+
+    await prisma.foodServingUnit.deleteMany({
+      where: { foodId: upsertedFood.id },
+    });
+
+    await prisma.foodServingUnit.createMany({
+      data: foodServingUnits,
     });
   }
 

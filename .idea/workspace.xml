@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments">
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: switch food, serving units, and category routers to use protected procedures for enhanced security">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/category/category.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/category/category.router.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/food/food.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.router.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/serving-units/serving-units.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/serving-units/serving-units.router.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/pagination.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/seed.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +147,7 @@
       <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.db:studio">
+  <component name="RunManager" selected="npm.db:seed">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
     </configuration>
@@ -219,8 +219,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.db:studio" />
         <item itemvalue="npm.db:seed" />
+        <item itemvalue="npm.db:studio" />
         <item itemvalue="npm.db:generate" />
         <item itemvalue="npm.db:migrate" />
         <item itemvalue="npm.format" />
@@ -266,6 +266,7 @@
     <MESSAGE value="refactor: improve food form dialog with default values, category handling, and error validation updates" />
     <MESSAGE value="refactor: update placeholders in constants for consistency with field labels" />
     <MESSAGE value="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments" />
+    <MESSAGE value="refactor: switch food, serving units, and category routers to use protected procedures for enhanced security" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: switch food, serving units, and category routers to use protected procedures for enhanced security" />
   </component>
 </project>
