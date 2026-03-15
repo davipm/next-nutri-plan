@@ -259,16 +259,16 @@ export function FoodFormDialog() {
               </div>
             </div>
           </div>
-        </form>
 
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
-          <Button disabled={isPending} form="food-form-dialog" type="submit">
-            {isEditMode ? 'Save changes' : 'Create food'}
-          </Button>
-        </DialogFooter>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button disabled={isPending} form="food-form-dialog" type="submit">
+              {isEditMode ? 'Save changes' : 'Create food'}
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
