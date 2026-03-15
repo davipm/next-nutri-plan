@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: add meal card skeletons, UI enhancements for nutrition summary, and popover component integration">
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: update meal filters to use localized schema, UI improvements, and cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-filters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-filters.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,6 +274,7 @@
     <MESSAGE value="refactor: add meal components and store for dashboard integration with initial UI and state management" />
     <MESSAGE value="refactor: enhance food schema with unique serving units validation and update Prisma models for consistency" />
     <MESSAGE value="refactor: add meal card skeletons, UI enhancements for nutrition summary, and popover component integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: add meal card skeletons, UI enhancements for nutrition summary, and popover component integration" />
+    <MESSAGE value="refactor: update meal filters to use localized schema, UI improvements, and cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: update meal filters to use localized schema, UI improvements, and cleanup" />
   </component>
 </project>

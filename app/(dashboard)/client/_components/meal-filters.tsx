@@ -11,7 +11,6 @@ import { Calendar } from '@/components/ui/calendar';
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { mealFiltersSchema } from '@/server/modules/meal/meal.schema';
 import { useMealFilterActions, useMealFilters } from '@/store/use-meal-store';
 
 function formatDate(date: Date) {
@@ -40,9 +39,7 @@ export function MealFilters() {
   }, [form, mealFilters]);
 
   const onSubmit: SubmitHandler<MealFiltersFormValues> = (data) => {
-    const { dateTime } = mealFiltersSchema.parse(data);
-
-    setFilters({ dateTime });
+    setFilters({ dateTime: data.dateTime });
   };
 
   return (
