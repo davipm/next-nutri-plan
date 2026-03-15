@@ -4,60 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: unify code style by standardizing to single quotes and updating component structure for consistency">
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/ultracite/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/ultracite/references/code-standards.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/architecture-avoid-boolean-props.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/architecture-compound-components.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/patterns-children-over-render-props.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/patterns-explicit-variants.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/react19-no-forwardref.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/state-context-interface.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/state-decouple-implementation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.aiassistant/rules/vercel-composition-patterns/rules/state-lift-state.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-execute.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-execute.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-pull.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-pull.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-push.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-push.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-seed.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/db-seed.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/debug.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/debug.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/dev.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/dev.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/format.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/format.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/generate.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/generate.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/init.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/init.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-deploy.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-deploy.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-dev.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-dev.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-diff.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-diff.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-reset.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-reset.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-resolve.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-resolve.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-status.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/migrate-status.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/studio.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/studio.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/validate.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-cli/references/validate.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/client-methods.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/client-methods.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/constructor.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/constructor.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/filters.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/filters.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/model-queries.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/model-queries.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/query-options.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/query-options.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/raw-queries.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/raw-queries.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/relations.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/relations.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/transactions.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-client-api/references/transactions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/cockroachdb.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/cockroachdb.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/mongodb.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/mongodb.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/mysql.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/mysql.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/postgresql.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/postgresql.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/prisma-client-setup.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/prisma-client-setup.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/prisma-postgres.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/prisma-postgres.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/sqlite.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/sqlite.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/sqlserver.md" beforeDir="false" afterPath="$PROJECT_DIR$/.aiassistant/rules/prisma-database-setup/references/sqlserver.md" afterDir="false" />
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: remove unused component and standardize table formatting for improved readability">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-cards.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/food-form-dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/admin/food-management/foods/_components/specify-food-serving-units.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/modules/food/food.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/seed.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/modules/food/food.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.router.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/modules/food/food.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/modules/food/food.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="299" />
+    <option name="cachedIndexableFilesCount" value="298" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -154,6 +107,8 @@
     "npm.Next.js: server-side.executor": "Run",
     "npm.db:generate.executor": "Run",
     "npm.db:migrate.executor": "Run",
+    "npm.db:seed.executor": "Run",
+    "npm.db:studio.executor": "Run",
     "npm.fix.executor": "Run",
     "npm.format.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "/Users/davi/WebstormProjects/next-nutri-plan/node_modules/prettier",
@@ -194,26 +149,13 @@
       <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.Next.js: server-side">
+  <component name="RunManager" selected="npm.db:studio">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="infra.postgres: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="postgres" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="infra/docker-compose.yml" />
-        </settings>
       </deployment>
       <method v="2" />
     </configuration>
@@ -247,11 +189,21 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="fix" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="db:seed" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="fix" />
+        <script value="db:seed" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="db:studio" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="db:studio" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -269,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.db:studio" />
+        <item itemvalue="npm.db:seed" />
         <item itemvalue="npm.db:generate" />
         <item itemvalue="npm.db:migrate" />
         <item itemvalue="npm.format" />
-        <item itemvalue="npm.fix" />
-        <item itemvalue="Docker.infra.postgres: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -310,6 +262,7 @@
     <MESSAGE value="refactor: merge serving unit card logic into parent component to simplify structure" />
     <MESSAGE value="refactor: improve store architecture and update components for cleaner state management" />
     <MESSAGE value="refactor: unify code style by standardizing to single quotes and updating component structure for consistency" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: unify code style by standardizing to single quotes and updating component structure for consistency" />
+    <MESSAGE value="refactor: remove unused component and standardize table formatting for improved readability" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: remove unused component and standardize table formatting for improved readability" />
   </component>
 </project>

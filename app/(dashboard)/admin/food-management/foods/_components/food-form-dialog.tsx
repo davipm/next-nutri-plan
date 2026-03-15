@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { CirclePlus, Plus, UtensilsCrossed } from 'lucide-react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { CategoryFormDialog } from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
@@ -25,10 +26,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { nutritionalFields } from '@/lib/constants';
+import { orpc } from '@/lib/orpc';
 import { type BaseFoodSchema, baseFoodSchema } from '@/server/modules/food/food.schema';
+import { closeFoodDialog, openFoodDialog, useFoodDialogState } from '@/store/use-food-store';
 
 export function FoodFormDialog() {
-  const form = useForm<BaseFoodSchema>({
+  const queryClient = useQueryClient();
+  const { open, selectedId } = useFoodDialogState();
+
+  const isEditMode = !!selectedId;
+
+  const { data: foodToEdit } = useQuery(
+    orpc.foods.find.queryOptions({
+      input: { id: selectedId! },
+      enabled: !!selectedId,
+    })
+  );
+
+  const form = useForm({
+    resolver: zodResolver(baseFoodSchema),
     defaultValues: {
       foodServingUnits: [],
       name: '',
@@ -40,15 +56,23 @@ export function FoodFormDialog() {
       protein: 0,
       sugar: 0,
     },
-    resolver: zodResolver(baseFoodSchema),
   });
+
+  const onDialogOpenChange = () => {
+    openFoodDialog();
+
+    if (open) {
+      closeFoodDialog();
+      form.reset();
+    }
+  };
 
   const onSubmit: SubmitHandler<BaseFoodSchema> = (data) => {
     console.log({ data });
   };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={onDialogOpenChange} open={open}>
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2" /> Create Food

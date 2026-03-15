@@ -9,13 +9,13 @@ import type {
 } from '@/server/modules/food/food.schema';
 import { prisma } from '@/server/prisma';
 
-export type PaginateResult<T> = {
+export interface PaginateResult<T> {
   data: T[];
-  total: number;
   page: number;
   pageSize: number;
+  total: number;
   totalPages: number;
-};
+}
 
 export type FoodWithServingUnits = Prisma.FoodGetPayload<{
   include: {
@@ -91,7 +91,7 @@ class FoodService {
     return food;
   }
 
-  async create(data: CreateFoodInput) {
+  create(data: CreateFoodInput) {
     const { foodServingUnits, ...foodData } = data;
 
     return this.prisma.$transaction(async (tx) => {
