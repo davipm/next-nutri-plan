@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: enhance seed script with dynamic data generation, serving unit associations, and pagination updates" />
+    <list default="true" id="50d2abe8-95a8-4891-8a24-aee92f72db99" name="Changes" comment="refactor: add meal module with router, service, schema, and seed script enhancements">
+      <change afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-cards.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-filters.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(dashboard)/client/_components/meal-form-dialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/use-meal-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/client/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/client/page.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -142,7 +149,7 @@
       <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.db:seed">
+  <component name="RunManager" selected="npm.Next.js: server-side">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
     </configuration>
@@ -263,6 +270,7 @@
     <MESSAGE value="refactor: improve food form dialog with enhanced state handling, controlled inputs, and dialog behavior adjustments" />
     <MESSAGE value="refactor: switch food, serving units, and category routers to use protected procedures for enhanced security" />
     <MESSAGE value="refactor: enhance seed script with dynamic data generation, serving unit associations, and pagination updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: enhance seed script with dynamic data generation, serving unit associations, and pagination updates" />
+    <MESSAGE value="refactor: add meal module with router, service, schema, and seed script enhancements" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: add meal module with router, service, schema, and seed script enhancements" />
   </component>
 </project>
