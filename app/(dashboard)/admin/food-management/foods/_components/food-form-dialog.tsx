@@ -94,6 +94,7 @@ export function FoodFormDialog() {
   );
 
   const isPending = createIsPending || updateIsPending;
+  const isEditLoading = open && isEditMode && (!foodToEdit || foodToEdit.id !== selectedId);
 
   useEffect(() => {
     if (!(open && isEditMode)) {
@@ -256,6 +257,10 @@ export function FoodFormDialog() {
                   <p>No serving units added yet</p>
                   <p className="text-sm">Add serving units to help users measure this food</p>
                 </div>
+
+                {form.formState.errors.foodServingUnits && (
+                  <FieldError errors={[form.formState.errors.foodServingUnits]} />
+                )}
               </div>
             </div>
           </div>
@@ -264,7 +269,7 @@ export function FoodFormDialog() {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={isPending} form="food-form-dialog" type="submit">
+            <Button disabled={isPending || isEditLoading} type="submit">
               {isEditMode ? 'Save changes' : 'Create food'}
             </Button>
           </DialogFooter>
