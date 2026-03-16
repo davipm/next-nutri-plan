@@ -1,167 +1,108 @@
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  MoreHorizontalIcon,
-} from "lucide-react";
-import { useEffect, useMemo, useRef } from "react";
-import { cn } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
-import { buttonVariants } from "@/components/ui/button";
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
-type PaginationProps = {
+const FOODS_PAGINATION_HREF = '/admin/food-management/foods' as const;
+
+type PaginationEntry = number | 'ellipsis-start' | 'ellipsis-end';
+
+interface FoodPaginationProps {
   currentPage: number;
-  totalPages: number | undefined;
-  updatePage: (action: "next" | "prev" | number) => void;
-  className?: string;
-  scrollToTopOnPaginate?: boolean;
-};
+  onPageChange: (page: 'next' | 'prev' | number) => void;
+  totalPages: number;
+}
 
-const useScrollToTopOnPaginate = (currentPage: number, enabled: boolean) => {
-  const prevPageRef = useRef(currentPage);
-
-  useEffect(() => {
-    if (enabled && prevPageRef.current !== currentPage) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-    prevPageRef.current = currentPage;
-  }, [currentPage, enabled]);
-};
-
-/**
- * Renders a pagination component for navigating between pages.
- */
-export function Pagination({
-  currentPage,
-  totalPages,
-  updatePage,
-  className,
-  scrollToTopOnPaginate = true,
-}: PaginationProps) {
-  useScrollToTopOnPaginate(currentPage, scrollToTopOnPaginate);
-
-  const pages = useMemo(() => {
-    if (!totalPages) return [];
-    if (totalPages <= 7) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
-    if (currentPage < 5) {
-      return [1, 2, 3, 4, 5, "ellipsis", totalPages];
-    }
-    if (currentPage > totalPages - 4) {
-      return [
-        1,
-        "ellipsis",
-        totalPages - 4,
-        totalPages - 3,
-        totalPages - 2,
-        totalPages - 1,
-        totalPages,
-      ];
-    }
-    return [
-      1,
-      "ellipsis",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "ellipsis",
-      totalPages,
-    ];
-  }, [currentPage, totalPages]);
-
-  if (totalPages === undefined) {
-    return (
-      <div className="flex justify-center">
-        <div className="flex items-center gap-1">
-          <Skeleton className="h-9 w-24" />
-          <Skeleton className="h-9 w-9" />
-          <Skeleton className="h-9 w-9" />
-          <Skeleton className="h-9 w-9" />
-          <Skeleton className="h-9 w-24" />
-        </div>
-      </div>
-    );
+const getPaginationEntries = (currentPage: number, totalPages: number): PaginationEntry[] => {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
-  return (
-    <nav
-      role="navigation"
-      aria-label="pagination"
-      data-slot="pagination"
-      className={cn("mx-auto flex w-full justify-center", className)}
-    >
-      <ul className="flex flex-row items-center gap-1">
-        <li>
-          <button
-            onClick={() => updatePage("prev")}
-            disabled={currentPage === 1}
-            aria-label="Go to previous page"
-            className={cn(
-              buttonVariants({
-                variant: "ghost",
-                size: "default",
-              }),
-              "gap-1 px-2.5 sm:pl-2.5",
-              currentPage === 1 && "pointer-events-none opacity-50",
-            )}
-          >
-            <ChevronLeftIcon />
-            <span className="hidden sm:block">Previous</span>
-          </button>
-        </li>
+  if (currentPage < 5) {
+    return [1, 2, 3, 4, 5, 'ellipsis-end', totalPages];
+  }
 
-        {pages.map((page, index) => (
-          <li key={`${page}-${index}`} data-slot="pagination-ellipses">
-            {page === "ellipsis" ? (
-              <span
-                aria-hidden
-                data-slot="pagination-ellipsis"
-                className="flex size-9 items-center justify-center"
+  if (currentPage > totalPages - 4) {
+    return [
+      1,
+      'ellipsis-start',
+      totalPages - 4,
+      totalPages - 3,
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+
+  return [
+    1,
+    'ellipsis-start',
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    'ellipsis-end',
+    totalPages,
+  ];
+};
+
+export function FoodPagination({ currentPage, totalPages, onPageChange }: FoodPaginationProps) {
+  const entries = getPaginationEntries(currentPage, totalPages);
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    page: 'next' | 'prev' | number,
+    disabled = false
+  ) => {
+    event.preventDefault();
+    if (!disabled) {
+      onPageChange(page);
+    }
+  };
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            aria-disabled={currentPage === 1}
+            className={currentPage === 1 ? 'pointer-events-none opacity-50' : undefined}
+            href={FOODS_PAGINATION_HREF}
+            onClick={(e) => handleClick(e, 'prev', currentPage === 1)}
+            tabIndex={currentPage === 1 ? -1 : undefined}
+          />
+        </PaginationItem>
+
+        {entries.map((entry) => (
+          <PaginationItem key={entry}>
+            {typeof entry === 'number' ? (
+              <PaginationLink
+                href={FOODS_PAGINATION_HREF}
+                isActive={currentPage === entry}
+                onClick={(e) => handleClick(e, entry)}
               >
-                <MoreHorizontalIcon className="size-4" />
-                <span className="sr-only">More pages</span>
-              </span>
+                {entry}
+              </PaginationLink>
             ) : (
-              <button
-                onClick={() => updatePage(page as number)}
-                aria-current={currentPage === page ? "page" : undefined}
-                data-active={currentPage === page}
-                className={cn(
-                  buttonVariants({
-                    variant: currentPage === page ? "outline" : "ghost",
-                    size: "icon",
-                  }),
-                )}
-              >
-                {page}
-              </button>
+              <PaginationEllipsis />
             )}
-          </li>
+          </PaginationItem>
         ))}
 
-        <li>
-          <button
-            onClick={() => updatePage("next")}
-            disabled={currentPage === totalPages || !totalPages}
-            aria-label="Go to next page"
-            className={cn(
-              buttonVariants({
-                variant: "ghost",
-                size: "default",
-              }),
-              "gap-1 px-2.5 sm:pr-2.5",
-              (currentPage === totalPages || !totalPages) &&
-                "pointer-events-none opacity-50",
-            )}
-          >
-            <span className="hidden sm:block">Next</span>
-            <ChevronRightIcon />
-          </button>
-        </li>
-      </ul>
-    </nav>
+        <PaginationItem>
+          <PaginationNext
+            aria-disabled={currentPage === totalPages}
+            className={currentPage === totalPages ? 'pointer-events-none opacity-50' : undefined}
+            href={FOODS_PAGINATION_HREF}
+            onClick={(e) => handleClick(e, 'next', currentPage === totalPages)}
+            tabIndex={currentPage === totalPages ? -1 : undefined}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 }

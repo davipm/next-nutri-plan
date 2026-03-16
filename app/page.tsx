@@ -1,24 +1,20 @@
-import { Button } from '@/components/ui/button';
-import { routes } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-8">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 to-slate-100 p-4 md:p-8">
       <div className="flex w-full max-w-6xl flex-col items-center gap-8 md:flex-row md:gap-12">
-        <div className="flex flex-1 flex-col gap-6 text-center md:text-left">
-          <h1 className="text-4xl font-bold text-slate-900 md:text-5xl">Smart Meal Planner</h1>
-          <p className="max-w-lg text-xl text-slate-700">
+        <div className="flex flex-1 flex-col gap-4 text-center md:text-left">
+          <h1 className="font-bold text-4xl text-slate-900 md:text-5xl">Smart Meal Planner</h1>
+          <p className="max-w-lg text-slate-700 text-xl">
             Plan your meals, track your nutrition, and achieve your health goals
           </p>
 
           <div className="mt-2">
-            <Link href={routes.signIn}>
-              <Button
-                size="lg"
-                className="bg-primary px-8 py-6 text-lg font-medium hover:cursor-pointer"
-              >
+            <Link href="/sign-in">
+              <Button className="bg-primary px-8 py-6 font-medium text-lg hover:cursor-pointer">
                 Get Started
               </Button>
             </Link>
@@ -27,12 +23,12 @@ export default function Home() {
 
         <div className="flex flex-1 justify-center">
           <Image
-            src="/hero.png"
             alt="Meal planning illustration"
-            width={500}
-            height={400}
-            className="h-auto w-full rounded-xl shadow-lg"
+            className="mt-8 h-auto w-full rounded-xl shadow-lg"
+            height="400"
             priority
+            src="/hero.png"
+            width="500"
           />
         </div>
       </div>

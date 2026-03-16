@@ -1,42 +1,50 @@
+import type { StateCreator } from 'zustand';
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { StateCreator } from 'zustand/vanilla';
 
-type ConfigType<T> = {
-  name?: string;
-  storage?: Storage;
-  skipPersist?: boolean;
-  excludeFromPersist?: Array<keyof T>;
+interface StoreConfig<T> {
   devtools?: {
     enabled?: boolean;
     name?: string;
   };
-};
+  excludeFromPersist?: Array<keyof T>;
+  merge?: (persistedState: unknown, currentState: T) => T;
+  migrate?: (persistedState: unknown, version: number) => T | Promise<T>;
+  name?: string;
+  partialize?: (state: T) => Partial<T>;
+  skipPersist?: boolean;
+  storage?: Storage;
+  version?: number;
+}
 
-/**
- * Creates a Zustand store with immer middleware and optional persistence.
- *
- * @template T The type of the state object.
- * @param storeCreator The state creator function that defines the state and actions.
- * @param config Optional configuration for the store, including persistence settings
- * like `name`, `storage`, `skipPersist`, `excludeFromPersist`, and `devtools`.
- * @returns A Zustand store hook for the created store.
- */
 export const createStore = <T extends object>(
   storeCreator: StateCreator<T, [['zustand/immer', never]], []>,
-  config?: ConfigType<T>,
+  config?: StoreConfig<T>
 ) => {
   const {
     name,
     storage,
     skipPersist = false,
-    excludeFromPersist = [] as Array<keyof T>,
+    excludeFromPersist = [],
     devtools: devtoolsConfig,
+    partialize: customPartialize,
+    merge,
+    version,
+    migrate,
   } = config || {};
 
+  if (!(skipPersist || name)) {
+    throw new Error(
+      'createStore: `config.name` is required when persistence is enabled. ' +
+        'Set `skipPersist: true` for memory-only stores or provide a unique name.'
+    );
+  }
+
   let enhancedStoreCreator = immer(storeCreator);
-  const isDevtoolsEnabled = devtoolsConfig?.enabled ?? process.env.NODE_ENV === 'development';
+  const isDevtoolsEnabled =
+    devtoolsConfig?.enabled ??
+    (typeof process !== 'undefined' && process.env.NODE_ENV === 'development');
 
   if (isDevtoolsEnabled) {
     enhancedStoreCreator = devtools(enhancedStoreCreator, {
@@ -49,23 +57,39 @@ export const createStore = <T extends object>(
     return create<T>()(enhancedStoreCreator);
   }
 
-  if (!name) {
-    throw new Error(
-      'createStore: `config.name` is required when persistence is enabled to prevent storage key collisions.',
-    );
-  }
-
   return create<T>()(
     persist(enhancedStoreCreator, {
-      name: name,
+      name: name!,
       storage: createJSONStorage(() => {
-        if (storage) return storage;
-        return (typeof window !== 'undefined' ? localStorage : undefined) as Storage;
+        if (storage) {
+          return storage;
+        }
+
+        if (typeof window !== 'undefined' && window.localStorage) {
+          return localStorage;
+        }
+
+        return {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        } as unknown as Storage;
       }),
-      partialize: (state) =>
-        Object.fromEntries(
-          Object.entries(state).filter(([key]) => !excludeFromPersist.includes(key as keyof T)),
-        ),
-    }),
+      partialize:
+        customPartialize ||
+        ((state) =>
+          Object.fromEntries(
+            Object.entries(state).filter(([key]) => !excludeFromPersist.includes(key as keyof T))
+          ) as Partial<T>),
+      ...(merge && { merge }),
+      ...(version !== undefined && { version }),
+      ...(migrate && { migrate }),
+    })
   );
+};
+
+export type StoreState<T> = T extends { getState: () => infer S } ? S : never;
+
+export type StoreActions<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? T[K] : never;
 };

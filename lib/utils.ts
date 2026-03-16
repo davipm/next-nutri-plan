@@ -1,40 +1,24 @@
-import type { ClassValue } from 'clsx';
-import { clsx } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/**
- * Converts a given value to its string representation safely.
- * If the value is null, it returns an empty string.
- * If the value is not null, it converts the value to a string using `String`.
- *
- * @param {unknown} value - The value to be converted to a string.
- * @returns {string} The string representation of the given value, or an empty string if the value is null.
- */
 export const toStringSafe = (value: unknown): string => {
   return value === null ? '' : String(value);
 };
 
-/**
- * Converts a given value to a number safely.
- *
- * If the input value is null, the function will return 0.
- * If the input value is already of type number, it will return the value unchanged.
- * For other types, the function attempts to parse the value as a number.
- * If parsing fails and the result is NaN, the function will return 0.
- *
- * @param {unknown} value - The value to be converted to a number.
- * @returns {number} The converted number or 0 if conversion is not possible.
- */
 export const toNumberSafe = (value: unknown): number => {
-  if (value === null) return 0;
-  if (typeof value === 'number') return value;
+  if (value === null) {
+    return 0;
+  }
+  if (typeof value === 'number') {
+    return value;
+  }
 
   const parsedValue = Number(value);
-  return isNaN(parsedValue) ? 0 : parsedValue;
+  return Number.isNaN(parsedValue) ? 0 : parsedValue;
 };
 
 export const routes = {
@@ -43,8 +27,8 @@ export const routes = {
   signUp: '/sign-up',
   client: '/client',
   admin: {
-    category: '/admin/foods-management/categories',
-    foods: '/admin/foods-management/foods',
-    servingUnits: '/admin/foods-management/serving-units',
+    category: '/admin/food-management/categories',
+    foods: '/admin/food-management/foods',
+    servingUnits: '/admin/food-management/serving-units',
   },
 };
