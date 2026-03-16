@@ -1,96 +1,208 @@
-# Nutri-Plan
+# Nutri Plan
 
-Smart meal planner and nutrition tracker built with Next.js (App Router).
+Full-stack meal planning and nutrition tracking app built with Next.js 16, React 19, TypeScript, Better Auth, oRPC, Prisma, and PostgreSQL.
 
 ![Hero image](./public/hero.png)
 
-## What This App Does
+## Overview
 
-Nutri-Plan has 2 main areas:
+Nutri Plan is organized around two main product areas:
 
-- **Admin dashboard**: Manage the food catalog used by everyone.
-- **Client dashboard**: Track meals for a day and see nutrition totals (calories, macros, and more).
+- **Admin dashboard** for maintaining the shared food catalog.
+- **Client dashboard** for logging meals and reviewing daily nutrition totals.
 
-## Key Features (Current)
+The current codebase ships with authentication, protected dashboards, a typed RPC layer, generated API reference docs, Prisma-backed persistence, and seed data for local development.
 
-### Admin Dashboard (Food Catalog)
+## Features
 
-- **Foods**: List + search + pagination, and edit/delete actions.
-- **Categories**: Create/edit/delete categories.
-- **Serving units**: Create/edit/delete serving units (g, cup, piece, etc.).
-- **Food nutrition data**: Calories, protein, carbs, fat, sugar, fiber.
-- **Per-food serving unit mapping** (data model): Each food can have multiple serving units with a grams conversion.
+### Authentication and access control
 
-### Client Dashboard (Meals)
+- Email/password authentication with Better Auth
+- Protected dashboard routes
+- Admin-only access to food management routes
+- Session-aware redirects for admin and user roles
 
-- **Daily meal list** with a date filter.
-- **Nutrition summary cards**: total calories, macros (protein/carbs/fat), plus sugar/fiber totals.
+### Admin dashboard
+
+- Category CRUD
+- Serving unit CRUD
+- Food CRUD
+- Nutrition fields per food: calories, protein, carbohydrates, fat, sugar, fiber
+- Multiple serving units per food with gram conversion values
+- Food list filtering by search term, category, calories, and protein
+- Sorting and pagination on the food catalog
+
+### Client dashboard
+
+- Daily meal list with date-based filtering
+- Meal creation and editing with multiple food entries
+- Per-meal food breakdown with serving units and calorie badges
+- Daily nutrition summary cards for calories, macros, fiber, and sugar
+
+### API and developer experience
+
+- Typed oRPC procedures for categories, foods, meals, and serving units
+- OpenAPI reference generated from Zod schemas
+- Prisma client generated into `prisma/generated/prisma`
+- TanStack Query integration for client-side data fetching and cache invalidation
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 + React 19 + TypeScript
-- **UI**: Tailwind CSS v4 + shadcn/ui (Radix primitives) + lucide icons
-- **Auth**: Better Auth (email/password) with Prisma adapter + admin plugin
-- **API**: oRPC (typed RPC) + TanStack Query client utilities
-- **API Docs**: OpenAPI reference endpoint generated from Zod schemas
-- **DB/ORM**: Postgres + Prisma (client generated to `prisma/generated/prisma`)
-- **Tooling**: Biome (lint/format) + Ultracite (check/fix)
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript
+- **Styling:** Tailwind CSS v4, shadcn/ui, Radix UI, lucide-react
+- **Auth:** Better Auth with Prisma adapter and admin plugin
+- **API:** oRPC, OpenAPI, Zod, TanStack Query
+- **Database:** PostgreSQL, Prisma ORM
+- **Forms and state:** React Hook Form, Zustand
+- **Tooling:** Biome, Ultracite, Bun
 
-## Architecture Notes
+## Main Routes
 
-- `app/` uses Next.js App Router.
-- Auth routes are served via `app/api/auth/[...all]/route.ts`.
-- RPC + OpenAPI reference are served via `app/api/rpc/[[...rest]]/route.ts`:
-  - RPC base URL: `/api/rpc`
-  - OpenAPI reference: `/api/rpc/api-reference`
+| Route | Purpose |
+| --- | --- |
+| `/` | Landing page |
+| `/sign-in` | Sign in screen |
+| `/sign-up` | Sign up screen |
+| `/client` | Meal tracking dashboard |
+| `/admin/food-management/foods` | Food catalog management |
+| `/admin/food-management/categories` | Category management |
+| `/admin/food-management/serving-units` | Serving unit management |
+| `/api/auth/[...all]` | Better Auth handlers |
+| `/api/rpc` | oRPC endpoint |
+| `/api/rpc/api-reference` | Generated OpenAPI reference |
 
-## Getting Started (Local Development)
+## Project Structure
+
+```text
+.
+|-- app/
+|   |-- (auth)/
+|   |   |-- sign-in/
+|   |   `-- sign-up/
+|   |-- (dashboard)/
+|   |   |-- _components/
+|   |   |-- admin/
+|   |   |   `-- food-management/
+|   |   |       |-- categories/
+|   |   |       |-- foods/
+|   |   |       `-- serving-units/
+|   |   `-- client/
+|   |       |-- _components/
+|   |       `-- _utils/
+|   `-- api/
+|       |-- auth/[...all]/route.ts
+|       `-- rpc/[[...rest]]/route.ts
+|-- components/
+|   |-- ui/
+|   `-- *.tsx shared presentation components
+|-- hooks/
+|-- infra/
+|   `-- docker-compose.yml
+|-- lib/
+|   |-- auth-client.ts
+|   |-- orpc.ts
+|   `-- utils.ts
+|-- prisma/
+|   |-- generated/prisma/
+|   |-- migrations/
+|   |-- schema.prisma
+|   `-- seed.ts
+|-- providers/
+|-- server/
+|   |-- auth.ts
+|   |-- prisma.ts
+|   |-- modules/
+|   |   |-- category/
+|   |   |-- food/
+|   |   |-- meal/
+|   |   `-- serving-units/
+|   `-- orpc/
+|-- store/
+|-- public/
+|-- package.json
+`-- README.md
+```
+
+## Data Model
+
+Core entities:
+
+- `User`, `Session`, `Account`, `Verification` for authentication
+- `Category` for grouping foods
+- `ServingUnit` for reusable measurement units
+- `Food` for nutrition data
+- `FoodServingUnit` as the conversion layer between foods and serving units
+- `Meal` for dated meal records
+- `MealFood` for foods attached to a meal with serving unit and amount
+
+## Local Development
 
 ### Prerequisites
 
 - Node.js 20+
-- Bun (required for the Prisma scripts in `package.json`)
-- A running Postgres database (Docker Compose is provided)
+- Bun
+- Docker Desktop or a local PostgreSQL instance
 
-### 1) Start Postgres (Docker)
-
-```bash
-docker compose -f infra/docker-compose.yml up -d
-```
-
-This matches the default `DATABASE_URL` in `.env.example`.
-
-### 2) Install Dependencies
+### 1. Install dependencies
 
 ```bash
 bun install
 ```
 
-### 3) Configure Environment Variables
+### 2. Configure environment variables
 
 ```bash
 cp .env.example .env
 ```
 
-Fill at least:
+Required values:
 
+- `BETTER_AUTH_SECRET`
+- `BETTER_AUTH_URL`
 - `DATABASE_URL`
-- `BETTER_AUTH_URL` (usually `http://localhost:3000`)
-- `BETTER_AUTH_SECRET` (generate a random string; do not commit it)
 
-Optional (used by the seed script):
+Default local values from `.env.example`:
 
-- `ADMIN_EMAIL` (defaults to `super@admin.com`)
-- `ADMIN_PASSWORD`
+```env
+BETTER_AUTH_URL="http://localhost:3000"
+DATABASE_URL=postgresql://postgres:password@localhost:5432/next-db?schema=public
+ADMIN_EMAIL="super@admin.com"
+ADMIN_PASSWORD="1234"
+```
 
-### 4) Migrate + Seed
+Note:
+
+- `BETTER_AUTH_SECRET` is intentionally empty in `.env.example`. Set it to a long random string before running the app.
+- The current auth client is configured for `http://localhost:3000`. If you change the app URL or port, update both `.env` and [`lib/auth-client.ts`](./lib/auth-client.ts).
+
+### 3. Start PostgreSQL
 
 ```bash
+docker compose -f infra/docker-compose.yml up -d
+```
+
+### 4. Generate Prisma client and apply migrations
+
+```bash
+bun run db:generate
 bun run db:migrate
+```
+
+### 5. Seed the database
+
+```bash
 bun run db:seed
 ```
 
-### 5) Run The App
+The seed script creates:
+
+- 12 food categories
+- 12 serving units
+- 50 foods with nutrition values and serving-unit conversions
+- 50 meals per eligible user account (`user` or `client` role)
+- An admin user when `ADMIN_EMAIL` and `ADMIN_PASSWORD` are set
+
+### 6. Start the app
 
 ```bash
 bun run dev
@@ -98,37 +210,49 @@ bun run dev
 
 Open `http://localhost:3000`.
 
-## Useful Scripts
+## Seeded Access
 
-- `bun run dev`: Start Next.js dev server
-- `bun run build`: Production build
-- `bun run start`: Start production server
-- `bun run lint`: `biome check`
-- `bun run format`: `biome format --write`
-- `bun run db:migrate`: Prisma migrate (dev)
-- `bun run db:generate`: Prisma client generate
-- `bun run db:pull`: Prisma db pull
-- `bun run db:studio`: Prisma Studio
-- `bun run db:seed`: Prisma seed
-- `bun run check`: `ultracite check`
-- `bun run fix`: `ultracite fix`
+If you keep the default `.env.example` values, you can sign in with:
 
-## Updates So Far (High-Level)
+- **Admin email:** `super@admin.com`
+- **Admin password:** `1234`
 
-Last code update: **2026-03-15**
+If you want meal data associated with a regular user account, create a user via `/sign-up` and run `bun run db:seed` again. The seed script prefers accounts with the `user` or `client` role and falls back to the first available account only when none exist.
 
-- **2026-03**: Added meals module (router/service/schema), seeded meals, and shipped the first client dashboard meal list + nutrition summary UI.
-- **2026-03**: Improved foods module: pagination/filters, CRUD wiring, schema validation (unique serving units per food), and protected API procedures.
-- **2026-02**: Introduced the dashboard layout (sidebar + breadcrumb) and CRUD flows for categories and serving units.
-- **2025-09**: Migrated authentication to Better Auth and improved sign-in/sign-up flow + env templates.
-- **2025-07**: Initial Next.js app scaffold + Prisma + basic auth setup.
+## RPC Modules
 
-## Known Gaps / Work In Progress
+The server exposes protected procedures for:
 
-- **Meal create/edit/delete UI** is not finished yet (the dialog is currently a placeholder).
-- **Food serving unit editor in the UI** is not finished yet (backend + schema support exists; seeded foods include serving units).
-- **Admin route guarding** is currently not enforced at the layout level (role checks are present but commented out).
+- `categories`
+- `foods`
+- `meals`
+- `servingUnits`
 
-## Authors
+There is also a public `healthCheck` procedure and a protected `privateData` procedure defined in the root router.
 
-- **Davi Pereira**
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `bun run dev` | Start the Next.js development server |
+| `bun run build` | Build the application for production |
+| `bun run start` | Start the production server |
+| `bun run lint` | Run `biome check` |
+| `bun run format` | Run `biome format --write` |
+| `bun run check` | Run `ultracite check` |
+| `bun run fix` | Run `ultracite fix` |
+| `bun run db:migrate` | Apply Prisma development migrations |
+| `bun run db:generate` | Generate Prisma client |
+| `bun run db:pull` | Pull schema from the database |
+| `bun run db:studio` | Open Prisma Studio |
+| `bun run db:seed` | Seed the database |
+
+## Notes
+
+- This repository currently does **not** define a dedicated automated test script in `package.json`.
+- Next.js typed routes and the React Compiler are enabled in [`next.config.ts`](./next.config.ts).
+- React Query Devtools and Sonner toasts are wired globally through [`providers/providers.tsx`](./providers/providers.tsx).
+
+## Author
+
+- Davi Pereira
