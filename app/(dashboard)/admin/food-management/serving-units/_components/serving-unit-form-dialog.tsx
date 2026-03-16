@@ -79,12 +79,15 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
   });
 
   useEffect(() => {
-    if (isEditMode && servingUnitToEdit) {
-      form.setValue('name', servingUnitToEdit.name);
-    } else if (!isEditMode) {
+    if (!(open && isEditMode)) {
       form.reset();
+      return;
     }
-  }, [isEditMode, servingUnitToEdit, form]);
+
+    if (servingUnitToEdit && servingUnitToEdit.id === selectedId) {
+      form.setValue('name', servingUnitToEdit.name);
+    }
+  }, [isEditMode, servingUnitToEdit, form, open, selectedId]);
 
   const handleDialogOpenChange = () => {
     openCreateServingUnitDialog();

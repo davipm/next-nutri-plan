@@ -297,7 +297,6 @@ export function FoodFormDialog() {
                 ) : (
                   <div className="space-y-3">
                     {fields.map((field, index) => (
-                      // `fields` are static snapshots; use `watch` values for reactive state.
                       <div
                         className="grid grid-cols-[1fr_1fr_auto] items-center gap-3"
                         key={field.id}
