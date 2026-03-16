@@ -39,7 +39,7 @@ const data = {
       title: 'Foods Management',
       icon: Apple,
       isActive: true,
-      allowedRoles: [Role.ADMIN, Role.CLIENT, Role.USER],
+      allowedRoles: [Role.ADMIN],
       items: [
         {
           title: 'Foods',

@@ -1,5 +1,7 @@
 import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
+import { Role } from '@/app/(dashboard)/_types/nav';
 import { getSession } from '@/lib/auth-client';
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
@@ -10,8 +12,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     },
   });
 
-  // if (session.user?.role !== Role.ADMIN) redirect('/client');
-  console.log(session?.user.role);
+  if (session?.user?.role !== Role.ADMIN) {
+    redirect('/client');
+  }
 
   return <div className="mx-auto max-w-7xl p-6">{children}</div>;
 }
