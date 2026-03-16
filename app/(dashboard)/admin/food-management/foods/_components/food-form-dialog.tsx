@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CirclePlus, Plus, UtensilsCrossed } from 'lucide-react';
 import { useEffect } from 'react';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { CategoryFormDialog } from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
 import { ALL_CATEGORIES_VALUE } from '@/app/(dashboard)/admin/food-management/foods/_utils/utils';
 import { Button } from '@/components/ui/button';
@@ -61,9 +61,16 @@ export function FoodFormDialog() {
     defaultValues,
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: 'foodServingUnits',
+    keyName: 'id',
+  });
+
   const { reset } = form;
 
   const { data: categories = [] } = useQuery(orpc.categories.list.queryOptions());
+  const { data: servingUnits = [] } = useQuery(orpc.servingUnits.list.queryOptions());
 
   const { data: foodToEdit } = useQuery(
     orpc.foods.find.queryOptions({
@@ -135,6 +142,13 @@ export function FoodFormDialog() {
       createFoodMutation(data);
     }
   };
+
+  const servingUnitOptions = servingUnits.map((data) => ({
+    value: data.id,
+    label: data.name,
+  }));
+
+  const handleAddServingUnit = () => append({ foodServingUnitId: 0, grams: 0 });
 
   return (
     <Dialog onOpenChange={onDialogOpenChange} open={open}>
@@ -252,11 +266,83 @@ export function FoodFormDialog() {
                   </Button>
                 </div>
 
-                <div className="flex flex-col items-center justify-center rounded-md border border-dashed py-6 text-center text-muted-foreground">
-                  <UtensilsCrossed className="mb-2 size-10 opacity-50" />
-                  <p>No serving units added yet</p>
-                  <p className="text-sm">Add serving units to help users measure this food</p>
-                </div>
+                {fields.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center rounded-md border border-dashed py-6 text-center text-muted-foreground">
+                    <UtensilsCrossed className="mb-2 size-10 opacity-50" />
+                    <p>No serving units added yet</p>
+                    <p className="text-sm">Add serving units to help users measure this food</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {fields.map((field, index) => (
+                      <div
+                        className="grid grid-cols-[1fr_1fr_auto] items-center gap-3"
+                        key={field.id}
+                      >
+                        <FieldGroup className="col-span-1 flex items-end">
+                          <Controller
+                            control={form.control}
+                            name={`foodServingUnits.${index}.foodServingUnitId`}
+                            render={({ field, fieldState }) => (
+                              <Field data-invalid={fieldState.invalid}>
+                                <Select
+                                  name={field.name}
+                                  onValueChange={(value) =>
+                                    field.onChange(
+                                      value === ALL_CATEGORIES_VALUE ? null : Number(value)
+                                    )
+                                  }
+                                  value={field.value ? String(field.value) : ALL_CATEGORIES_VALUE}
+                                >
+                                  <SelectTrigger
+                                    aria-invalid={fieldState.invalid}
+                                    id="foodServingUnits"
+                                  >
+                                    <SelectValue placeholder="Select a serving unit..." />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <SelectLabel>Food Serving Unit</SelectLabel>
+                                      <SelectItem value={ALL_CATEGORIES_VALUE}>
+                                        All Serving unit...
+                                      </SelectItem>
+                                      {!!categories.length && <SelectSeparator />}
+                                      {servingUnits.map((units) => (
+                                        <SelectItem key={units.id} value={String(units.id)}>
+                                          {units.name}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                              </Field>
+                            )}
+                          />
+                        </FieldGroup>
+
+                        <div>
+                          <Controller
+                            control={form.control}
+                            name={`foodServingUnits.${index}.grams`}
+                            render={({ field, fieldState }) => (
+                              <Field data-invalid={fieldState.invalid}>
+                                <Input
+                                  {...field}
+                                  aria-invalid={fieldState.invalid}
+                                  id={field.name}
+                                  placeholder="Grams per Unit"
+                                  type="number"
+                                />
+                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                              </Field>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {form.formState.errors.foodServingUnits && (
                   <FieldError errors={[form.formState.errors.foodServingUnits]} />
