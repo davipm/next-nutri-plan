@@ -1,8 +1,9 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { CalendarX, Edit, Flame, LineChart, PieChart, Trash, Utensils } from 'lucide-react';
+import { toast } from 'sonner';
 import MealCardsSkeleton from '@/app/(dashboard)/client/_components/meal-card-skeleton';
 import {
   calculateNutritionTotal,
@@ -14,14 +15,43 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { orpc } from '@/lib/orpc';
-import { useMealFilters } from '@/store/use-meal-store';
+import { alert } from '@/store/use-global-store';
+import { openMealEditDialog, useMealFilters } from '@/store/use-meal-store';
 
 export function MealCards() {
+  const queryClient = useQueryClient();
+
   const mealFilters = useMealFilters();
 
   const { data: meals = [], isLoading } = useQuery(
     orpc.meals.list.queryOptions({ input: { dateTime: mealFilters.dateTime } })
   );
+
+  const { mutate: deleteMeal } = useMutation(
+    orpc.categories.delete.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: orpc.meals.key({ type: 'query' }) });
+        toast.success('Meal deleted successfully.');
+      },
+      onError: (error) => {
+        toast.error(error.message || 'Failed to delete Meal.');
+      },
+    })
+  );
+
+  const handleEdit = (id: number) => {
+    openMealEditDialog(id);
+  };
+
+  const handleDelete = (id: number) => {
+    alert({
+      title: 'Delete Meal?',
+      description: 'Are you sure you want to delete this meal? This action cannot be undone.',
+      confirmLabel: 'Delete',
+      variant: 'destructive',
+      onConfirm: () => deleteMeal({ id }),
+    });
+  };
 
   const displayDate = mealFilters.dateTime
     ? format(mealFilters.dateTime, 'EEEE, MMMM dd, yyyy')
@@ -160,10 +190,20 @@ export function MealCards() {
                   </Badge>
                 </div>
                 <div className="flex gap-1">
-                  <Button className="size-8" size="icon" variant="ghost">
+                  <Button
+                    className="size-8"
+                    onClick={() => handleEdit(meal.id)}
+                    size="icon"
+                    variant="ghost"
+                  >
                     <Edit className="size-4" />
                   </Button>
-                  <Button className="size-8" size="icon" variant="ghost">
+                  <Button
+                    className="size-8"
+                    onClick={() => handleDelete(meal.id)}
+                    size="icon"
+                    variant="ghost"
+                  >
                     <Trash className="size-4" />
                   </Button>
                 </div>
