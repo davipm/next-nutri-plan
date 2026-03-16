@@ -132,6 +132,7 @@ export function MealFormDialog({ smallTrigger }: Props) {
 
   const isPending = createIsPending || updateIsPending;
   const foods = foodsResponse?.data ?? [];
+  const foodsWithServingUnits = foods.filter((food) => food.foodServingUnits.length > 0);
   const foodsById = new Map(foods.map((food) => [food.id, food]));
 
   useEffect(() => {
@@ -167,9 +168,14 @@ export function MealFormDialog({ smallTrigger }: Props) {
   };
 
   const handleAddFood = () => {
+    const firstMealReadyFood = foodsWithServingUnits[0];
+    if (!firstMealReadyFood) {
+      return;
+    }
+
     append({
-      foodId: 0,
-      servingUnitId: 0,
+      foodId: firstMealReadyFood.id,
+      servingUnitId: firstMealReadyFood.foodServingUnits[0]?.servingUnitId ?? 0,
       amount: 1,
     });
   };
@@ -306,7 +312,7 @@ export function MealFormDialog({ smallTrigger }: Props) {
                   </div>
                   <Button
                     className="flex items-center gap-1"
-                    disabled={isPending || isEditLoading || foods.length === 0}
+                    disabled={isPending || isEditLoading || foodsWithServingUnits.length === 0}
                     onClick={handleAddFood}
                     size="sm"
                     type="button"
@@ -321,7 +327,7 @@ export function MealFormDialog({ smallTrigger }: Props) {
                     <UtensilsCrossed className="mb-2 size-10 opacity-50" />
                     <p>No foods added to this meal yet</p>
                     <p className="text-sm">
-                      {foods.length === 0
+                      {foodsWithServingUnits.length === 0
                         ? 'Create foods with serving units before logging a meal'
                         : 'Add foods to track what you are eating in this meal'}
                     </p>
@@ -331,6 +337,9 @@ export function MealFormDialog({ smallTrigger }: Props) {
                     {fields.map((field, index) => {
                       const selectedFoodId = mealFoodsValues[index]?.foodId ?? 0;
                       const selectedFood = foodsById.get(selectedFoodId);
+                      const mealReadyFoodsForRow = foods.filter(
+                        (food) => food.foodServingUnits.length > 0 || food.id === selectedFoodId
+                      );
                       const availableServingUnits = selectedFood?.foodServingUnits ?? [];
                       let servingUnitItems: ReactNode = (
                         <SelectItem disabled value="__empty__">
@@ -381,12 +390,12 @@ export function MealFormDialog({ smallTrigger }: Props) {
                                     <SelectContent>
                                       <SelectGroup>
                                         <SelectLabel>Foods</SelectLabel>
-                                        {foods.length === 0 ? (
+                                        {mealReadyFoodsForRow.length === 0 ? (
                                           <SelectItem disabled value="__empty__">
                                             No foods found
                                           </SelectItem>
                                         ) : (
-                                          foods.map((food) => (
+                                          mealReadyFoodsForRow.map((food) => (
                                             <SelectItem key={food.id} value={String(food.id)}>
                                               {food.name}
                                             </SelectItem>
