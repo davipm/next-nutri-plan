@@ -174,7 +174,48 @@ export function MealCards() {
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Utensils className="size-4 text-primary" />
+                  <p className="font-medium text-foreground/70 text-sm">
+                    {meal.mealFoods.length} {meal.mealFoods.length === 1 ? 'item' : 'items'}
+                  </p>
                 </div>
+
+                {meal.mealFoods.length === 0 ? (
+                  <p className="text-foreground/60 text-sm italic">No foods added</p>
+                ) : (
+                  <div className="space-y-3">
+                    {meal.mealFoods.map((mealFood) => (
+                      <div className="rounded-md bg-muted/40 p-3" key={mealFood.id}>
+                        <div className="flex items-center justify-between">
+                          <p className="font-medium">{mealFood.food.name}</p>
+                          <Badge>
+                            {formatNutritionStat(
+                              (mealFood.food.calories ?? 0) * (mealFood.amount || 1),
+                              'kcal'
+                            )}
+                          </Badge>
+                        </div>
+
+                        <div className="mt-2 flex justify-between text-foreground/70 text-sm">
+                          <div>
+                            <span>Serving: </span>
+                            <span className="font-medium">
+                              {mealFood.amount > 0 ? mealFood.amount : 'Not specified'}{' '}
+                              {mealFood.servingUnit?.name || 'serving'}
+                            </span>
+                          </div>
+
+                          <div className="space-x-1 text-xs">
+                            <span>P: {formatNutritionStat(mealFood.food.protein ?? 0, 'g')}</span>
+                            <span>
+                              C: {formatNutritionStat(mealFood.food.carbohydrates ?? 0, 'g')}
+                            </span>
+                            <span>F: {formatNutritionStat(mealFood.food.fat ?? 0, 'g')}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
