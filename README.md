@@ -1,95 +1,134 @@
 # Nutri-Plan
 
-Nutri-Plan is a comprehensive web application designed to empower users in creating, managing, and tracking their personalized nutrition plans. It features a robust admin dashboard for detailed management of food data, including nutritional information, categories, and serving units. The client-side application provides intuitive tools for users to build and monitor their dietary intake, offering a complete solution for personal nutrition management.
+Smart meal planner and nutrition tracker built with Next.js (App Router).
 
-## ✨ Features
+![Hero image](./public/hero.png)
 
-### Admin Dashboard
-- **Food Management**: Admins can effortlessly add, edit, and delete food items, including detailed nutritional information (calories, protein, carbs, fats).
-- **Categorization**: Organize foods into custom categories for better organization and searchability.
-- **Serving Units**: Define and manage various serving units (e.g., grams, cups, pieces) for accurate portion tracking and nutritional calculations.
-- **User Roles**: Supports distinct user roles (Admin, User) to manage access permissions and functionalities within the application.
+## What This App Does
 
-### Client Application
-- **Meal Creation & Management**: Users can easily create, edit, and delete meals for specific dates, allowing for flexible meal planning.
-- **Food Item Customization**: Add multiple food items to each meal, specifying precise amounts and selecting appropriate serving units.
-- **Nutritional Overview**: Automatically calculates and displays total calories, protein, carbohydrates, and fats for each meal, providing immediate insights into dietary intake.
-- **Date-based Filtering**: Filter and view meals by date, enabling users to track their nutrition over time and review past dietary habits.
+Nutri-Plan has 2 main areas:
 
-## 🚀 Getting Started
+- **Admin dashboard**: Manage the food catalog used by everyone.
+- **Client dashboard**: Track meals for a day and see nutrition totals (calories, macros, and more).
 
-To get a local copy up and running, follow these simple steps.
+## Key Features (Current)
+
+### Admin Dashboard (Food Catalog)
+
+- **Foods**: List + search + pagination, and edit/delete actions.
+- **Categories**: Create/edit/delete categories.
+- **Serving units**: Create/edit/delete serving units (g, cup, piece, etc.).
+- **Food nutrition data**: Calories, protein, carbs, fat, sugar, fiber.
+- **Per-food serving unit mapping** (data model): Each food can have multiple serving units with a grams conversion.
+
+### Client Dashboard (Meals)
+
+- **Daily meal list** with a date filter.
+- **Nutrition summary cards**: total calories, macros (protein/carbs/fat), plus sugar/fiber totals.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 + React 19 + TypeScript
+- **UI**: Tailwind CSS v4 + shadcn/ui (Radix primitives) + lucide icons
+- **Auth**: Better Auth (email/password) with Prisma adapter + admin plugin
+- **API**: oRPC (typed RPC) + TanStack Query client utilities
+- **API Docs**: OpenAPI reference endpoint generated from Zod schemas
+- **DB/ORM**: Postgres + Prisma (client generated to `prisma/generated/prisma`)
+- **Tooling**: Biome (lint/format) + Ultracite (check/fix)
+
+## Architecture Notes
+
+- `app/` uses Next.js App Router.
+- Auth routes are served via `app/api/auth/[...all]/route.ts`.
+- RPC + OpenAPI reference are served via `app/api/rpc/[[...rest]]/route.ts`:
+  - RPC base URL: `/api/rpc`
+  - OpenAPI reference: `/api/rpc/api-reference`
+
+## Getting Started (Local Development)
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) (v20 or later)
-- [npm](https://www.npmjs.com/) or any other package manager
+- Node.js 20+
+- Bun (required for the Prisma scripts in `package.json`)
+- A running Postgres database (Docker Compose is provided)
 
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/nutri-plan.git
-   cd nutri-plan
-   ```
-2. Install NPM packages:
-   ```bash
-   npm install
-   ```
-3. Set up your environment variables by creating a `.env` file in the root of the project and adding the following:
-   ```env
-   DATABASE_URL="file:./dev.db"
-   ```
-4. Apply database migrations:
-   ```bash
-   npm run db:migrate
-   ```
-5. Seed the database with initial data:
-   ```bash
-   npm run db:seed
-   ```
-
-### Running the Application
-
-Now you can run the development server:
+### 1) Start Postgres (Docker)
 
 ```bash
-npm run dev
+docker compose -f infra/docker-compose.yml up -d
 ```
-*(Note: The `dev` script uses `--turbopack` for faster development builds.)*
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This matches the default `DATABASE_URL` in `.env.example`.
 
-## 📜 Available Scripts
+### 2) Install Dependencies
 
-In the project directory, you can run:
+```bash
+bun install
+```
 
-- `npm run dev`: Runs the app in development mode with Turbopack for faster builds.
-- `npm run build`: Builds the app for production.
-- `npm run start`: Starts a production server.
-- `npm run lint`: Lints the code for errors and style issues.
-- `npm run test`: Runs the test suite.
-- `npm run coverage`: Generates a test coverage report.
-- `npm run db:migrate`: Applies database migrations.
-- `npm run db:pull`: Pulls the database schema from the database.
-- `npm run db:generate`: Generates the Prisma client.
-- `npm run db:studio`: Opens the Prisma Studio to view and edit data.
-- `npm run db:seed`: Seeds the database with initial data. *(Note: This script uses `tsx` to execute the seed file.)*
+### 3) Configure Environment Variables
 
-## 🛠️ Stack
+```bash
+cp .env.example .env
+```
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/)
-- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
-- **Data Fetching**: [TanStack Query](https://tanstack.com/query/latest)
-- **Forms**: [React Hook Form](https://react-hook-form.com/)
-- **Schema Validation**: [Zod](https://zod.dev/)
-- **ORM**: [Prisma](https://www.prisma.io/)
-- **Database**: [SQLite](https://www.sqlite.org/index.html)
-- **Authentication**: [better-auth.js](https://www.better-auth.com/)
-- **Testing**: [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/)
+Fill at least:
+
+- `DATABASE_URL`
+- `BETTER_AUTH_URL` (usually `http://localhost:3000`)
+- `BETTER_AUTH_SECRET` (generate a random string; do not commit it)
+
+Optional (used by the seed script):
+
+- `ADMIN_EMAIL` (defaults to `super@admin.com`)
+- `ADMIN_PASSWORD`
+
+### 4) Migrate + Seed
+
+```bash
+bun run db:migrate
+bun run db:seed
+```
+
+### 5) Run The App
+
+```bash
+bun run dev
+```
+
+Open `http://localhost:3000`.
+
+## Useful Scripts
+
+- `bun run dev`: Start Next.js dev server
+- `bun run build`: Production build
+- `bun run start`: Start production server
+- `bun run lint`: `biome check`
+- `bun run format`: `biome format --write`
+- `bun run db:migrate`: Prisma migrate (dev)
+- `bun run db:generate`: Prisma client generate
+- `bun run db:pull`: Prisma db pull
+- `bun run db:studio`: Prisma Studio
+- `bun run db:seed`: Prisma seed
+- `bun run check`: `ultracite check`
+- `bun run fix`: `ultracite fix`
+
+## Updates So Far (High-Level)
+
+Last code update: **2026-03-15**
+
+- **2026-03**: Added meals module (router/service/schema), seeded meals, and shipped the first client dashboard meal list + nutrition summary UI.
+- **2026-03**: Improved foods module: pagination/filters, CRUD wiring, schema validation (unique serving units per food), and protected API procedures.
+- **2026-02**: Introduced the dashboard layout (sidebar + breadcrumb) and CRUD flows for categories and serving units.
+- **2025-09**: Migrated authentication to Better Auth and improved sign-in/sign-up flow + env templates.
+- **2025-07**: Initial Next.js app scaffold + Prisma + basic auth setup.
+
+## Known Gaps / Work In Progress
+
+- **Meal create/edit/delete UI** is not finished yet (the dialog is currently a placeholder).
+- **Food serving unit editor in the UI** is not finished yet (backend + schema support exists; seeded foods include serving units).
+- **Admin route guarding** is currently not enforced at the layout level (role checks are present but commented out).
 
 ## Authors
 
-* **Davi Pereira**
+- **Davi Pereira**
