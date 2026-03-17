@@ -28,7 +28,7 @@ export function MealCards() {
   );
 
   const { mutate: deleteMeal } = useMutation(
-    orpc.categories.delete.mutationOptions({
+    orpc.meals.delete.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: orpc.meals.key({ type: 'query' }) });
         toast.success('Meal deleted successfully.');
@@ -111,7 +111,7 @@ export function MealCards() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="spcae-y-1">
+              <div className="space-y-1">
                 <div className="flex justify-between">
                   <span className="text-sm">Total Meals</span>
                   <span className="font-medium">{meals.length || 0}</span>
@@ -156,7 +156,7 @@ export function MealCards() {
       </div>
 
       <div>
-        <h3 className="mb4 font-medium text-lg">Meals</h3>
+        <h3 className="mb-4 font-medium text-lg">Meals</h3>
 
         {meals.length === 0 && !isLoading && (
           <div className="flex flex-col items-center justify-center py-12 text-center">
