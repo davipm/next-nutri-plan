@@ -8,7 +8,6 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { Role } from '@/app/(dashboard)/_types/nav';
-
 import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -16,11 +15,16 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { getSession, signIn } from '@/lib/auth-client';
 
 const signInSchema = z.object({
-  email: z.string().trim().min(1, 'Email is required.'),
+  email: z.email('Enter a valid email address.'),
   password: z.string().min(1, 'Password is required.'),
 });
 
 type SignInSchema = z.infer<typeof signInSchema>;
+const emailErrorId = 'sign-in-email-error';
+const passwordErrorId = 'sign-in-password-error';
+
+const getRedirectRoute = (role?: string | null) =>
+  role === Role.ADMIN ? '/admin/food-management/foods' : '/client';
 
 export function SignInForm() {
   const router = useRouter();
@@ -35,42 +39,34 @@ export function SignInForm() {
 
   const isSubmitting = form.formState.isSubmitting;
 
+  const resetPasswordField = () => {
+    form.resetField('password');
+  };
+
   const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
-    const resetSensitiveFields = () => {
-      form.resetField('password');
-    };
-
-    let didSucceed = false;
-
     try {
-      await signIn.email(data, {
-        onSuccess: () => {
-          didSucceed = true;
-          toast.success('Signed in successfully');
-        },
-        onError: ({ error }) => {
-          toast.error(error.message);
-          resetSensitiveFields();
-        },
-      });
+      const response = await signIn.email(data);
+
+      if (response.error != null) {
+        toast.error(response.error.message);
+        resetPasswordField();
+        return;
+      }
+
+      toast.success('Signed in successfully');
+
+      const session = await getSession();
+      router.push(getRedirectRoute(session?.data?.user?.role));
     } catch {
       toast.error('Something went wrong. Please try again.');
-      resetSensitiveFields();
+      resetPasswordField();
     }
-
-    if (!didSucceed) {
-      return;
-    }
-
-    const sessionResponse = await getSession();
-    const role = sessionResponse?.data?.user?.role;
-    const route = role === Role.ADMIN ? '/admin/food-management/foods' : '/client';
-    router.push(route);
   };
 
   return (
     <form
       className="w-full max-w-96 space-y-5 rounded-md border px-10 py-12"
+      noValidate
       onSubmit={form.handleSubmit(onSubmit)}
     >
       <div className="text-center">
@@ -86,6 +82,7 @@ export function SignInForm() {
             <Field data-invalid={fieldState.invalid}>
               <Input
                 {...field}
+                aria-describedby={fieldState.invalid ? emailErrorId : undefined}
                 aria-invalid={fieldState.invalid}
                 autoCapitalize="none"
                 autoComplete="email"
@@ -96,7 +93,7 @@ export function SignInForm() {
                 spellCheck={false}
                 type="email"
               />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} id={emailErrorId} />}
             </Field>
           )}
         />
@@ -108,12 +105,15 @@ export function SignInForm() {
             <Field data-invalid={fieldState.invalid}>
               <PasswordInput
                 {...field}
+                aria-describedby={fieldState.invalid ? passwordErrorId : undefined}
                 aria-invalid={fieldState.invalid}
                 autoComplete="current-password"
                 id={field.name}
                 placeholder="Password"
               />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {fieldState.invalid && (
+                <FieldError errors={[fieldState.error]} id={passwordErrorId} />
+              )}
             </Field>
           )}
         />
