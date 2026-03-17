@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { orpc } from '@/lib/orpc';
 import { alert } from '@/store/use-global-store';
-import { openMealEditDialog, useMealFilters } from '@/store/use-meal-store';
+import { openMealDialog, openMealEditDialog, useMealFilters } from '@/store/use-meal-store';
 
 export function MealCards() {
   const queryClient = useQueryClient();
@@ -165,7 +165,7 @@ export function MealCards() {
             <p className="mt-1 text-foreground/60 text-sm">
               Try adjusting your filters or add new meals
             </p>
-            <Button className="mt-4" variant="outline">
+            <Button className="mt-4" onClick={() => openMealDialog()} variant="outline">
               Add new meal
             </Button>
           </div>
