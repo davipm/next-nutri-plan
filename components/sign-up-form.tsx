@@ -11,12 +11,12 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
-import { signUp, useSession } from '@/lib/auth-client';
+import { signUp } from '@/lib/auth-client';
 
 export const signUpSchema = z
   .object({
-    name: z.string().min(1, 'Name is required.'),
-    email: z.string().min(1, 'Email is required.'),
+    name: z.string().trim().min(1, 'Name is required.'),
+    email: z.string().trim().min(1, 'Email is required.'),
     password: z.string().min(1, 'Password is required.'),
     confirmPassword: z.string().min(1, 'Confirm Password is required.'),
   })
@@ -26,9 +26,9 @@ export const signUpSchema = z
   });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
+type SignUpPayload = Omit<SignUpSchema, 'confirmPassword'>;
 
 export function SignUpForm() {
-  const { isPending } = useSession();
   const router = useRouter();
 
   const form = useForm<SignUpSchema>({
@@ -41,17 +41,31 @@ export function SignUpForm() {
     },
   });
 
+  const isSubmitting = form.formState.isSubmitting;
+
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
-    await signUp.email(data, {
-      onSuccess: () => {
-        toast.success('User Created Successfully');
-        router.push('/sign-in');
-      },
-      onError: ({ error }) => {
-        toast.error(error.message);
-        form.reset();
-      },
-    });
+    const { confirmPassword: _confirmPassword, ...payload } = data satisfies SignUpSchema;
+
+    const resetSensitiveFields = () => {
+      form.resetField('password');
+      form.resetField('confirmPassword');
+    };
+
+    try {
+      await signUp.email(payload satisfies SignUpPayload, {
+        onSuccess: () => {
+          toast.success('User Created Successfully');
+          router.push('/sign-in');
+        },
+        onError: ({ error }) => {
+          toast.error(error.message);
+          resetSensitiveFields();
+        },
+      });
+    } catch {
+      toast.error('Something went wrong. Please try again.');
+      resetSensitiveFields();
+    }
   };
 
   return (
@@ -73,6 +87,7 @@ export function SignUpForm() {
               <Input
                 {...field}
                 aria-invalid={fieldState.invalid}
+                autoComplete="name"
                 id={field.name}
                 placeholder="Name"
                 type="text"
@@ -90,8 +105,13 @@ export function SignUpForm() {
               <Input
                 {...field}
                 aria-invalid={fieldState.invalid}
+                autoCapitalize="none"
+                autoComplete="email"
+                autoCorrect="off"
                 id={field.name}
+                inputMode="email"
                 placeholder="Email"
+                spellCheck={false}
                 type="email"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -107,6 +127,7 @@ export function SignUpForm() {
               <PasswordInput
                 {...field}
                 aria-invalid={fieldState.invalid}
+                autoComplete="new-password"
                 id={field.name}
                 placeholder="Password"
               />
@@ -123,6 +144,7 @@ export function SignUpForm() {
               <PasswordInput
                 {...field}
                 aria-invalid={fieldState.invalid}
+                autoComplete="new-password"
                 id={field.name}
                 placeholder="Password"
               />
@@ -132,8 +154,15 @@ export function SignUpForm() {
         />
       </FieldGroup>
 
-      <Button aria-busy={isPending} className="w-full" disabled={isPending} type="submit">
-        {isPending ? <Loader2Icon aria-hidden="true" className="animate-spin" /> : 'Sign up'}
+      <Button aria-busy={isSubmitting} className="w-full" disabled={isSubmitting} type="submit">
+        {isSubmitting ? (
+          <>
+            <Loader2Icon aria-hidden="true" className="animate-spin" />
+            <span className="sr-only">Signing up</span>
+          </>
+        ) : (
+          'Sign up'
+        )}
       </Button>
 
       <div className="text-center text-sm">

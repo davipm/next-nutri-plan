@@ -13,20 +13,19 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
-import { signIn, useSession } from '@/lib/auth-client';
+import { getSession, signIn } from '@/lib/auth-client';
 
 const signInSchema = z.object({
-  email: z.string().min(1, 'Email is required.'),
+  email: z.string().trim().min(1, 'Email is required.'),
   password: z.string().min(1, 'Password is required.'),
 });
 
 type SignInSchema = z.infer<typeof signInSchema>;
 
 export function SignInForm() {
-  const { isPending, data: session } = useSession();
   const router = useRouter();
 
-  const form = useForm({
+  const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: '',
@@ -34,19 +33,39 @@ export function SignInForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<SignInSchema> = async (data: SignInSchema) => {
-    await signIn.email(data, {
-      onSuccess: () => {
-        const route =
-          session?.user?.role === Role.ADMIN ? '/admin/food-management/foods' : '/client';
-        toast.success(`Logged as ${session?.user}`);
-        router.push(route);
-      },
-      onError: ({ error }) => {
-        toast.error(error.message);
-        form.reset();
-      },
-    });
+  const isSubmitting = form.formState.isSubmitting;
+
+  const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
+    const resetSensitiveFields = () => {
+      form.resetField('password');
+    };
+
+    let didSucceed = false;
+
+    try {
+      await signIn.email(data, {
+        onSuccess: () => {
+          didSucceed = true;
+          toast.success('Signed in successfully');
+        },
+        onError: ({ error }) => {
+          toast.error(error.message);
+          resetSensitiveFields();
+        },
+      });
+    } catch {
+      toast.error('Something went wrong. Please try again.');
+      resetSensitiveFields();
+    }
+
+    if (!didSucceed) {
+      return;
+    }
+
+    const sessionResponse = await getSession();
+    const role = sessionResponse?.data?.user?.role;
+    const route = role === Role.ADMIN ? '/admin/food-management/foods' : '/client';
+    router.push(route);
   };
 
   return (
@@ -68,8 +87,13 @@ export function SignInForm() {
               <Input
                 {...field}
                 aria-invalid={fieldState.invalid}
+                autoCapitalize="none"
+                autoComplete="email"
+                autoCorrect="off"
                 id={field.name}
+                inputMode="email"
                 placeholder="Email"
+                spellCheck={false}
                 type="email"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -85,6 +109,7 @@ export function SignInForm() {
               <PasswordInput
                 {...field}
                 aria-invalid={fieldState.invalid}
+                autoComplete="current-password"
                 id={field.name}
                 placeholder="Password"
               />
@@ -95,14 +120,15 @@ export function SignInForm() {
       </FieldGroup>
 
       <Button
-        aria-busy={isPending}
+        aria-busy={isSubmitting}
         className="w-full hover:cursor-pointer"
-        disabled={isPending}
+        disabled={isSubmitting}
         type="submit"
       >
-        {isPending && (
+        {isSubmitting && (
           <Loader2Icon aria-hidden="true" className="animate-spin" data-testid="loader-icon" />
         )}
+        {isSubmitting && <span className="sr-only">Signing in</span>}
         Sign in
       </Button>
 
