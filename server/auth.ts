@@ -8,6 +8,7 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
+  trustedOrigins: [process.env.CORS_ORIGIN || ''],
   appName: 'nutri-plan',
   emailAndPassword: { enabled: true },
   plugins: [admin(), nextCookies()],
