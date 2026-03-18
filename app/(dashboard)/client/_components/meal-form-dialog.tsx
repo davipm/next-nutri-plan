@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { format } from 'date-fns';
 import { CalendarIcon, CirclePlus, Loader2Icon, Plus, UtensilsCrossed, X } from 'lucide-react';
 import { type ReactNode, useEffect, useState } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm, useWatch } from 'react-hook-form';
@@ -32,13 +31,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { orpc } from '@/lib/orpc';
-import { cn } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { type CreateMealInput, mealFoodInputSchema } from '@/server/modules/meal/meal.schema';
 import { closeMealDialog, openMealDialog, useMealDialogState } from '@/store/use-meal-store';
-
-function formatDate(date: Date) {
-  return format(date, 'EEEE, MMMM dd, yyyy');
-}
 
 const mealFormSchema = z.object({
   dateTime: z.date(),
