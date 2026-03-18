@@ -2,11 +2,13 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { CirclePlus, Edit, Plus, UtensilsCrossed, X } from 'lucide-react';
+import { CirclePlus, Plus } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { CategoryFormDialog } from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
+import { FoodEmpty } from '@/app/(dashboard)/admin/food-management/foods/_components/food-empty';
+import { FoodServingUnit } from '@/app/(dashboard)/admin/food-management/foods/_components/food-serving-unit';
 import { ALL_CATEGORIES_VALUE } from '@/app/(dashboard)/admin/food-management/foods/_utils/utils';
 import { ServingUnitFormDialog } from '@/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog';
 import { Button } from '@/components/ui/button';
@@ -35,7 +37,6 @@ import { nutritionalFields } from '@/lib/constants';
 import { orpc } from '@/lib/orpc';
 import { type BaseFoodSchema, baseFoodSchema } from '@/server/modules/food/food.schema';
 import { closeFoodDialog, openFoodDialog, useFoodDialogState } from '@/store/use-food-store';
-import { openEditServingUnitDialog } from '@/store/use-serving-unit-store';
 
 type FoodFormValues = z.input<typeof baseFoodSchema>;
 type FoodFormSubmitValues = z.infer<typeof baseFoodSchema>;
@@ -289,127 +290,21 @@ export function FoodFormDialog() {
                 </div>
 
                 {fields.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center rounded-md border border-dashed py-6 text-center text-muted-foreground">
-                    <UtensilsCrossed className="mb-2 size-10 opacity-50" />
-                    <p>No serving units added yet</p>
-                    <p className="text-sm">Add serving units to help users measure this food</p>
-                  </div>
+                  <FoodEmpty />
                 ) : (
                   <div className="space-y-3">
                     {fields.map((field, index) => (
-                      <div
-                        className="grid grid-cols-[1fr_1fr_auto] items-center gap-3"
+                      <FoodServingUnit
+                        control={form.control}
+                        foodServingUnitsValues={foodServingUnitsValues}
+                        index={index}
+                        isEditLoading={isEditLoading}
+                        isPending={isPending}
                         key={field.id}
-                      >
-                        <FieldGroup className="col-span-1 flex items-end">
-                          <Controller
-                            control={form.control}
-                            name={`foodServingUnits.${index}.servingUnitId`}
-                            render={({ field, fieldState }) => (
-                              <Field data-invalid={fieldState.invalid}>
-                                <Select
-                                  name={field.name}
-                                  onValueChange={(value) => field.onChange(Number(value))}
-                                  value={field.value ? String(field.value) : undefined}
-                                >
-                                  <SelectTrigger aria-invalid={fieldState.invalid} id={field.name}>
-                                    <SelectValue placeholder="Select a serving unit..." />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectLabel>Serving Units</SelectLabel>
-                                      {servingUnits.length === 0 ? (
-                                        <SelectItem disabled value="__empty__">
-                                          No serving units found
-                                        </SelectItem>
-                                      ) : (
-                                        servingUnits.map((units) => {
-                                          const currentServingUnitId =
-                                            foodServingUnitsValues[index]?.servingUnitId ?? 0;
-                                          const isAlreadySelectedElsewhere =
-                                            selectedServingUnitIds.has(units.id) &&
-                                            units.id !== currentServingUnitId;
-
-                                          return (
-                                            <SelectItem
-                                              disabled={isAlreadySelectedElsewhere}
-                                              key={units.id}
-                                              value={String(units.id)}
-                                            >
-                                              {units.name}
-                                            </SelectItem>
-                                          );
-                                        })
-                                      )}
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                              </Field>
-                            )}
-                          />
-                        </FieldGroup>
-
-                        <div>
-                          <Controller
-                            control={form.control}
-                            name={`foodServingUnits.${index}.grams`}
-                            render={({ field, fieldState }) => (
-                              <Field data-invalid={fieldState.invalid}>
-                                <Input
-                                  aria-invalid={fieldState.invalid}
-                                  id={field.name}
-                                  inputMode="decimal"
-                                  onBlur={field.onBlur}
-                                  onChange={(e) =>
-                                    field.onChange(
-                                      e.target.value === '' ? 0 : Number(e.target.value)
-                                    )
-                                  }
-                                  placeholder="Grams per unit"
-                                  ref={field.ref}
-                                  step="any"
-                                  type="number"
-                                  value={field.value > 0 ? field.value : ''}
-                                />
-                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                              </Field>
-                            )}
-                          />
-                        </div>
-
-                        <div className="flex items-center justify-end gap-1">
-                          <Button
-                            aria-label="Edit serving unit"
-                            className="size-9"
-                            disabled={!foodServingUnitsValues[index]?.servingUnitId}
-                            onClick={() => {
-                              const servingUnitId = foodServingUnitsValues[index]?.servingUnitId;
-                              if (servingUnitId) {
-                                openEditServingUnitDialog(servingUnitId);
-                              }
-                            }}
-                            size="icon"
-                            title="Edit serving unit"
-                            type="button"
-                            variant="ghost"
-                          >
-                            <Edit className="size-4" />
-                          </Button>
-                          <Button
-                            aria-label="Remove serving unit row"
-                            className="size-9"
-                            disabled={isPending || isEditLoading}
-                            onClick={() => remove(index)}
-                            size="icon"
-                            title="Remove row"
-                            type="button"
-                            variant="ghost"
-                          >
-                            <X className="size-4" />
-                          </Button>
-                        </div>
-                      </div>
+                        remove={remove}
+                        selectedServingUnitIds={selectedServingUnitIds}
+                        servingUnits={servingUnits}
+                      />
                     ))}
                   </div>
                 )}
