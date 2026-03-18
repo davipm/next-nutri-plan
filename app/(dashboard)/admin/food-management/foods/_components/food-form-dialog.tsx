@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { CategoryFormDialog } from '@/app/(dashboard)/admin/food-management/categories/_components/category-form-dialog';
-import { FoodEmpty } from '@/app/(dashboard)/admin/food-management/foods/_components/food-empty';
 import { FoodServingUnit } from '@/app/(dashboard)/admin/food-management/foods/_components/food-serving-unit';
 import { ALL_CATEGORIES_VALUE } from '@/app/(dashboard)/admin/food-management/foods/_utils/utils';
 import { ServingUnitFormDialog } from '@/app/(dashboard)/admin/food-management/serving-units/_components/serving-unit-form-dialog';
@@ -68,7 +67,7 @@ export function FoodFormDialog() {
     defaultValues,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { append } = useFieldArray({
     control: form.control,
     name: 'foodServingUnits',
     keyName: 'id',
@@ -289,25 +288,14 @@ export function FoodFormDialog() {
                   </Button>
                 </div>
 
-                {fields.length === 0 ? (
-                  <FoodEmpty />
-                ) : (
-                  <div className="space-y-3">
-                    {fields.map((field, index) => (
-                      <FoodServingUnit
-                        control={form.control}
-                        foodServingUnitsValues={foodServingUnitsValues}
-                        index={index}
-                        isEditLoading={isEditLoading}
-                        isPending={isPending}
-                        key={field.id}
-                        remove={remove}
-                        selectedServingUnitIds={selectedServingUnitIds}
-                        servingUnits={servingUnits}
-                      />
-                    ))}
-                  </div>
-                )}
+                <FoodServingUnit
+                  control={form.control}
+                  foodServingUnitsValues={foodServingUnitsValues}
+                  isEditLoading={isEditLoading}
+                  isPending={isPending}
+                  selectedServingUnitIds={selectedServingUnitIds}
+                  servingUnits={servingUnits}
+                />
 
                 {form.formState.errors.foodServingUnits && (
                   <FieldError errors={[form.formState.errors.foodServingUnits]} />
