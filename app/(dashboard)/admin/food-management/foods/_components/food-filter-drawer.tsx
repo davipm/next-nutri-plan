@@ -67,9 +67,7 @@ export function FoodFilterDrawer() {
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
 
   const onSubmit: SubmitHandler<FoodFiltersFormValues> = (data) => {
-    const parsedFilters = foodFiltersSchema.parse(data);
-
-    setFilters({ ...parsedFilters, page: 1 });
+    setFilters({ ...data, page: 1 });
     closeDrawer();
   };
 
