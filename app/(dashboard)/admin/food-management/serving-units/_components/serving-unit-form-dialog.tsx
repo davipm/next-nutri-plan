@@ -71,7 +71,7 @@ export function ServingUnitFormDialog({ smallTrigger }: Props) {
 
   const isPending = createIsPending || updateIsPending;
 
-  const form = useForm({
+  const form = useForm<ServingUnitSchema>({
     resolver: zodResolver(servingUnitSchema),
     defaultValues: {
       name: '',

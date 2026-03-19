@@ -7,6 +7,7 @@ import { type ReactNode, useEffect, useState } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { getDefaultMealFormValues } from '@/app/(dashboard)/client/_utils/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -33,19 +34,13 @@ import {
 import { orpc } from '@/lib/orpc';
 import { cn, formatDate } from '@/lib/utils';
 import { type CreateMealInput, mealFoodInputSchema } from '@/server/modules/meal/meal.schema';
+import { useFoodFilters } from '@/store/use-food-store';
 import { closeMealDialog, openMealDialog, useMealDialogState } from '@/store/use-meal-store';
 
 const mealFormSchema = z.object({
   dateTime: z.date(),
   mealFoods: z.array(mealFoodInputSchema),
 });
-
-function getDefaultMealFormValues(): CreateMealInput {
-  return {
-    dateTime: new Date(),
-    mealFoods: [],
-  };
-}
 
 interface Props {
   smallTrigger?: boolean;
@@ -54,6 +49,7 @@ interface Props {
 export function MealFormDialog({ smallTrigger }: Props) {
   const queryClient = useQueryClient();
   const { open, selectedId } = useMealDialogState();
+  const foodFilters = useFoodFilters();
 
   const isEditMode = selectedId !== null;
 
@@ -75,16 +71,7 @@ export function MealFormDialog({ smallTrigger }: Props) {
       name: 'mealFoods',
     }) ?? [];
 
-  const { data: foodsResponse } = useQuery(
-    orpc.foods.list.queryOptions({
-      input: {
-        page: 1,
-        pageSize: 100,
-        sortBy: 'name',
-        sortOrder: 'asc',
-      },
-    })
-  );
+  const { data: foodsResponse } = useQuery(orpc.foods.list.queryOptions({ input: foodFilters }));
 
   const { data: mealToEdit, isLoading: isEditLoading } = useQuery(
     orpc.meals.find.queryOptions({
